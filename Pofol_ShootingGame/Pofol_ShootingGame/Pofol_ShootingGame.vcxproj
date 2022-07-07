@@ -19,21 +19,28 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="CursorManager.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Logo.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainUpdate.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BackGround.h" />
     <ClInclude Include="Constant.h" />
     <ClInclude Include="CursorManager.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="Headers.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="Logo.h" />
+    <ClInclude Include="LogoImage.h" />
     <ClInclude Include="MainUpdate.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Struct.h" />

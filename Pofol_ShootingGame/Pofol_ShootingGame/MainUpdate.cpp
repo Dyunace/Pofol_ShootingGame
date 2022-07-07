@@ -1,6 +1,7 @@
 #include "MainUpdate.h"
 #include "SceneManager.h"
 #include "CursorManager.h"
+#include "InputManager.h"
 
 MainUpdate::MainUpdate()
 {
@@ -18,6 +19,7 @@ void MainUpdate::Initialize()
 
 void MainUpdate::Update()
 {
+	InputManager::GetInstance()->InputKey();
 	SceneManager::GetInstance()->Update();
 
 	CursorManager::GetInstance()->FlipingBuffer();

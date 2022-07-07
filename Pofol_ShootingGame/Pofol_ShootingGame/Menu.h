@@ -1,20 +1,16 @@
 #pragma once
 #include "Scene.h"
 
-class LogoImage;
-class Logo : public Scene
+class Menu : public Scene
 {
-private:
-	SHORT Image_Count;
-	bool LogoEnd;
-	LogoImage* lLogoImage;
 public:
-	Logo();
-	Logo(string* _str);
-	virtual ~Logo();
+	Menu();
+	Menu(string* _str);
+	virtual ~Menu();
 public:
 	virtual void Initialize() override;
 	virtual void Update() override;
 	virtual void Render() override;
 	virtual void Release() override;
 };
+

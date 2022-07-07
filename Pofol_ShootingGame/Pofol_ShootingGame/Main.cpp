@@ -1,4 +1,4 @@
-// Shooting v1.0.0 Logo
+// Shooting v1.1.0 LogoImage
 #define _CRT_SECLRE_NO_WARNING
 #include "Headers.h"
 #include "MainUpdate.h"

@@ -40,6 +40,15 @@
     <Filter Include="소스 파일\01.Scene\Stage">
       <UniqueIdentifier>{f9b809c8-c585-46c0-8395-5bc499c95403}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\01.Scene\Logo\LogoImage">
+      <UniqueIdentifier>{4fb5e354-2b83-472a-81bd-e2048a7c8cd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99.Manager\InputManager">
+      <UniqueIdentifier>{7e465dbf-afb0-4264-bb2e-b0fa44239fcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01.Scene\BackGround">
+      <UniqueIdentifier>{83a33279-085c-4abe-a9ce-f2a8653e1b74}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -59,6 +68,15 @@
     </ClCompile>
     <ClCompile Include="Logo.cpp">
       <Filter>소스 파일\01.Scene\Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>소스 파일\99.Manager\InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>소스 파일\01.Scene\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="BackGround.cpp">
+      <Filter>소스 파일\01.Scene\BackGround</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +109,18 @@
     </ClInclude>
     <ClInclude Include="Define.h">
       <Filter>헤더 파일\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="LogoImage.h">
+      <Filter>소스 파일\01.Scene\Logo\LogoImage</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>소스 파일\99.Manager\InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>소스 파일\01.Scene\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="BackGround.h">
+      <Filter>소스 파일\01.Scene\BackGround</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

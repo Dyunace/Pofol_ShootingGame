@@ -10,6 +10,8 @@ public:
 public:
 	void RenderLogoImage(const int _Count)
 	{
+		// 테두리 없애기 + 로고 이미지 아래로 내리기 -> 참고할 것
+
 	if (_Count > 3)
 	CursorManager::GetInstance()->WriteBuffer(0,   0,(char*)"▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦");
 	if (_Count > 6)

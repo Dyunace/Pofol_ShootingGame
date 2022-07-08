@@ -1,14 +1,24 @@
 #pragma once
 #include "Headers.h"
 
+class BGIcon;
 class BackGround
 {
-public:
-	BackGround();
-	~BackGround();
 private:
-	char* Buffer[2];
-	char* RandBuffer[3];
+	static BackGround* Instance;
+	list<BGIcon*> BGIconList;
+public:
+	static BackGround* GetInstance()
+	{
+		if (Instance == nullptr)
+			Instance = new BackGround;
+
+		return Instance;
+	}
+private:
+	BackGround();
+public:
+	~BackGround();
 public:
 	void Initialize();
 	void Update();

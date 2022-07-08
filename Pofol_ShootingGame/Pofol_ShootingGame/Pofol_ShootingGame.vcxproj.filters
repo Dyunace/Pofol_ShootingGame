@@ -46,8 +46,11 @@
     <Filter Include="소스 파일\99.Manager\InputManager">
       <UniqueIdentifier>{7e465dbf-afb0-4264-bb2e-b0fa44239fcf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\01.Scene\BackGround">
+    <Filter Include="소스 파일\99.Manager\BackGround">
       <UniqueIdentifier>{83a33279-085c-4abe-a9ce-f2a8653e1b74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99.Manager\BackGround\BGIcon">
+      <UniqueIdentifier>{fc8ef1a9-a379-4b73-8008-e8ff231ded7c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -76,7 +79,10 @@
       <Filter>소스 파일\01.Scene\Menu</Filter>
     </ClCompile>
     <ClCompile Include="BackGround.cpp">
-      <Filter>소스 파일\01.Scene\BackGround</Filter>
+      <Filter>소스 파일\99.Manager\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="BGIcon.cpp">
+      <Filter>소스 파일\99.Manager\BackGround\BGIcon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -120,7 +126,10 @@
       <Filter>소스 파일\01.Scene\Menu</Filter>
     </ClInclude>
     <ClInclude Include="BackGround.h">
-      <Filter>소스 파일\01.Scene\BackGround</Filter>
+      <Filter>소스 파일\99.Manager\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="BGIcon.h">
+      <Filter>소스 파일\99.Manager\BackGround\BGIcon</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -10,38 +10,15 @@ BGIcon::~BGIcon() { Release(); }
 /// <param name="_type">별의 크기</param>
 /// <param name="_rand">별의 형태</param>
 /// <returns></returns>
-void BGIcon::setIcon(const int _type, const int _rand)
+void BGIcon::setIcon(const int _rand)
 {
-	switch (_type)
+	switch (_rand)
 	{
-	case 1:
-		switch (_type)
-		{
-		case 1:
-			MyBuffer = (char*)"∴";
-			break;
-		case 2:
-			MyBuffer = (char*)"∵";
-			break;
-		default:
-			break;
-		}
+	case 0:
+		MyBuffer = (char*)"∴";
 		break;
-	case 2:
-		switch (_type)
-		{
-		case 1:
-			MyBuffer = (char*)"ο";
-			break;
-		case 2:
-			MyBuffer = (char*)"⊙";
-			break;
-		case 3:
-			MyBuffer = (char*)"σ";
-			break;
-		default:
-			break;
-		}
+	case 1:
+		MyBuffer = (char*)"∵";
 		break;
 	default:
 		break;
@@ -65,7 +42,8 @@ void BGIcon::Update()
 {
 	++MoveCount;
 
-	if (MoveCount >= 1)
+	// 카운트가 충족될 때마다 별이 한 칸씩 내려감
+	if (MoveCount >= 3)
 	{
 		TransInfo.Position.y += 1;
 		MoveCount = 0;
@@ -79,7 +57,7 @@ void BGIcon::Update()
 
 void BGIcon::Render()
 {
-	CursorManager::GetInstance()->WriteBuffer(TransInfo.Position.x, TransInfo.Position.y, MyBuffer);
+	CursorManager::GetInstance()->WriteBuffer(TransInfo.Position.x, TransInfo.Position.y, MyBuffer, 8);
 }
 
 void BGIcon::Release()

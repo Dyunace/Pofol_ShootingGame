@@ -24,5 +24,7 @@ public:
 	void Update();
 	void Render();
 	void Release();
+public:
+	void MakeBG();
 };
 

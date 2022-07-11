@@ -38,6 +38,8 @@ void CursorManager::WriteBuffer(float _x, float _y, char* _str, int _Color)
 
 	COORD CursorPosition = { (SHORT)_x, (SHORT)_y };
 
+	SetColor(_Color);
+
 	// ÁÂÇ¥ ÀÌµ¿
 	SetConsoleCursorPosition(hBuffer[BufferIndex], CursorPosition);
 

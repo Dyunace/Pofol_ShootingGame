@@ -52,6 +52,9 @@
     <Filter Include="소스 파일\99.Manager\BackGround\BGIcon">
       <UniqueIdentifier>{fc8ef1a9-a379-4b73-8008-e8ff231ded7c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\01.Scene\Menu\MenuSelection">
+      <UniqueIdentifier>{90edfcbc-f06f-4200-96ce-a4512879a714}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -83,6 +86,12 @@
     </ClCompile>
     <ClCompile Include="BGIcon.cpp">
       <Filter>소스 파일\99.Manager\BackGround\BGIcon</Filter>
+    </ClCompile>
+    <ClCompile Include="LogoImage.cpp">
+      <Filter>소스 파일\01.Scene\Logo\LogoImage</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuSelection.cpp">
+      <Filter>소스 파일\01.Scene\Menu\MenuSelection</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="BGIcon.h">
       <Filter>소스 파일\99.Manager\BackGround\BGIcon</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuSelection.h">
+      <Filter>소스 파일\01.Scene\Menu\MenuSelection</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

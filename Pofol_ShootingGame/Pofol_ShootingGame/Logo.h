@@ -1,13 +1,11 @@
 #pragma once
 #include "Scene.h"
 
-class LogoImage;
 class Logo : public Scene
 {
 private:
 	SHORT Image_Count;
 	bool LogoEnd;
-	LogoImage* lLogoImage;
 public:
 	Logo();
 	Logo(string* _str);

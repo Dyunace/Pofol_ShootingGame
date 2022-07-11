@@ -2,36 +2,36 @@
 #include "CursorManager.h"
 #include "LogoImage.h"
 #include "InputManager.h"
+#include "SceneManager.h"
 
-Logo::Logo() : Image_Count(0), LogoEnd(false), lLogoImage(nullptr){}
+Logo::Logo() : Image_Count(0), LogoEnd(false){}
 Logo::Logo(string* _str) {}
 Logo::~Logo() { Render(); }
 
 void Logo::Initialize()
 {
-	lLogoImage = new LogoImage;
+	LogoEnd = false;
 }
 
 void Logo::Update()
 {
-	if (Image_Count < 80)
-		++Image_Count;
+	++Image_Count;
 
-	if (InputManager::GetInstance()->GetKey() & KEY_ENTER)
+	if (InputManager::GetInstance()->GetKey() & KEY_ENTER && (LogoEnd == true))
+		SceneManager::GetInstance()->SetScene(MENU);
+
+	if (InputManager::GetInstance()->GetKey() & KEY_ENTER && (LogoEnd == false))
 	{
 		LogoEnd = true;
-		Image_Count = 80;
+		Image_Count = 48;
 	}
-
-	
 }
 
 void Logo::Render()
 {
-	lLogoImage->RenderLogoImage(Image_Count);
+	LogoImage::GetInstance()->RenderLogoImage(Image_Count);
 }
 
 void Logo::Release()
 {
-	::Safe_Delete(lLogoImage);
 }

@@ -3,6 +3,9 @@
 
 class Object
 {
+protected:
+	string str;
+	const int BufferSize;
 public:
 	Object();
 	virtual ~Object();

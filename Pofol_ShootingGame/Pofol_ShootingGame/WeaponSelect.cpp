@@ -1,7 +1,7 @@
 #include "WeaponSelect.h"
 #include "InputManager.h"
-#include "CursorManager.h"
 #include "SceneManager.h"
+#include "CursorManager.h"
 #include "Player.h"
 
 WeaponSelect::WeaponSelect() : pPlayer(nullptr) {}
@@ -17,6 +17,8 @@ void WeaponSelect::Initialize()
 
 void WeaponSelect::Update()
 {
+	if (InputManager::GetInstance()->GetKey() & KEY_ESC)
+		SceneManager::GetInstance()->SetScene(MENU);
 }
 
 void WeaponSelect::Render()

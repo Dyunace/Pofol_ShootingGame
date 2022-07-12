@@ -15,6 +15,5 @@ public:
 private:
 	bool isWarning;
 	int Selection;
-	void MakeBorder();
 };
 

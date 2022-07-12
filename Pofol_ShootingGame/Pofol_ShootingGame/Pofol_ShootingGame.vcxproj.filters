@@ -61,6 +61,15 @@
     <Filter Include="소스 파일\01.Scene\WarningSelection">
       <UniqueIdentifier>{39659dc9-ee8a-4f85-b3f9-89354827e22c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\99.Manager\UserInstance">
+      <UniqueIdentifier>{e00e277c-1643-49a1-be83-710e4bd8663d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object">
+      <UniqueIdentifier>{89798edc-291f-4203-aa05-20f55473f705}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Player">
+      <UniqueIdentifier>{920bea4a-a5f4-4acd-b920-0830c1d97af1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -101,6 +110,15 @@
     </ClCompile>
     <ClCompile Include="WeaponSelect.cpp">
       <Filter>소스 파일\01.Scene\WeaponSelect</Filter>
+    </ClCompile>
+    <ClCompile Include="UserInstance.cpp">
+      <Filter>소스 파일\99.Manager\UserInstance</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>소스 파일\02.Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +172,15 @@
     </ClInclude>
     <ClInclude Include="WeaponSelect.h">
       <Filter>소스 파일\01.Scene\WeaponSelect</Filter>
+    </ClInclude>
+    <ClInclude Include="UserInstance.h">
+      <Filter>소스 파일\99.Manager\UserInstance</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>소스 파일\02.Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

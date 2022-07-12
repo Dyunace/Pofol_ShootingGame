@@ -43,7 +43,7 @@ void BGIcon::Update()
 	++MoveCount;
 
 	// 카운트가 충족될 때마다 별이 한 칸씩 내려감
-	if (MoveCount >= 3)
+	if (MoveCount >= 6)
 	{
 		TransInfo.Position.y += 1;
 		MoveCount = 0;

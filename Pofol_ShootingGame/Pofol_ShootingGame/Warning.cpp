@@ -16,7 +16,7 @@ Warning::~Warning()
 
 void Warning::SetWarning(WARNING _State)
 {
-	Selection = 0;
+	Selection = 1;
 
 	switch (_State)
 	{
@@ -80,11 +80,8 @@ void Warning::Release()
 
 void Warning::MakeBorder()
 {
-	CursorManager::GetInstance()->WriteBuffer(23, 25, (char*)"###################################");
-	CursorManager::GetInstance()->WriteBuffer(23, 26, (char*)"#                                 #");
-	CursorManager::GetInstance()->WriteBuffer(23, 27, (char*)"#                                 #");
-	CursorManager::GetInstance()->WriteBuffer(23, 28, (char*)"#                                 #");
-	CursorManager::GetInstance()->WriteBuffer(23, 29, (char*)"#                                 #");
-	CursorManager::GetInstance()->WriteBuffer(23, 30, (char*)"#                                 #");
-	CursorManager::GetInstance()->WriteBuffer(23, 31, (char*)"###################################");
+	for (int i = 0; i < 2; ++i)
+		CursorManager::GetInstance()->WriteBuffer(23, 25 + i * 6, (char*)"##################################");
+	for (int i = 0; i < 5; ++i)
+		CursorManager::GetInstance()->WriteBuffer(23, 26 + i, (char*)"##                              ##");
 }

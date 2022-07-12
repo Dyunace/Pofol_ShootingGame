@@ -7,6 +7,8 @@ class BackGround
 private:
 	static BackGround* Instance;
 	list<BGIcon*> BGIconList;
+	int MaxIcon;
+	int MinIcon;
 public:
 	static BackGround* GetInstance()
 	{

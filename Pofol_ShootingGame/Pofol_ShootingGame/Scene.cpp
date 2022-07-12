@@ -36,5 +36,5 @@ void Scene::MakeBorder(float _x, float _y, float _Width, float _Height)
 	// Áß¾Ó °ø¹é
 	for (int i = 0; i < _Width - 2; ++i)
 		for (int j = 0; j < _Height * 3 + 2; ++j)
-			CursorManager::GetInstance()->WriteBuffer(_x + (i * 2) + 3, _y + j + 1, (char*)"  ");
+			CursorManager::GetInstance()->WriteBuffer(_x + (i * 2) + 2, _y + j + 1, (char*)"  ");
 }

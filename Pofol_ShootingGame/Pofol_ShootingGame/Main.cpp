@@ -1,4 +1,4 @@
-// Shooting v1.3.1 Menu
+// Shooting v1.4.0 Menu & Warning
 #define _CRT_SECLRE_NO_WARNING
 #include "Headers.h"
 #include "MainUpdate.h"

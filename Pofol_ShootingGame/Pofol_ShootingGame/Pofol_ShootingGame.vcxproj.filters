@@ -52,8 +52,14 @@
     <Filter Include="소스 파일\99.Manager\BackGround\BGIcon">
       <UniqueIdentifier>{fc8ef1a9-a379-4b73-8008-e8ff231ded7c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\01.Scene\Menu\MenuSelection">
-      <UniqueIdentifier>{90edfcbc-f06f-4200-96ce-a4512879a714}</UniqueIdentifier>
+    <Filter Include="소스 파일\01.Scene\Option">
+      <UniqueIdentifier>{17ca44dc-37c1-467d-b3ae-4757f647abe5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01.Scene\WeaponSelect">
+      <UniqueIdentifier>{a549bab9-92a4-43c7-a061-8d8ead45d457}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01.Scene\WarningSelection">
+      <UniqueIdentifier>{39659dc9-ee8a-4f85-b3f9-89354827e22c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -90,8 +96,11 @@
     <ClCompile Include="LogoImage.cpp">
       <Filter>소스 파일\01.Scene\Logo\LogoImage</Filter>
     </ClCompile>
-    <ClCompile Include="MenuSelection.cpp">
-      <Filter>소스 파일\01.Scene\Menu\MenuSelection</Filter>
+    <ClCompile Include="Warning.cpp">
+      <Filter>소스 파일\01.Scene\WarningSelection</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponSelect.cpp">
+      <Filter>소스 파일\01.Scene\WeaponSelect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,8 +149,11 @@
     <ClInclude Include="BGIcon.h">
       <Filter>소스 파일\99.Manager\BackGround\BGIcon</Filter>
     </ClInclude>
-    <ClInclude Include="MenuSelection.h">
-      <Filter>소스 파일\01.Scene\Menu\MenuSelection</Filter>
+    <ClInclude Include="Warning.h">
+      <Filter>소스 파일\01.Scene\WarningSelection</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponSelect.h">
+      <Filter>소스 파일\01.Scene\WeaponSelect</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

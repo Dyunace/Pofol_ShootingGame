@@ -1,20 +1,16 @@
 #pragma once
 #include "Scene.h"
 
-class Menu : public Scene
+class WeaponSelect : public Scene
 {
 public:
-	Menu();
-	Menu(string* _str);
-	virtual ~Menu();
+	WeaponSelect();
+	WeaponSelect(string* _str);
+	virtual ~WeaponSelect();
 public:
 	virtual void Initialize() override;
 	virtual void Update() override;
 	virtual void Render() override;
 	virtual void Release() override;
-private:
-	bool isWarning;
-	int Selection;
-	void MakeBorder();
 };
 

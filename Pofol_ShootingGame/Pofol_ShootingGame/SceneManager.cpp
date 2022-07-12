@@ -1,6 +1,7 @@
 #include "SceneManager.h"
 #include "Logo.h"
 #include "Menu.h"
+#include "WeaponSelect.h"
 
 SceneManager* SceneManager::Instance = nullptr;
 
@@ -20,9 +21,13 @@ void SceneManager::SetScene(SCENEID _SceneState)
 	case MENU:
 		SceneState = new Menu;
 		break;
+	case WEAPON:
+		SceneState = new WeaponSelect;
+		break;
 	case STAGE:
 		break;
 	case EXIT:
+		exit(NULL);
 		break;
 	default:
 		break;

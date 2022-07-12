@@ -20,13 +20,13 @@ void Warning::SetWarning(WARNING _State)
 
 	switch (_State)
 	{
-	case WOPTION:
+	case WARNING::WOPTION:
 		State = 1;
 		break;
-	case WEXIT:
+	case WARNING::WEXIT:
 		State = 2;
 		break;
-	case WCLOSE:
+	case WARNING::WCLOSE:
 		break;
 	default:
 		State = 0;
@@ -81,7 +81,7 @@ void Warning::Release()
 void Warning::MakeBorder()
 {
 	for (int i = 0; i < 2; ++i)
-		CursorManager::GetInstance()->WriteBuffer(23, 25 + i * 6, (char*)"##################################");
+		CursorManager::GetInstance()->WriteBuffer(23, (float)(25 + i * 6), (char*)"##################################");
 	for (int i = 0; i < 5; ++i)
-		CursorManager::GetInstance()->WriteBuffer(23, 26 + i, (char*)"##                              ##");
+		CursorManager::GetInstance()->WriteBuffer(23, (float)(26 + i), (char*)"##                              ##");
 }

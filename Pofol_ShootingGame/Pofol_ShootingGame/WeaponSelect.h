@@ -1,8 +1,11 @@
 #pragma once
 #include "Scene.h"
 
+class Object;
 class WeaponSelect : public Scene
 {
+private:
+	Object* pPlayer;
 public:
 	WeaponSelect();
 	WeaponSelect(string* _str);

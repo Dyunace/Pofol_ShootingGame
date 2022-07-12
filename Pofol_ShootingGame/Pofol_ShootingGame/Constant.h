@@ -9,6 +9,9 @@ const DWORD KEY_ENTER = 32;
 const DWORD KEY_CTRL = 64;
 const DWORD KEY_ALT = 128;
 const DWORD KEY_TAB = 256;
+const DWORD KEY_ESC = 512;
+const DWORD KEY_ATK = 1024;
+const DWORD KEY_BOM = 2048;
 
 const int BUFFER_OVER = 1;
 const int MAX_SIZE = 2;

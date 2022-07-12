@@ -6,7 +6,7 @@
 #include "Warning.h"
 
 Menu::Menu() : Selection(0), isWarning(false) {}
-Menu::Menu(string* _str){}
+Menu::Menu(string* _str) : Selection(0), isWarning(false) {}
 Menu::~Menu(){}
 
 void Menu::Initialize()
@@ -45,7 +45,7 @@ void Menu::Update()
 				break;
 			case 2:
 				isWarning = true;
-				Warning::GetInstance()->SetWarning(WEXIT);
+				Warning::GetInstance()->SetWarning(WARNING::WEXIT);
 				break;
 			default:
 				break;

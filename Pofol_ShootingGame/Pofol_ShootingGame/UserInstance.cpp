@@ -1,6 +1,6 @@
 #include "UserInstance.h"
 
-UserInstance::UserInstance(){}
+UserInstance::UserInstance() : Life(0), Score(0), Boom(0), BulletLevel(0) {}
 UserInstance::~UserInstance(){}
 
 void UserInstance::Initialize()

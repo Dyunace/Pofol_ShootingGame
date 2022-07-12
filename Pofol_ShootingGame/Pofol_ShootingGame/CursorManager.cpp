@@ -2,7 +2,11 @@
 
 CursorManager* CursorManager::Instance = nullptr;
 
-CursorManager::CursorManager() : BufferIndex(0) {}
+CursorManager::CursorManager() : BufferIndex(0) 
+{
+	for (int i = 0; i < 2; ++i)
+		hBuffer[i] = nullptr;
+}
 CursorManager::~CursorManager() { DestroyBuffer(); }
 
 void CursorManager::CreateBuffer(const int& _Width, const int& _Height)
@@ -14,7 +18,7 @@ void CursorManager::CreateBuffer(const int& _Width, const int& _Height)
 	Cursor.dwSize = 1;			// 커서의 사이즈 설정
 
 	COORD Size = { (SHORT)_Width, (SHORT)_Height };
-	SMALL_RECT rect = { 0, 0, _Width, _Height };
+	SMALL_RECT rect = { 0, 0, (SHORT)_Width, (SHORT)_Height };
 
 	for (int i = 0; i < 2; ++i)
 	{

@@ -14,7 +14,7 @@ public:
 		return Instance;
 	}
 private:
-	int BufferIndex;	// 버퍼의 인덱스 접근을 위한 변수
+	bool BufferIndex;	// 버퍼의 인덱스 접근을 위한 변수
 	HANDLE hBuffer[2];	// 2개의 버퍼
 private:
 	CursorManager();

@@ -3,6 +3,8 @@
 
 class Player : public Object
 {
+private:
+	char* Buffer[6];
 public:
 	Player();
 	virtual ~Player();

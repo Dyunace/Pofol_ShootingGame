@@ -70,6 +70,51 @@
     <Filter Include="소스 파일\02.Object\Player">
       <UniqueIdentifier>{920bea4a-a5f4-4acd-b920-0830c1d97af1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\98.Pattern">
+      <UniqueIdentifier>{1541806e-e169-41e3-ab4a-6a2014b46e60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\98.Pattern\Proto">
+      <UniqueIdentifier>{3ba2d55c-75cb-4f72-bf10-c7cfbdd1856b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Bullet">
+      <UniqueIdentifier>{a5610b2e-3511-469c-bac4-b726179331a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Enemy">
+      <UniqueIdentifier>{3c2f754b-b138-4f99-b8aa-a99a09991707}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Enemy\ENormal">
+      <UniqueIdentifier>{48606c89-323c-41d7-8223-23ebf5e809b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Enemy\EBig">
+      <UniqueIdentifier>{3dc9a9fd-79d7-45b0-9084-e69486805af2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Enemy\ESmall">
+      <UniqueIdentifier>{247e7484-689b-445a-9acf-eaa7d0c67442}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Enemy\EBoss">
+      <UniqueIdentifier>{a1a323c3-06ca-479c-9178-2e9c44201943}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\98.Pattern\ObjectPool">
+      <UniqueIdentifier>{5d5a2786-9160-4bff-9de7-19c4c366bd22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99.Manager\ObjectManager">
+      <UniqueIdentifier>{da21f5cc-e4b7-4c11-b446-ce53bd0d8594}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Bullet\BulletBridge">
+      <UniqueIdentifier>{2216a7b0-8ee1-4f2d-bb6c-c1b3d8e77460}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Bullet\BulletBridge\LaserBullet">
+      <UniqueIdentifier>{42563bed-ae89-4070-a5b8-b7331eb777b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Bullet\BulletBridge\NomalBullet">
+      <UniqueIdentifier>{2e3c421b-a8a9-443d-bc1b-3bad2db419de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99.Manager\ObjectFactory">
+      <UniqueIdentifier>{7da3bddf-0d23-43f5-98fb-210959cdfeaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99.Manager\MathManager">
+      <UniqueIdentifier>{0db98196-359a-4723-9a5e-3734da2e8f07}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -120,11 +165,32 @@
     <ClCompile Include="Player.cpp">
       <Filter>소스 파일\02.Object\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Prototype.cpp">
+      <Filter>소스 파일\98.Pattern\Proto</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalBullet.cpp">
+      <Filter>소스 파일\02.Object\Bullet\BulletBridge\NomalBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>소스 파일\02.Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="ENomal.cpp">
+      <Filter>소스 파일\02.Object\Enemy\ENormal</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectPool.cpp">
+      <Filter>소스 파일\98.Pattern\ObjectPool</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>소스 파일\99.Manager\ObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>소스 파일\01.Scene\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>소스 파일\02.Object\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Headers.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Enums.h">
       <Filter>헤더 파일\Include</Filter>
     </ClInclude>
@@ -181,6 +247,39 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>소스 파일\02.Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Prototype.h">
+      <Filter>소스 파일\98.Pattern\Proto</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalBullet.h">
+      <Filter>소스 파일\02.Object\Bullet\BulletBridge\NomalBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>소스 파일\02.Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ENomal.h">
+      <Filter>소스 파일\02.Object\Enemy\ENormal</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.h">
+      <Filter>소스 파일\98.Pattern\ObjectPool</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>소스 파일\99.Manager\ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>소스 파일\01.Scene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>소스 파일\02.Object\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectFactory.h">
+      <Filter>소스 파일\99.Manager\ObjectFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="MathManager.h">
+      <Filter>소스 파일\99.Manager\MathManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

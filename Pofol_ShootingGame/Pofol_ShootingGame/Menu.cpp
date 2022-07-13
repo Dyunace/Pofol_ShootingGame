@@ -17,7 +17,6 @@ void Menu::Initialize()
 
 void Menu::Update()
 {
-	// 경고창 체크
 	if (isWarning)
 	{
 		int warning = Warning::GetInstance()->Update();
@@ -26,11 +25,9 @@ void Menu::Update()
 	}
 	else
 	{
-		// 선택지 위로
 		if (InputManager::GetInstance()->GetKey() & KEY_UP && Selection > 0)
 			Selection -= 1;
 
-		// 선택지 아래로
 		if (InputManager::GetInstance()->GetKey() & KEY_DOWN && Selection < 2)
 			Selection += 1;
 
@@ -38,7 +35,8 @@ void Menu::Update()
 			switch (Selection)
 			{
 			case 0:
-				SceneManager::GetInstance()->SetScene(WEAPON);
+				SceneManager::GetInstance()->SetScene(STAGE);
+				//SceneManager::GetInstance()->SetScene(WEAPON);
 				break;
 			case 1:
 				SceneManager::GetInstance();

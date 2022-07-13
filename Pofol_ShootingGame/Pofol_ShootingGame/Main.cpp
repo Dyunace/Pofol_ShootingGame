@@ -1,5 +1,5 @@
-// Shooting v1.5.1 Player + ESC
-// 다음 할 일 : 플레이어에 스케일 설정하고 버퍼 그리기에서 값 빼기
+// Shooting v1.6.0 Bullet + ObjManager + ObjectPool
+// 다음 할 일 : 레이저 무기 만들고 테스트하기 + (임시)메뉴에서 UInst에 값 넣고 Stage에서 넘겨받기
 #define _CRT_SECLRE_NO_WARNING
 #include "Headers.h"
 #include "MainUpdate.h"

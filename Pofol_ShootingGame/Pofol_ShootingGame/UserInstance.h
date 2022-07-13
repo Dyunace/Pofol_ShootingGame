@@ -5,8 +5,18 @@ class Player;
 class Bullet;
 class UserInstance
 {
+private:
+	static UserInstance* Instance;
 public:
+	static UserInstance* GetInstance()
+	{
+		if (Instance == nullptr)
+			Instance = new UserInstance;
+		return Instance;
+	}
+private:
 	UserInstance();
+public:
 	~UserInstance();
 public:
 	void Initialize();
@@ -20,6 +30,7 @@ private:
 	int Life;
 	int Boom;
 	int Score;
+	string BulletName;
 	int BulletLevel;
 };
 

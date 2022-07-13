@@ -3,6 +3,9 @@
 #include "SceneManager.h"
 #include "CursorManager.h"
 #include "Player.h"
+#include "NormalBullet.h"
+
+// 할 일 : 무기 선택 창에서 무기에 따라 총알 발사하게 하기
 
 WeaponSelect::WeaponSelect() : pPlayer(nullptr) {}
 WeaponSelect::WeaponSelect(string* _str) : pPlayer(nullptr){}
@@ -10,8 +13,8 @@ WeaponSelect::~WeaponSelect(){}
 
 void WeaponSelect::Initialize()
 {
-	pPlayer = new Player;
-	pPlayer->Initialize();
+	pPlayer = new Player();
+	pPlayer->Initialize("Player");
 	pPlayer->SetPosition(39, 23);
 }
 
@@ -32,4 +35,5 @@ void WeaponSelect::Render()
 
 void WeaponSelect::Release()
 {
+	
 }

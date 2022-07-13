@@ -3,6 +3,7 @@
 #include "LogoImage.h"
 #include "InputManager.h"
 #include "SceneManager.h"
+#include "Prototype.h"
 
 Logo::Logo() : Image_Count(0), LogoEnd(false){}
 Logo::Logo(string* _str) : Image_Count(0), LogoEnd(false) {}
@@ -11,6 +12,8 @@ Logo::~Logo() { Render(); }
 void Logo::Initialize()
 {
 	LogoEnd = false;
+
+	Prototype::GetInstance()->Initialize();
 }
 
 void Logo::Update()

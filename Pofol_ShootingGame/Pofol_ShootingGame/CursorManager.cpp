@@ -65,6 +65,47 @@ void CursorManager::WriteBuffer(Vector3 _Position, char* _str, int _Color)
 	WriteFile(hBuffer[BufferIndex], _str, (DWORD)strlen(_str), &dw, NULL);
 }
 
+void CursorManager::WriteBuffer(float _x, float _y, int _Value, int _Color)
+{
+	DWORD dw;
+
+	COORD CurSorPosition = { (SHORT)_x ,(SHORT)_y };
+
+	// 좌표 이동
+	SetConsoleCursorPosition(hBuffer[BufferIndex], CurSorPosition);
+
+	// ** 텍스트 색 변경
+	SetColor(_Color);
+
+	char Buffer[4];
+	_itoa(_Value, Buffer, 10);
+
+	char* pBuffer = new char[strlen(Buffer)];
+	strcpy(pBuffer, Buffer);
+
+	// 버퍼에 쓰기
+	WriteFile(hBuffer[BufferIndex], pBuffer, (DWORD)strlen(pBuffer), &dw, NULL);
+}
+
+void CursorManager::WriteBuffer(float _x, float _y, int _Value)
+{
+	DWORD dw;
+
+	COORD CurSorPosition = { (SHORT)_x ,(SHORT)_y };
+
+	// 좌표 이동
+	SetConsoleCursorPosition(hBuffer[BufferIndex], CurSorPosition);
+
+	char Buffer[4];
+	_itoa(_Value, Buffer, 10);
+
+	char* pBuffer = new char[strlen(Buffer)];
+	strcpy(pBuffer, Buffer);
+
+	// 버퍼에 쓰기
+	WriteFile(hBuffer[BufferIndex], pBuffer, (DWORD)strlen(pBuffer), &dw, NULL);
+}
+
 void CursorManager::FlipingBuffer()
 {
 	SetConsoleActiveScreenBuffer(hBuffer[BufferIndex]);

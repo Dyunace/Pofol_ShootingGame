@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -21,9 +21,17 @@
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BGIcon.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CursorManager.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="ENomal.cpp" />
+    <ClCompile Include="NormalBullet.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="ObjectManager.cpp" />
+    <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Prototype.cpp" />
+    <ClCompile Include="Stage.cpp" />
     <ClCompile Include="UserInstance.cpp" />
     <ClCompile Include="Warning.cpp" />
     <ClCompile Include="InputManager.cpp" />
@@ -39,12 +47,22 @@
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="BGIcon.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="Constant.h" />
     <ClInclude Include="CursorManager.h" />
     <ClInclude Include="Define.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="ENomal.h" />
     <ClInclude Include="Enums.h" />
+    <ClInclude Include="MathManager.h" />
+    <ClInclude Include="NormalBullet.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="ObjectFactory.h" />
+    <ClInclude Include="ObjectManager.h" />
+    <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Prototype.h" />
+    <ClInclude Include="Stage.h" />
     <ClInclude Include="UserInstance.h" />
     <ClInclude Include="Warning.h" />
     <ClInclude Include="Headers.h" />

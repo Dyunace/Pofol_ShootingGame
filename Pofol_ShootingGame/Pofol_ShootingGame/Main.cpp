@@ -1,5 +1,5 @@
-// Shooting v1.7.0 Bullet + StageTest + CollisionTest
-// 다음 할 일 : 레이저 무기 만들고 테스트하기 + (임시)메뉴에서 UInst에 값 넣고 Stage에서 넘겨받기
+// Shooting v1.7.1 Bullet + StageTest + CollisionTest
+// 다음 할 일 : 레이저 탄 만들기 + 프리뷰 && 로딩화면 만들지 말 지 정하기(보여주기 식이라 상관없음)
 #define _CRT_SECLRE_NO_WARNING
 #include "Headers.h"
 #include "MainUpdate.h"

@@ -12,9 +12,7 @@ public:
 	virtual int Update() PURE;
 	virtual void Render() PURE;
 	virtual void Release() PURE;
-
+	virtual void ShootBullet() PURE;
 protected:
 	int Hp;
-private:
-	void ShootBullet();
 };

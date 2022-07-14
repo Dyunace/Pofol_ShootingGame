@@ -22,8 +22,6 @@ void ObjectPool::CatchObject(Object* _Object)
 	}
 	else
 		Disableiter->second.push_back(_Object);
-
-	CursorManager::GetInstance()->WriteBuffer(0.0f, 2.0f, (char*)"Catch Object");
 }
 
 Object* ObjectPool::ThrowObject(string _Key)
@@ -44,10 +42,10 @@ Object* ObjectPool::ThrowObject(string _Key)
 
 void ObjectPool::Update()
 {
-	CursorManager::GetInstance()->WriteBuffer(0.0f, 0.0f, (char*)"DisableList : ");
+	CursorManager::GetInstance()->WriteBuffer(0.0f, 0.0f, (char*)"DisBullet : ");
 	CursorManager::GetInstance()->WriteBuffer(20.0f, 0.0f, (int)DisableList["NormalBullet"].size());
 
-	CursorManager::GetInstance()->WriteBuffer(0.0f, 1.0f, (char*)"EnableList : ");
+	CursorManager::GetInstance()->WriteBuffer(0.0f, 1.0f, (char*)"EnBullet : ");
 	CursorManager::GetInstance()->WriteBuffer(20.0f, 1.0f, (int)EnableList["NormalBullet"].size());
 
 	for (map<string, list<Object*>>::iterator iter = EnableList.begin();

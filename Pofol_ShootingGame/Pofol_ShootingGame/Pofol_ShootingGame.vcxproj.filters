@@ -82,17 +82,8 @@
     <Filter Include="소스 파일\02.Object\Enemy">
       <UniqueIdentifier>{3c2f754b-b138-4f99-b8aa-a99a09991707}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\02.Object\Enemy\ENormal">
-      <UniqueIdentifier>{48606c89-323c-41d7-8223-23ebf5e809b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\02.Object\Enemy\EBig">
-      <UniqueIdentifier>{3dc9a9fd-79d7-45b0-9084-e69486805af2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\02.Object\Enemy\ESmall">
       <UniqueIdentifier>{247e7484-689b-445a-9acf-eaa7d0c67442}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\02.Object\Enemy\EBoss">
-      <UniqueIdentifier>{a1a323c3-06ca-479c-9178-2e9c44201943}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\98.Pattern\ObjectPool">
       <UniqueIdentifier>{5d5a2786-9160-4bff-9de7-19c4c366bd22}</UniqueIdentifier>
@@ -114,6 +105,18 @@
     </Filter>
     <Filter Include="소스 파일\99.Manager\MathManager">
       <UniqueIdentifier>{0db98196-359a-4723-9a5e-3734da2e8f07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99.Manager\CollisionManager">
+      <UniqueIdentifier>{9c421ef6-19a4-41f7-9309-3bec547a1e6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Enemy\BigEnemy">
+      <UniqueIdentifier>{3dc9a9fd-79d7-45b0-9084-e69486805af2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Enemy\BossEnemy">
+      <UniqueIdentifier>{a1a323c3-06ca-479c-9178-2e9c44201943}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Enemy\NormalEnemy">
+      <UniqueIdentifier>{48606c89-323c-41d7-8223-23ebf5e809b6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -174,8 +177,8 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>소스 파일\02.Object\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="ENomal.cpp">
-      <Filter>소스 파일\02.Object\Enemy\ENormal</Filter>
+    <ClCompile Include="NormalEnemy.cpp">
+      <Filter>소스 파일\02.Object\Enemy\NormalEnemy</Filter>
     </ClCompile>
     <ClCompile Include="ObjectPool.cpp">
       <Filter>소스 파일\98.Pattern\ObjectPool</Filter>
@@ -260,8 +263,8 @@
     <ClInclude Include="Headers.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="ENomal.h">
-      <Filter>소스 파일\02.Object\Enemy\ENormal</Filter>
+    <ClInclude Include="NormalEnemy.h">
+      <Filter>소스 파일\02.Object\Enemy\NormalEnemy</Filter>
     </ClInclude>
     <ClInclude Include="ObjectPool.h">
       <Filter>소스 파일\98.Pattern\ObjectPool</Filter>
@@ -280,6 +283,9 @@
     </ClInclude>
     <ClInclude Include="MathManager.h">
       <Filter>소스 파일\99.Manager\MathManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>소스 파일\99.Manager\CollisionManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

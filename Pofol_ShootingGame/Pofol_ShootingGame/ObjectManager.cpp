@@ -57,8 +57,12 @@ list<Object*>* ObjectManager::GetObjectList(string _strKey)
 {
 	map<string, list<Object*>>::iterator iter = EnableList->find(_strKey);
 
+
+
 	if (iter == EnableList->end())
+	{
 		return nullptr;
+	}
 
 	return &iter->second;
 }
@@ -71,6 +75,7 @@ list<Object*>::iterator ObjectManager::ThrowObject(list<Object*>::iterator _Wher
 		return _Where;
 
 	ObjectPool::GetInstance()->CatchObject(_Object);
+
 	return iter->second.erase(_Where);
 }
 

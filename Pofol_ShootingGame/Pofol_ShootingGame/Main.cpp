@@ -1,4 +1,4 @@
-// Shooting v1.6.0 Bullet + ObjManager + ObjectPool
+// Shooting v1.7.0 Bullet + StageTest + CollisionTest
 // 다음 할 일 : 레이저 무기 만들고 테스트하기 + (임시)메뉴에서 UInst에 값 넣고 Stage에서 넘겨받기
 #define _CRT_SECLRE_NO_WARNING
 #include "Headers.h"

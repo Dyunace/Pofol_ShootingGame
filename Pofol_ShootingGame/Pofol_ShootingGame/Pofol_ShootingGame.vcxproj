@@ -24,7 +24,7 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CursorManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="ENomal.cpp" />
+    <ClCompile Include="NormalEnemy.cpp" />
     <ClCompile Include="NormalBullet.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
@@ -48,11 +48,12 @@
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="BGIcon.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Constant.h" />
     <ClInclude Include="CursorManager.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="ENomal.h" />
+    <ClInclude Include="NormalEnemy.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="MathManager.h" />
     <ClInclude Include="NormalBullet.h" />

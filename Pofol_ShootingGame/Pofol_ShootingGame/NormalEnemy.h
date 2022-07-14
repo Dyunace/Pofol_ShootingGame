@@ -1,23 +1,21 @@
 #pragma once
-#include "Object.h"
+#include "Enemy.h"
 
-class Player : public Object
+class NormalEnemy : public Enemy
 {
 private:
-	char* Buffer[6];
+	char* Buffer[4];
 public:
-	Player();
-	Player(Transform _Info);
-	virtual ~Player();
+	NormalEnemy();
+	NormalEnemy(Transform _Info);
+	virtual ~NormalEnemy();
 
-	virtual Object* Clone() override { return new Player(*this); };
+	virtual Object* Clone() override { return new NormalEnemy(*this); };
 public:
 	virtual Object* Initialize(string _Key) override;
 	virtual int Update() override;
 	virtual void Render() override;
 	virtual void Release() override;
 	virtual void ShootBullet() override;
-public:
-	void test() {};
 };
 

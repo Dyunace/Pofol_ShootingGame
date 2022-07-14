@@ -6,7 +6,14 @@ class Object
 protected:
 	Transform TransInfo;
 	string str;
+
+	// 공통 기본 정보
+	int hp;
 	float Speed;
+
+	// 탄환
+	string Bullet;
+	int BulletDamage;
 public:
 	Object();
 	Object(Transform _Info);
@@ -27,5 +34,10 @@ public:
 
 	Vector3 GetScale() const { return TransInfo.Scale; }
 	void SetScale(float _x, float _y) { TransInfo.Scale = Vector3(_x, _y); }
+
+	string GetBullet() { return Bullet; }
+	void SetBullet(string _Bullet) { Bullet = _Bullet; } // 플레이어의 탄환 교체
+protected:
+	virtual void ShootBullet() PURE;
 };
 

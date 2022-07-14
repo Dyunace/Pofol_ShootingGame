@@ -12,8 +12,13 @@ Object* NormalBullet::Initialize(string _Key)
 
     Buffer[0] = (char*)"¢Á";
 
+    BulletDamage = 1;
     Speed = 1;
     Color = 13;
+
+    TransInfo.Position = Vector3(0, 0);
+    TransInfo.Rotation = Vector3(0, 0);
+    TransInfo.Scale = Vector3(2, 1); // ÅºÈ¯ÀÇ Å©±â
 
     return this;
 }
@@ -39,5 +44,9 @@ void NormalBullet::Render()
 }
 
 void NormalBullet::Release()
+{
+}
+
+void NormalBullet::ShootBullet()
 {
 }

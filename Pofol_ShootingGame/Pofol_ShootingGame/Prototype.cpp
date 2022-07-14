@@ -1,7 +1,7 @@
 #include "Prototype.h"
 
 #include "Player.h"
-#include "Enemy.h"
+#include "NormalEnemy.h"
 #include "Bullet.h"
 #include "NormalBullet.h"
 
@@ -15,6 +15,9 @@ void Prototype::Initialize()
 
 	string Key = "Player";
 	ProtoTypeList[Key] = (new Player(Info))->Initialize(Key);
+
+	Key = "NormalEnemy";
+	ProtoTypeList[Key] = (new NormalEnemy(Info))->Initialize(Key);
 
 	Key = "NormalBullet";
 	ProtoTypeList[Key] = (new NormalBullet(Info))->Initialize(Key);

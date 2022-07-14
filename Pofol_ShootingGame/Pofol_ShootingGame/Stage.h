@@ -10,6 +10,7 @@ public:
 	virtual ~Stage();
 private:
 	Object* pPlayer;
+	Object* pEnemy;
 public:
 	virtual void Initialize() override;
 	virtual void Update() override;

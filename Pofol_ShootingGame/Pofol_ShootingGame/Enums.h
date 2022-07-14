@@ -15,9 +15,3 @@ enum class WARNING
 	WEXIT,
 	WCLOSE,
 };
-
-enum class BULLET
-{
-	BNORMAL,
-	BLASER,
-};

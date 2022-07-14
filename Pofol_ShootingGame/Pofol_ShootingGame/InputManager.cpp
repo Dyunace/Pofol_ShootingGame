@@ -46,10 +46,10 @@ void InputManager::InputKey()
 	if (GetAsyncKeyState(VK_ESCAPE))
 		Key |= KEY_ESC;
 
-	if (GetAsyncKeyState('A'))
-		Key |= KEY_ATK;
+	if (GetAsyncKeyState('F'))
+		Key |= KEY_F;
 
-	if (GetAsyncKeyState('S'))
-		Key |= KEY_BOM;
+	if (GetAsyncKeyState('D'))
+		Key |= KEY_D;
 }
 

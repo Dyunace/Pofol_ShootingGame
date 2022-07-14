@@ -14,6 +14,9 @@ protected:
 	// ÅºÈ¯
 	string Bullet;
 	int BulletDamage;
+
+	// µô·¹ÀÌ Ä«¿îÆ®
+	int DelayCount;
 public:
 	Object();
 	Object(Transform _Info);

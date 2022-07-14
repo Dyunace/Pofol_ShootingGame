@@ -192,6 +192,9 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>소스 파일\02.Object\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="LaserBullet.cpp">
+      <Filter>소스 파일\02.Object\Bullet\BulletBridge\LaserBullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enums.h">
@@ -286,6 +289,9 @@
     </ClInclude>
     <ClInclude Include="CollisionManager.h">
       <Filter>소스 파일\99.Manager\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserBullet.h">
+      <Filter>소스 파일\02.Object\Bullet\BulletBridge\LaserBullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

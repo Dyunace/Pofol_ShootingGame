@@ -13,7 +13,7 @@ Object* NormalBullet::Initialize(string _Key)
     Buffer[0] = (char*)"¢Á";
 
     BulletDamage = 1;
-    Speed = 1;
+    Speed = 2;
     Color = 13;
 
     TransInfo.Position = Vector3(0, 0);

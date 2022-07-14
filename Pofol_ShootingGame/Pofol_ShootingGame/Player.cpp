@@ -35,17 +35,19 @@ int Player::Update()
 	DWORD dwKey = InputManager::GetInstance()->GetKey();
 
 	// 이동
-	if (dwKey & KEY_UP)
-		TransInfo.Position.y -= 1;
-	if (dwKey & KEY_DOWN)
-		TransInfo.Position.y += 1;
-	if (dwKey & KEY_LEFT)
+	if (dwKey & KEY_UP && TransInfo.Position.y - TransInfo.Scale.y > 0)
+		TransInfo.Position.y -= 0.75;
+	if (dwKey & KEY_DOWN && TransInfo.Position.y + TransInfo.Scale.y < ConsoleHeightSize)
+		TransInfo.Position.y += 1.25;
+	if (dwKey & KEY_LEFT && TransInfo.Position.x - TransInfo.Scale.x > 0)
 		TransInfo.Position.x -= 1;
-	if (dwKey & KEY_RIGHT)
+	if (dwKey & KEY_RIGHT && TransInfo.Position.x + TransInfo.Scale.x * 2 < ConsoleWidthSize)
 		TransInfo.Position.x += 1;
-
 	// 공격
 	if (dwKey & KEY_F)
+		ShootBullet();
+
+	if (dwKey & KEY_SPACE)
 		ShootBullet();
 
 	return 0;
@@ -54,7 +56,11 @@ int Player::Update()
 void Player::Render()
 {
 	for (int i = 0; i < 6; ++i)
-		CursorManager::GetInstance()->WriteBuffer(TransInfo.Position.x + (i % 3  * 2) - 2, TransInfo.Position.y + (i / 3) - 1, Buffer[i]);
+		CursorManager::GetInstance()->WriteBuffer(
+			TransInfo.Position.x + (i % 3  * 2) - TransInfo.Scale.x,
+			TransInfo.Position.y + (i / 3) - TransInfo.Scale.y,
+			Buffer[i]
+		);
 }
 
 void Player::Release()

@@ -11,11 +11,11 @@ public:
 	Bullet(Transform _Info);
 	virtual ~Bullet();
 public:
-	virtual Object* Initialize(string _Key) PURE;
-	virtual int Update() PURE;
-	virtual void Render() PURE;
-	virtual void Release() PURE;
+	virtual Object* Initialize(string _Key) override;
+	virtual int Update() override;
+	virtual void Render() override;
+	virtual void Release() override;
 
-	virtual Object* Clone() PURE;
+	virtual Object* Clone() override { return new Bullet(*this); };
 };
 

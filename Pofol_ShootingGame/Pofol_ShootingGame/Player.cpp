@@ -3,6 +3,7 @@
 #include "CursorManager.h"
 #include "ObjectManager.h"
 #include "NormalBullet.h"
+#include "LaserBullet.h"
 
 Player::Player() {}
 Player::Player(Transform _Info) : Object(_Info) {}
@@ -13,7 +14,7 @@ Object* Player::Initialize(string _Key)
 	str = _Key;
 	hp = 1;
 
-	Bullet = "NormalBullet";
+	pBullet = "NormalBullet";
 
 	// Buffer[4] 코어를 기준으로 함
 	Buffer[0] = (char*)"┏";
@@ -36,17 +37,20 @@ int Player::Update()
 
 	// 이동
 	if (dwKey & KEY_UP && TransInfo.Position.y - TransInfo.Scale.y > 0)
-		TransInfo.Position.y -= 0.75;
+		TransInfo.Position.y -= 0.75;	// 위로 이동 시 감속
 	if (dwKey & KEY_DOWN && TransInfo.Position.y + TransInfo.Scale.y < ConsoleHeightSize)
-		TransInfo.Position.y += 1.25;
+		TransInfo.Position.y += 1.25;	// 아래로 이동 시 가속
 	if (dwKey & KEY_LEFT && TransInfo.Position.x - TransInfo.Scale.x > 0)
 		TransInfo.Position.x -= 1;
 	if (dwKey & KEY_RIGHT && TransInfo.Position.x + TransInfo.Scale.x * 2 < ConsoleWidthSize)
 		TransInfo.Position.x += 1;
-	// 공격
+	
+
+	// 공격 (F버튼)
 	if (dwKey & KEY_F)
 		ShootBullet();
 
+	// 공격 (스페이스 바)
 	if (dwKey & KEY_SPACE)
 		ShootBullet();
 
@@ -69,7 +73,10 @@ void Player::Release()
 
 void Player::ShootBullet()
 {
-	if (Bullet == "NormalBullet")
-		ObjectManager::GetInstance()->AddBullet("NormalBullet", Vector3(TransInfo.Position.x, TransInfo.Position.y - 1));
+	if (pBullet == "NormalBullet")
+	{
+		Bridge* pBullet = new NormalBullet;
+		ObjectManager::GetInstance()->AddBullet("NormalBullet", pBullet, Vector3(TransInfo.Position.x, TransInfo.Position.y - 1));
+	}
 	//else if (Bullet == "LaserBullet");
 }

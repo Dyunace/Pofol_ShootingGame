@@ -3,50 +3,32 @@
 #include "MathManager.h"
 
 NormalBullet::NormalBullet() {}
-NormalBullet::NormalBullet(Transform _Info) : Bullet(_Info) {}
 NormalBullet::~NormalBullet(){}
 
-Object* NormalBullet::Initialize(string _Key)
+void NormalBullet::Initialize()
 {
-    str = "NormalBullet";
+	Buffer[0] = (char*)"¢Á";
 
-    Buffer[0] = (char*)"¢Á";
-
-    BulletDamage = 1;
-    Speed = 2;
-    Color = 13;
-
-    TransInfo.Position = Vector3(0, 0);
-    TransInfo.Rotation = Vector3(0, 0);
-    TransInfo.Scale = Vector3(2, 1); // ÅºÈ¯ÀÇ Å©±â
-
-    return this;
+	Damage = 1;
+	Speed = 2;
+	Color = 13;
 }
 
 int NormalBullet::Update()
 {
-    TransInfo.Direction = MathManager::GetDirection(TransInfo.Position, Vector3(60.0f, 15.0f));
+	pObject->SetPosition(pObject->GetPosition().x, pObject->GetPosition().y - 1);
 
-    TransInfo.Position.y -= Speed;
+	if (pObject->GetPosition().y < 0)
+		return BUFFER_OVER;
 
-    if (TransInfo.Position.y < 0)
-        return BUFFER_OVER;
-
-    return 0;
+	return 0;
 }
 
 void NormalBullet::Render()
 {
-    CursorManager::GetInstance()->WriteBuffer(
-        TransInfo.Position.x,
-        TransInfo.Position.y,
-        Buffer[0], Color);
+	CursorManager::GetInstance()->WriteBuffer(pObject->GetPosition(), Buffer[0], Color);
 }
 
 void NormalBullet::Release()
-{
-}
-
-void NormalBullet::ShootBullet()
 {
 }

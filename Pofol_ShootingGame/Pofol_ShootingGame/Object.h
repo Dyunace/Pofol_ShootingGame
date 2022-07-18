@@ -1,19 +1,22 @@
 #pragma once
 #include "Headers.h"
 
+class Bridge;
 class Object
 {
 protected:
 	Transform TransInfo;
 	string str;
 
+	// 총알
+	Bridge* pBridge;
+
 	// 공통 기본 정보
 	int hp;
 	float Speed;
 
-	// 탄환
-	string Bullet;
-	int BulletDamage;
+	// 플레이어의 현재 총알
+	string pBullet;
 
 	// 딜레이 카운트
 	int DelayCount;
@@ -38,9 +41,12 @@ public:
 	Vector3 GetScale() const { return TransInfo.Scale; }
 	void SetScale(float _x, float _y) { TransInfo.Scale = Vector3(_x, _y); }
 
-	string GetBullet() { return Bullet; }
-	void SetBullet(string _Bullet) { Bullet = _Bullet; } // 플레이어의 탄환 교체
-protected:
-	virtual void ShootBullet() PURE;
+	// 총알 브릿지
+	Bridge* GetBridge() { return pBridge; }
+	void SetBridge(Bridge* _Bridge) { pBridge = _Bridge; }
+
+	// 플레이어의 총알
+	string GetBullet() { return pBullet; }	// 현재 총알 이름 가져오기
+	void SetBullet(string _Bullet) { pBullet = _Bullet; }	// 총알 교체하기
 };
 

@@ -27,8 +27,10 @@ void Stage::Update()
 	auto BulletList = ObjectManager::GetInstance()->GetObjectList(pPlayer->GetBullet());
 	auto NormalEnemyList = ObjectManager::GetInstance()->GetObjectList("NormalEnemy");
 
+	// 오브젝트 리스트 검사
 	ObjectManager::GetInstance()->Update();
 
+	// 총알 & 적 충돌 검사
 	if (BulletList)
 	{
 		if (NormalEnemyList)
@@ -42,6 +44,9 @@ void Stage::Update()
 						CursorManager::GetInstance()->WriteBuffer(
 							(*NormalEnemyIter)->GetPosition().x,
 							(*NormalEnemyIter)->GetPosition().y - (*NormalEnemyIter)->GetScale().y, (char*)"Hit!");
+
+						// 충돌 시 총알 정보 삭제
+						::Safe_Delete((*BulletIter)->GetBridge());
 
 						BulletIter = ObjectManager::GetInstance()->ThrowObject(BulletIter, ((*BulletIter)));
 					}

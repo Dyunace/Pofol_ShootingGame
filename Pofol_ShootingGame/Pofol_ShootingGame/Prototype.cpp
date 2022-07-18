@@ -3,7 +3,6 @@
 #include "Player.h"
 #include "NormalEnemy.h"
 #include "Bullet.h"
-#include "NormalBullet.h"
 
 Prototype* Prototype::Instance = nullptr;
 Prototype::Prototype(){}
@@ -13,14 +12,19 @@ void Prototype::Initialize()
 {
 	Transform Info;
 
+	// 플레이어
 	string Key = "Player";
 	ProtoTypeList[Key] = (new Player(Info))->Initialize(Key);
 
+	// 적
 	Key = "NormalEnemy";
 	ProtoTypeList[Key] = (new NormalEnemy(Info))->Initialize(Key);
 
+	// 총알
 	Key = "NormalBullet";
-	ProtoTypeList[Key] = (new NormalBullet(Info))->Initialize(Key);
+	ProtoTypeList[Key] = (new Bullet(Info))->Initialize(Key);
+	Key = "LaserBullet";
+	ProtoTypeList[Key] = (new Bullet(Info))->Initialize(Key);
 }
 
 Object* Prototype::ProtoTypeObject(string _Key)

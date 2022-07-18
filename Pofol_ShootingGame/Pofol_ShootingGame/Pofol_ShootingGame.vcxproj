@@ -48,7 +48,9 @@
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="BGIcon.h" />
+    <ClInclude Include="Bridge.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="BulletBridge.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Constant.h" />
     <ClInclude Include="CursorManager.h" />

@@ -118,6 +118,9 @@
     <Filter Include="소스 파일\02.Object\Enemy\NormalEnemy">
       <UniqueIdentifier>{48606c89-323c-41d7-8223-23ebf5e809b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\98.Pattern\Bridge">
+      <UniqueIdentifier>{7f8f949a-1964-4ac4-b2d9-b4220c143e8e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -292,6 +295,12 @@
     </ClInclude>
     <ClInclude Include="LaserBullet.h">
       <Filter>소스 파일\02.Object\Bullet\BulletBridge\LaserBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Bridge.h">
+      <Filter>소스 파일\98.Pattern\Bridge</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletBridge.h">
+      <Filter>소스 파일\02.Object\Bullet\BulletBridge</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

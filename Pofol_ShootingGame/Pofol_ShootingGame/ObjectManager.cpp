@@ -13,12 +13,18 @@ ObjectManager::ObjectManager()
 }
 ObjectManager::~ObjectManager(){}
 
-void ObjectManager::AddBullet(string _Key, Vector3 _Position)
+void ObjectManager::AddBullet(string _Key, Bridge* _Bridge, Vector3 _Position)
 {
 	Object* pObject = ObjectPool::GetInstance()->ThrowObject(_Key);
 
 	if (pObject == nullptr)
 		pObject = Prototype::GetInstance()->ProtoTypeObject(_Key)->Clone();
+
+	_Bridge->Initialize();
+	pObject->Initialize(_Key);
+
+	_Bridge->SetObject(pObject);
+	pObject->SetBridge(_Bridge);
 
 	map<string, list<Object*>>::iterator iter = EnableList->find(_Key);
 

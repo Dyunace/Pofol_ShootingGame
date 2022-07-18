@@ -29,7 +29,11 @@ int NormalEnemy::Update()
 void NormalEnemy::Render()
 {
     for (int i = 0; i < 4; ++i)
-        CursorManager::GetInstance()->WriteBuffer(TransInfo.Position.x + (i % 2) * 2, TransInfo.Position.y + (i / 2), Buffer[i]);
+        CursorManager::GetInstance()->WriteBuffer(
+            TransInfo.Position.x + (i % 2 * 2) - TransInfo.Scale.x * 0.25,
+            TransInfo.Position.y + (i / 2) + TransInfo.Scale.y,
+            Buffer[i]
+        );
 }
 
 void NormalEnemy::Release()

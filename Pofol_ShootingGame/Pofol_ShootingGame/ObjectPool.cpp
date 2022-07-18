@@ -11,8 +11,7 @@ ObjectPool::~ObjectPool(){}
 
 void ObjectPool::CatchObject(Object* _Object)
 {
-	map<string, list<Object*>>::iterator Disableiter
-		= DisableList.find(_Object->GetKey());
+	map<string, list<Object*>>::iterator Disableiter = DisableList.find(_Object->GetKey());
 
 	if (Disableiter == DisableList.end())
 	{
@@ -42,12 +41,18 @@ Object* ObjectPool::ThrowObject(string _Key)
 
 void ObjectPool::Update()
 {
-	CursorManager::GetInstance()->WriteBuffer(0.0f, 0.0f, (char*)"DisBullet : ");
+	CursorManager::GetInstance()->WriteBuffer(0.0f, 0.0f, (char*)"DisNormalBullet : ");
 	CursorManager::GetInstance()->WriteBuffer(20.0f, 0.0f, (int)DisableList["NormalBullet"].size());
 
-	CursorManager::GetInstance()->WriteBuffer(0.0f, 1.0f, (char*)"EnBullet : ");
+	CursorManager::GetInstance()->WriteBuffer(0.0f, 1.0f, (char*)"EnNormalBullet : ");
 	CursorManager::GetInstance()->WriteBuffer(20.0f, 1.0f, (int)EnableList["NormalBullet"].size());
 
+	CursorManager::GetInstance()->WriteBuffer(0.0f, 2.0f, (char*)"DisLaserBullet : ");
+	CursorManager::GetInstance()->WriteBuffer(20.0f, 2.0f, (int)DisableList["LaserBullet"].size());
+
+	CursorManager::GetInstance()->WriteBuffer(0.0f, 3.0f, (char*)"EnLaserBullet : ");
+	CursorManager::GetInstance()->WriteBuffer(20.0f, 3.0f, (int)EnableList["LaserBullet"].size());
+	
 	for (map<string, list<Object*>>::iterator iter = EnableList.begin();
 		iter != EnableList.end(); ++iter)
 	{
@@ -55,9 +60,11 @@ void ObjectPool::Update()
 			iter2 != iter->second.end(); )
 		{
 			int result = (*iter2)->Update();
-
+	
 			if (result == BUFFER_OVER)
 			{
+				::Safe_Delete((*iter2)->GetBridge());
+	
 				CatchObject(*iter2);
 				iter2 = iter->second.erase(iter2);
 			}

@@ -20,6 +20,8 @@ void Stage::Initialize()
 	pEnemy = ObjectManager::GetInstance()->GetObjectList("NormalEnemy")->front();
 	pEnemy->Initialize("NormalEnemy");
 	pEnemy->SetPosition(40, 10);
+
+	// pPlayer->SetBullet("LaserBullet");
 }
 
 void Stage::Update()
@@ -31,28 +33,27 @@ void Stage::Update()
 	ObjectManager::GetInstance()->Update();
 
 	// 총알 & 적 충돌 검사
-	if (BulletList)
+	if (BulletList && NormalEnemyList)
 	{
-		if (NormalEnemyList)
+		for (auto NormalEnemyIter = NormalEnemyList->begin(); NormalEnemyIter != NormalEnemyList->end(); ++NormalEnemyIter)
 		{
-			for (auto NormalEnemyIter = NormalEnemyList->begin(); NormalEnemyIter != NormalEnemyList->end(); ++NormalEnemyIter)
+			for (auto BulletIter = BulletList->begin(); BulletIter != BulletList->end();)
 			{
-				for (auto BulletIter = BulletList->begin(); BulletIter != BulletList->end();)
+				if (CollisionManager::CircleCollision(*NormalEnemyIter, *BulletIter))
 				{
-					if (CollisionManager::CircleCollision(*NormalEnemyIter, *BulletIter))
-					{
-						CursorManager::GetInstance()->WriteBuffer(
-							(*NormalEnemyIter)->GetPosition().x,
-							(*NormalEnemyIter)->GetPosition().y - (*NormalEnemyIter)->GetScale().y, (char*)"Hit!");
+					// 충돌 검사 디버그
+					CursorManager::GetInstance()->WriteBuffer(
+						(*NormalEnemyIter)->GetPosition().x,
+						(*NormalEnemyIter)->GetPosition().y - (*NormalEnemyIter)->GetScale().y, (char*)"Hit!");
 
-						// 충돌 시 총알 정보 삭제
-						::Safe_Delete((*BulletIter)->GetBridge());
+					// 총알 정보 삭제
+					::Safe_Delete((*BulletIter)->GetBridge());
 
-						BulletIter = ObjectManager::GetInstance()->ThrowObject(BulletIter, ((*BulletIter)));
-					}
-					else
-						++BulletIter;
+					// DisableList에 보관
+					BulletIter = ObjectManager::GetInstance()->ThrowObject(BulletIter, ((*BulletIter)));
 				}
+				else
+					++BulletIter;
 			}
 		}
 	}

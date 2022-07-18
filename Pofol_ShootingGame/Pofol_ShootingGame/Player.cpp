@@ -44,7 +44,6 @@ int Player::Update()
 		TransInfo.Position.x -= 1;
 	if (dwKey & KEY_RIGHT && TransInfo.Position.x + TransInfo.Scale.x * 2 < ConsoleWidthSize)
 		TransInfo.Position.x += 1;
-	
 
 	// 공격 (F버튼)
 	if (dwKey & KEY_F)
@@ -78,5 +77,9 @@ void Player::ShootBullet()
 		Bridge* pBullet = new NormalBullet;
 		ObjectManager::GetInstance()->AddBullet("NormalBullet", pBullet, Vector3(TransInfo.Position.x, TransInfo.Position.y - 1));
 	}
-	//else if (Bullet == "LaserBullet");
+	else if (pBullet == "LaserBullet")
+	{
+		Bridge* pBullet = new LaserBullet;
+		ObjectManager::GetInstance()->AddBullet("LaserBullet", pBullet, Vector3(TransInfo.Position.x, TransInfo.Position.y - 1));
+	}
 }

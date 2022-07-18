@@ -12,7 +12,7 @@ protected:
 
 	int Damage;
 public:
-	BulletBridge() : Speed(0), Color(0) {};
+	BulletBridge() : Speed(0), Color(0), Damage(0) {};
 	virtual ~BulletBridge() {};
 public:
 	virtual void Initialize()PURE;

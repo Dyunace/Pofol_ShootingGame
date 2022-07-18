@@ -18,9 +18,9 @@ Object* Bullet::Initialize(string _Key)
 
 int Bullet::Update()
 {
-	pBridge->Update();
+	int result = pBridge->Update();
 
-	return 0;
+	return result;
 }
 
 void Bullet::Render()

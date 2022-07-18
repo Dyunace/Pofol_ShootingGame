@@ -1,9 +1,7 @@
-// Shooting v1.7.2 Bridge
+// Shooting v1.7.3 Bridge
 /*
 	변경점:
-		Bridge 패턴 작성
-		Bullet을 Bridge 패턴으로 작성
-		Framework에서 발생한 문제점 해결
+		Bullet이 BufferOver시 사라지지 않던 문제 해결
 
 	다음 할 일:
 		메뉴에서 넘어올 때 플레이어 인스턴스에 정보 넘겨주고, 스테이지에서 받아오기

@@ -1,13 +1,11 @@
-// Shooting v1.7.3 Bridge
+// Shooting v1.8.0 UserInstance
 /*
 	변경점:
-		Bullet이 BufferOver시 사라지지 않던 문제 해결
+		LaserBullet 완성
+		UserInstnace 작성 : 스테이지 유저 정보를 생성 및 초기화
+		Menu에서 탄종 정보 업로드, Stage에서 다운로드 기능 작성 및 테스트 완료
 
 	다음 할 일:
-		메뉴에서 넘어올 때 플레이어 인스턴스에 정보 넘겨주고, 스테이지에서 받아오기
-		레이저 탄 완성 후 발사 테스트
-		플레이어에 무기 교체 시스템 만들기
-		무기 교체 아이템 작성 후 스테이지에서 테스트
 */
 #define _CRT_SECLRE_NO_WARNING
 #include "Headers.h"

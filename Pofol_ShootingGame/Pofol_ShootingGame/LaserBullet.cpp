@@ -26,7 +26,7 @@ int LaserBullet::Update()
 
 void LaserBullet::Render()
 {
-	CursorManager::GetInstance()->WriteBuffer(pObject->GetPosition() - pObject->GetScale(), Buffer[0], Color);
+	CursorManager::GetInstance()->WriteBuffer(pObject->GetPosition(), Buffer[0], Color);
 }
 
 void LaserBullet::Release()

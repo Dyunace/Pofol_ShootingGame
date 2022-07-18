@@ -4,6 +4,7 @@
 #include "CursorManager.h"
 #include "ObjectManager.h"
 #include "CollisionManager.h"
+#include "UserInstance.h"
 
 Stage::Stage(){}
 Stage::Stage(string* _str){}
@@ -21,7 +22,7 @@ void Stage::Initialize()
 	pEnemy->Initialize("NormalEnemy");
 	pEnemy->SetPosition(40, 10);
 
-	// pPlayer->SetBullet("LaserBullet");
+	pPlayer->SetBullet(UserInstance::GetInstance()->GetBullet());
 }
 
 void Stage::Update()

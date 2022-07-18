@@ -37,6 +37,7 @@ void Menu::Update()
 			{
 			case 0:
 				UserInstance::GetInstance()->SetBullet("LaserBullet");
+
 				SceneManager::GetInstance()->SetScene(STAGE);
 				//SceneManager::GetInstance()->SetScene(WEAPON);
 				break;

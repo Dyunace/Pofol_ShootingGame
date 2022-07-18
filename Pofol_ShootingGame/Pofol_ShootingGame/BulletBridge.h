@@ -1,5 +1,6 @@
 #pragma once
 #include "Bridge.h"
+#include "Object.h"
 
 class BulletBridge : public Bridge
 {
@@ -19,4 +20,6 @@ public:
 	virtual int Update()PURE;
 	virtual void Render()PURE;
 	virtual void Release()PURE;
+
+	virtual int BulletPriview(int _BoardSize) override { if (pObject->GetPosition().y <= _BoardSize) return BUFFER_OVER; else return 0; }
 };

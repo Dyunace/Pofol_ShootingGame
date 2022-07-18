@@ -15,5 +15,7 @@ public:
 	virtual void Render()PURE;
 	virtual void Release()PURE;
 public:
+	virtual int BulletPriview(int _BoardSize) PURE;
+public:
 	void SetObject(Object* _Object) { pObject = _Object; }
 };

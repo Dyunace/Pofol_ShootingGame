@@ -51,7 +51,7 @@ void Stage::Update()
 					::Safe_Delete((*BulletIter)->GetBridge());
 
 					// DisableList¿¡ º¸°ü
-					BulletIter = ObjectManager::GetInstance()->ThrowObject(BulletIter, ((*BulletIter)));
+					BulletIter = ObjectManager::GetInstance()->ThrowObject(BulletIter, (*BulletIter));
 				}
 				else
 					++BulletIter;

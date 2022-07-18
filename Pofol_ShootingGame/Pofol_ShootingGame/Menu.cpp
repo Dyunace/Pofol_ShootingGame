@@ -36,10 +36,8 @@ void Menu::Update()
 			switch (Selection)
 			{
 			case 0:
-				UserInstance::GetInstance()->SetBullet("LaserBullet");
-
-				SceneManager::GetInstance()->SetScene(STAGE);
-				//SceneManager::GetInstance()->SetScene(WEAPON);
+				SceneManager::GetInstance()->SetScene(WEAPON);
+				//SceneManager::GetInstance()->SetScene(STAGE);
 				break;
 			case 1:
 				SceneManager::GetInstance();

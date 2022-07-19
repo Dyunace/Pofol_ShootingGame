@@ -8,7 +8,6 @@ private:
 	bool LogoEnd;
 public:
 	Logo();
-	Logo(string* _str);
 	virtual ~Logo();
 public:
 	virtual void Initialize() override;

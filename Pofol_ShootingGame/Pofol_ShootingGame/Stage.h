@@ -6,7 +6,6 @@ class Stage : public Scene
 {
 public:
 	Stage();
-	Stage(string* _str);
 	virtual ~Stage();
 private:
 	Object* pPlayer;

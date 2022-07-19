@@ -7,7 +7,6 @@
 #include "UserInstance.h"
 
 Menu::Menu() : Selection(0), isWarning(false) {}
-Menu::Menu(string* _str) : Selection(0), isWarning(false) {}
 Menu::~Menu(){}
 
 void Menu::Initialize()
@@ -57,7 +56,7 @@ void Menu::Update()
 void Menu::Render()
 {
 	LogoImage::GetInstance()->RenderLogoImage(46);
-	Scene::MakeBorder(25, 24, 15, 3);
+	Scene::MakeBorder(25, 24, 15, 13);
 	CursorManager::GetInstance()->WriteBuffer(30, 27, (char*)"Start Game");
 	CursorManager::GetInstance()->WriteBuffer(30, 30, (char*)"Option");
 	CursorManager::GetInstance()->WriteBuffer(30, 33, (char*)"Exit Game");
@@ -66,12 +65,16 @@ void Menu::Render()
 		Warning::GetInstance()->Render();
 	else
 	{
+		int y;
+
 		if (Selection == 0)
-			CursorManager::GetInstance()->WriteBuffer(45, 27, (char*)"<<");
+			y = 27;
 		else if (Selection == 1)
-			CursorManager::GetInstance()->WriteBuffer(45, 30, (char*)"<<");
+			y = 30;
 		else if (Selection == 2)
-			CursorManager::GetInstance()->WriteBuffer(45, 33, (char*)"<<");
+			y = 33;
+		
+		CursorManager::GetInstance()->WriteBuffer(45, y, (char*)"<<", 12);
 	}
 }
 

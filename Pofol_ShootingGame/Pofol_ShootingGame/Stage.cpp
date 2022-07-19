@@ -6,8 +6,7 @@
 #include "CollisionManager.h"
 #include "UserInstance.h"
 
-Stage::Stage(){}
-Stage::Stage(string* _str){}
+Stage::Stage() : pPlayer(nullptr), pEnemy(nullptr) {}
 Stage::~Stage(){}
 
 void Stage::Initialize()
@@ -38,10 +37,12 @@ void Stage::Update()
 	{
 		for (auto NormalEnemyIter = NormalEnemyList->begin(); 
 			NormalEnemyIter != NormalEnemyList->end();
-			++NormalEnemyIter)
+			++NormalEnemyList
+			)
 		{
 			for (auto BulletIter = BulletList->begin();
-				BulletIter != BulletList->end();)
+				BulletIter != BulletList->end();
+				)
 			{
 				if (CollisionManager::CircleCollision(*NormalEnemyIter, *BulletIter))
 				{

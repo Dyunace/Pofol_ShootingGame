@@ -61,8 +61,10 @@ void Warning::Render()
 	if (State != 0)
 	{
 		MakeBorder();
+
 		if (State == 2)
 			CursorManager::GetInstance()->WriteBuffer(28, 27, (char*)"Do you want Exit Game?");
+
 
 		CursorManager::GetInstance()->WriteBuffer(28, 29, (char*)"Yes");
 		CursorManager::GetInstance()->WriteBuffer(43, 29, (char*)"No");

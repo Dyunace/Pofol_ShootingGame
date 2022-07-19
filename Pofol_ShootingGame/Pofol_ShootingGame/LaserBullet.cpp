@@ -10,13 +10,12 @@ void LaserBullet::Initialize()
 	Buffer[0] = (char*)"¥±";
 
 	Damage = 1;
-	Speed = 2;
 	Color = 13;
 }
 
 int LaserBullet::Update()
 {
-	pObject->SetPosition(pObject->GetPosition().x, pObject->GetPosition().y - 1);
+	pObject->SetPosition(pObject->GetPosition().x + TargetDirection.x, pObject->GetPosition().y - TargetDirection.y);
 
 	if (pObject->GetPosition().y < 0)
 		return BUFFER_OVER;
@@ -35,8 +34,10 @@ void LaserBullet::Release()
 
 void LaserBullet::SetTarget(Vector3 _Target)
 {
+	TargetDirection = _Target;
 }
 
 void LaserBullet::SetTarget(float _x, float _y)
 {
+	TargetDirection = Vector3(_x, _y);
 }

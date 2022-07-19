@@ -5,7 +5,6 @@ class Menu : public Scene
 {
 public:
 	Menu();
-	Menu(string* _str);
 	virtual ~Menu();
 public:
 	virtual void Initialize() override;

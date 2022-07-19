@@ -20,10 +20,7 @@ int NormalBullet::Update()
 
 	// BufferOver üũ
 	if (pObject->GetPosition().y < 0)
-	{
-		CursorManager::GetInstance()->WriteBuffer(0, 5, (char*)"Bullet Buffer Over");
 		return BUFFER_OVER;
-	}
 
 	return 0;
 }

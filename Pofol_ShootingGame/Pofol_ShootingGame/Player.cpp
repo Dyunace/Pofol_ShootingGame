@@ -73,5 +73,12 @@ void Player::Release()
 
 void Player::ShootBullet()
 {
-	BulletManager::GetInstance()->MakePlayerBullet(pBullet, TransInfo.Position);
+	if (DelayCount == 0)
+	{
+		BulletManager::GetInstance()->MakePlayerBullet(pBullet, TransInfo.Position);
+		if (pBullet == NORMALBULLET)
+			DelayCount = 2;
+	}
+	else if (DelayCount > 0)
+		--DelayCount;
 }

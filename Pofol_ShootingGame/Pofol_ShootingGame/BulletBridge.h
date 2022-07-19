@@ -26,10 +26,9 @@ public:
 	virtual void SetTarget(float _x, float _y = 1.0f)PURE;
 
 public:
-	int BulletPriview(float _left, float _right, float _up)
+	int BulletPriview(float _left, float _Width, float _up)
 	{
-		//if (pObject->GetPosition().x >= _right || pObject->GetPosition().y <= _up)
-		if (pObject->GetPosition().x <= _left || pObject->GetPosition().x >= _right || pObject->GetPosition().y <= _up)
+		if (pObject->GetPosition().x <= _left || pObject->GetPosition().x >= _left + (_Width * 2) - 2 || pObject->GetPosition().y < _up)
 			return BUFFER_OVER;
 		else
 			return 0; 

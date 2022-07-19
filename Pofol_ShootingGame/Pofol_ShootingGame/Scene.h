@@ -3,11 +3,8 @@
 
 class Scene
 {
-protected:
-	string str;
 public:
 	Scene();
-	Scene(string* _str);
 	virtual ~Scene();
 public:
 	virtual void Initialize() PURE;

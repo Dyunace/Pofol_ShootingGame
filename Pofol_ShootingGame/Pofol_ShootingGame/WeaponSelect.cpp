@@ -6,12 +6,13 @@
 #include "NormalBullet.h"
 #include "LaserBullet.h"
 #include "ObjectManager.h"
+#include "ObjectPool.h"
 
 // 할 일 : 무기 선택 창에서 무기에 따라 총알 발사하게 하기
 
 WeaponSelect::WeaponSelect() : pPlayer(nullptr) {}
 WeaponSelect::WeaponSelect(string* _str) : pPlayer(nullptr){}
-WeaponSelect::~WeaponSelect(){}
+WeaponSelect::~WeaponSelect() { Release(); }
 
 void WeaponSelect::Initialize()
 {
@@ -23,33 +24,18 @@ void WeaponSelect::Initialize()
 
 void WeaponSelect::Update()
 {
-	// 뒤로 가기
-	if (InputManager::GetInstance()->GetKey() & KEY_ESC)
-		SceneManager::GetInstance()->SetScene(MENU);
+	auto BulletList = ObjectManager::GetInstance()->GetObjectList(((Player*)pPlayer)->GetBullet());
 
-	auto BulletList = ObjectManager::GetInstance()->GetObjectList(pPlayer->GetBullet());
+	// 총알 발사
+	((Player*)pPlayer)->ShootBullet();
 
-	// 총알 생성
-	if (pPlayer->GetBullet() == NORMALBULLET)
-	{
-		Bridge* pBullet = new NormalBullet;
-		ObjectManager::GetInstance()->AddBullet(NORMALBULLET, pBullet,
-			Vector3(pPlayer->GetPosition().x, pPlayer->GetPosition().y - 1));
-	}
-	else if (pPlayer->GetBullet() == LASERBULLET)
-	{
-		Bridge* pBullet = new LaserBullet;
-		ObjectManager::GetInstance()->AddBullet(LASERBULLET, pBullet,
-			Vector3(pPlayer->GetPosition().x, pPlayer->GetPosition().y - 1));
-	}
-
+	// Priview BufferOver 체크
 	if (BulletList)
 	{
 		for (auto iter = BulletList->begin(); iter != BulletList->end(); ++iter)
 		{
-			// 총알만 작동
 			(*iter)->Update();
-			int result = (*iter)->GetBridge()->BulletPriview(7);
+			int result = ((BulletBridge*)((*iter)->GetBridge()))->BulletPriview(17, 61, 7);
 
 			if (result == BUFFER_OVER)
 			{
@@ -61,6 +47,10 @@ void WeaponSelect::Update()
 			}
 		}
 	}
+
+	// 뒤로 가기
+	if (InputManager::GetInstance()->GetKey() & KEY_ESC)
+		SceneManager::GetInstance()->SetScene(MENU);
 }
 
 void WeaponSelect::Render()
@@ -77,6 +67,24 @@ void WeaponSelect::Render()
 
 void WeaponSelect::Release()
 {
-	// 다 쓴 플레이어는 DisableList에 반환
+	auto BulletList = ObjectManager::GetInstance()->GetObjectList(((Player*)pPlayer)->GetBullet());
+
+	if (BulletList)
+	{
+		for (auto iter = BulletList->begin(); iter != BulletList->end();)
+		{
+			if (*iter)
+			{
+				// 총알 정보 삭제
+				::Safe_Delete((*iter)->GetBridge());
+
+				// DisableList에 보관
+				iter = ObjectManager::GetInstance()->ThrowObject(iter, (*iter));
+			}
+			else
+				++iter;
+		}
+	}
+
 	ObjectManager::GetInstance()->ThrowObject(ObjectManager::GetInstance()->GetObjectList("Player")->begin(), pPlayer);
 }

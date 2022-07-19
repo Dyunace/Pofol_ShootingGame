@@ -34,6 +34,7 @@ public:
 
 	int GetBulletLevel() { return BulletLevel; }
 	void AddBulletLevel(int _Num) { BulletLevel += _Num; }
+
 private:
 	int Life;
 	int Boom;

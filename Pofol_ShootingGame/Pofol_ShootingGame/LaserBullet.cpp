@@ -32,3 +32,11 @@ void LaserBullet::Render()
 void LaserBullet::Release()
 {
 }
+
+void LaserBullet::SetTarget(Vector3 _Target)
+{
+}
+
+void LaserBullet::SetTarget(float _x, float _y)
+{
+}

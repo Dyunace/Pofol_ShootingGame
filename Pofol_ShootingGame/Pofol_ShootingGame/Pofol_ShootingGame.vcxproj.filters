@@ -121,6 +121,9 @@
     <Filter Include="소스 파일\98.Pattern\Bridge">
       <UniqueIdentifier>{7f8f949a-1964-4ac4-b2d9-b4220c143e8e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\99.Manager\BulletManager">
+      <UniqueIdentifier>{5d978a15-71bd-476f-ac8a-89476c5e6c80}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -197,6 +200,9 @@
     </ClCompile>
     <ClCompile Include="LaserBullet.cpp">
       <Filter>소스 파일\02.Object\Bullet\BulletBridge\LaserBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletManager.cpp">
+      <Filter>소스 파일\99.Manager\BulletManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -301,6 +307,9 @@
     </ClInclude>
     <ClInclude Include="BulletBridge.h">
       <Filter>소스 파일\02.Object\Bullet\BulletBridge</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletManager.h">
+      <Filter>소스 파일\99.Manager\BulletManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

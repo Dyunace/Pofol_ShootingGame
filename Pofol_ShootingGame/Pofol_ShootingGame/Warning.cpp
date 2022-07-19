@@ -42,7 +42,7 @@ int Warning::Update()
 	if (InputManager::GetInstance()->GetKey() & KEY_RIGHT)
 		Selection = 1;
 
-	if (InputManager::GetInstance()->GetKey() & KEY_ENTER)
+	if (InputManager::GetInstance()->GetKey() & KEY_ENTER || InputManager::GetInstance()->GetKey() & KEY_F)
 	{
 		if (Selection == 0)
 			SceneManager::GetInstance()->SetScene(EXIT);

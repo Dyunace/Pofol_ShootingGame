@@ -22,12 +22,12 @@ void Stage::Initialize()
 	pEnemy->Initialize("NormalEnemy");
 	pEnemy->SetPosition(40, 10);
 
-	pPlayer->SetBullet(UserInstance::GetInstance()->GetBullet());
+	((Player*)pPlayer)->SetBullet(UserInstance::GetInstance()->GetBullet());
 }
 
 void Stage::Update()
 {
-	auto BulletList = ObjectManager::GetInstance()->GetObjectList(pPlayer->GetBullet());
+	auto BulletList = ObjectManager::GetInstance()->GetObjectList(((Player*)pPlayer)->GetBullet());
 	auto NormalEnemyList = ObjectManager::GetInstance()->GetObjectList("NormalEnemy");
 
 	// 오브젝트 리스트 검사
@@ -36,16 +36,21 @@ void Stage::Update()
 	// 총알 & 적 충돌 검사
 	if (BulletList && NormalEnemyList)
 	{
-		for (auto NormalEnemyIter = NormalEnemyList->begin(); NormalEnemyIter != NormalEnemyList->end(); ++NormalEnemyIter)
+		for (auto NormalEnemyIter = NormalEnemyList->begin(); 
+			NormalEnemyIter != NormalEnemyList->end();
+			++NormalEnemyIter)
 		{
-			for (auto BulletIter = BulletList->begin(); BulletIter != BulletList->end();)
+			for (auto BulletIter = BulletList->begin();
+				BulletIter != BulletList->end();)
 			{
 				if (CollisionManager::CircleCollision(*NormalEnemyIter, *BulletIter))
 				{
 					// 충돌 검사 디버그
 					CursorManager::GetInstance()->WriteBuffer(
 						(*NormalEnemyIter)->GetPosition().x,
-						(*NormalEnemyIter)->GetPosition().y - (*NormalEnemyIter)->GetScale().y, (char*)"Hit!");
+						(*NormalEnemyIter)->GetPosition().y - (*NormalEnemyIter)->GetScale().y,
+						(char*)"Hit!"
+					);
 
 					// 총알 정보 삭제
 					::Safe_Delete((*BulletIter)->GetBridge());

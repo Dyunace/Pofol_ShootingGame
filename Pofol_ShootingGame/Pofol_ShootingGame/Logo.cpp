@@ -20,10 +20,10 @@ void Logo::Update()
 {
 	++Image_Count;
 
-	if (InputManager::GetInstance()->GetKey() & KEY_ENTER && (LogoEnd == true))
+	if ((InputManager::GetInstance()->GetKey() & KEY_ENTER || InputManager::GetInstance()->GetKey() & KEY_F) && (LogoEnd == true))
 		SceneManager::GetInstance()->SetScene(MENU);
 
-	if (InputManager::GetInstance()->GetKey() & KEY_ENTER && (LogoEnd == false))
+	if ((InputManager::GetInstance()->GetKey() & KEY_ENTER || InputManager::GetInstance()->GetKey() & KEY_F) && (LogoEnd == false))
 	{
 		LogoEnd = true;
 		Image_Count = 48;

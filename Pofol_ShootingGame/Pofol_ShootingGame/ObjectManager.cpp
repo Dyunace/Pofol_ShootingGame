@@ -63,8 +63,6 @@ list<Object*>* ObjectManager::GetObjectList(string _strKey)
 {
 	map<string, list<Object*>>::iterator iter = EnableList->find(_strKey);
 
-
-
 	if (iter == EnableList->end())
 	{
 		return nullptr;

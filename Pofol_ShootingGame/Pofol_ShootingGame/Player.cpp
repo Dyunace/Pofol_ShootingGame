@@ -4,6 +4,7 @@
 #include "ObjectManager.h"
 #include "NormalBullet.h"
 #include "LaserBullet.h"
+#include "BulletManager.h"
 
 Player::Player() {}
 Player::Player(Transform _Info) : Object(_Info) {}
@@ -72,14 +73,5 @@ void Player::Release()
 
 void Player::ShootBullet()
 {
-	if (pBullet == NORMALBULLET)
-	{
-		Bridge* pBullet = new NormalBullet;
-		ObjectManager::GetInstance()->AddBullet(NORMALBULLET, pBullet, Vector3(TransInfo.Position.x, TransInfo.Position.y - 1));
-	}
-	else if (pBullet == LASERBULLET)
-	{
-		Bridge* pBullet = new LaserBullet;
-		ObjectManager::GetInstance()->AddBullet(LASERBULLET, pBullet, Vector3(TransInfo.Position.x, TransInfo.Position.y - 1));
-	}
+	BulletManager::GetInstance()->MakePlayerBullet(pBullet, TransInfo.Position);
 }

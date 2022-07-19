@@ -22,6 +22,7 @@
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BGIcon.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="CursorManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="LaserBullet.cpp" />
@@ -51,6 +52,7 @@
     <ClInclude Include="Bridge.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletBridge.h" />
+    <ClInclude Include="BulletManager.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Constant.h" />
     <ClInclude Include="CursorManager.h" />

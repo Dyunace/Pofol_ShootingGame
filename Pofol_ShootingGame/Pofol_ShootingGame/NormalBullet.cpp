@@ -10,14 +10,15 @@ void NormalBullet::Initialize()
 	Buffer[0] = (char*)"⊙";
 
 	Damage = 1;
-	Speed = 2;
 	Color = 13;
 }
 
 int NormalBullet::Update()
 {
-	pObject->SetPosition(pObject->GetPosition().x, pObject->GetPosition().y - 1);
+	// 이동
+	pObject->SetPosition(pObject->GetPosition().x + TargetDirection.x, pObject->GetPosition().y - TargetDirection.y);
 
+	// BufferOver 체크
 	if (pObject->GetPosition().y < 0)
 	{
 		CursorManager::GetInstance()->WriteBuffer(0, 5, (char*)"Bullet Buffer Over");
@@ -34,4 +35,14 @@ void NormalBullet::Render()
 
 void NormalBullet::Release()
 {
+}
+
+void NormalBullet::SetTarget(Vector3 _Target)
+{
+	TargetDirection = _Target;
+}
+
+void NormalBullet::SetTarget(float _x, float _y)
+{
+	TargetDirection = Vector3(_x, _y);
 }

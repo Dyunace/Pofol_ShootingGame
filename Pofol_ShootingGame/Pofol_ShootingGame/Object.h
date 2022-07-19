@@ -15,9 +15,6 @@ protected:
 	int hp;
 	float Speed;
 
-	// 플레이어의 현재 총알
-	string pBullet;
-
 	// 딜레이 카운트
 	int DelayCount;
 public:
@@ -44,9 +41,5 @@ public:
 	// 총알 브릿지
 	Bridge* GetBridge() { return pBridge; }
 	void SetBridge(Bridge* _Bridge) { pBridge = _Bridge; }
-
-	// 플레이어의 총알
-	string GetBullet() { return pBullet; }	// 현재 총알 이름 가져오기
-	void SetBullet(string _Bullet) { pBullet = _Bullet; }	// 총알 교체하기
 };
 

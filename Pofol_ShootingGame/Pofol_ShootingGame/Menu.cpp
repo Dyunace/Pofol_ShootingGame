@@ -32,7 +32,8 @@ void Menu::Update()
 		if (InputManager::GetInstance()->GetKey() & KEY_DOWN && Selection < 2)
 			Selection += 1;
 
-		if (InputManager::GetInstance()->GetKey() & KEY_ENTER)
+		if (InputManager::GetInstance()->GetKey() & KEY_ENTER || InputManager::GetInstance()->GetKey() & KEY_F)
+		{
 			switch (Selection)
 			{
 			case 0:
@@ -49,6 +50,7 @@ void Menu::Update()
 			default:
 				break;
 			}
+		}
 	}
 }
 

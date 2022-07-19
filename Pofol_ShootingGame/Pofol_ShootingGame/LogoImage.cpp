@@ -26,7 +26,7 @@ void LogoImage::RenderLogoImage(const int _Count)
 
 	// 가운데 텍스트
 	if (_Count > 48 && TextVisible)
-		CursorManager::GetInstance()->WriteBuffer(30, 30, (char*)"Push Enter to Start");
+		CursorManager::GetInstance()->WriteBuffer(26, 30, (char*)"Push \"Enter\" or \"F\" to Start");
 
 	if (_Count % 6 == 0)
 		TextToggle();

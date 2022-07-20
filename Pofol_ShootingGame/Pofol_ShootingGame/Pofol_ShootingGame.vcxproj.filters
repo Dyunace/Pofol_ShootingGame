@@ -82,9 +82,6 @@
     <Filter Include="소스 파일\02.Object\Enemy">
       <UniqueIdentifier>{3c2f754b-b138-4f99-b8aa-a99a09991707}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\02.Object\Enemy\ESmall">
-      <UniqueIdentifier>{247e7484-689b-445a-9acf-eaa7d0c67442}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\98.Pattern\ObjectPool">
       <UniqueIdentifier>{5d5a2786-9160-4bff-9de7-19c4c366bd22}</UniqueIdentifier>
     </Filter>
@@ -109,20 +106,26 @@
     <Filter Include="소스 파일\99.Manager\CollisionManager">
       <UniqueIdentifier>{9c421ef6-19a4-41f7-9309-3bec547a1e6d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\02.Object\Enemy\BigEnemy">
-      <UniqueIdentifier>{3dc9a9fd-79d7-45b0-9084-e69486805af2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\02.Object\Enemy\BossEnemy">
-      <UniqueIdentifier>{a1a323c3-06ca-479c-9178-2e9c44201943}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\02.Object\Enemy\NormalEnemy">
-      <UniqueIdentifier>{48606c89-323c-41d7-8223-23ebf5e809b6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\98.Pattern\Bridge">
       <UniqueIdentifier>{7f8f949a-1964-4ac4-b2d9-b4220c143e8e}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\99.Manager\BulletManager">
       <UniqueIdentifier>{5d978a15-71bd-476f-ac8a-89476c5e6c80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Enemy\EnemyBridge">
+      <UniqueIdentifier>{9997793a-d346-45f4-a02f-106cfb9f1aa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Enemy\EnemyBridge\NormalEnemy">
+      <UniqueIdentifier>{48606c89-323c-41d7-8223-23ebf5e809b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Enemy\EnemyBridge\ESmall">
+      <UniqueIdentifier>{247e7484-689b-445a-9acf-eaa7d0c67442}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Enemy\EnemyBridge\BigEnemy">
+      <UniqueIdentifier>{3dc9a9fd-79d7-45b0-9084-e69486805af2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Enemy\EnemyBridge\BossEnemy">
+      <UniqueIdentifier>{a1a323c3-06ca-479c-9178-2e9c44201943}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -184,7 +187,7 @@
       <Filter>소스 파일\02.Object\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="NormalEnemy.cpp">
-      <Filter>소스 파일\02.Object\Enemy\NormalEnemy</Filter>
+      <Filter>소스 파일\02.Object\Enemy\EnemyBridge\NormalEnemy</Filter>
     </ClCompile>
     <ClCompile Include="ObjectPool.cpp">
       <Filter>소스 파일\98.Pattern\ObjectPool</Filter>
@@ -276,7 +279,7 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="NormalEnemy.h">
-      <Filter>소스 파일\02.Object\Enemy\NormalEnemy</Filter>
+      <Filter>소스 파일\02.Object\Enemy\EnemyBridge\NormalEnemy</Filter>
     </ClInclude>
     <ClInclude Include="ObjectPool.h">
       <Filter>소스 파일\98.Pattern\ObjectPool</Filter>
@@ -310,6 +313,12 @@
     </ClInclude>
     <ClInclude Include="BulletManager.h">
       <Filter>소스 파일\99.Manager\BulletManager</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBridge.h">
+      <Filter>소스 파일\02.Object\Enemy\EnemyBridge</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstText.h">
+      <Filter>헤더 파일\Include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

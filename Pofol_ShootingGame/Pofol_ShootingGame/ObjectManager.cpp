@@ -13,7 +13,7 @@ ObjectManager::ObjectManager()
 }
 ObjectManager::~ObjectManager(){}
 
-void ObjectManager::AddBullet(string _Key, Bridge* _Bridge, Vector3 _Position)
+void ObjectManager::AddBridge(string _Key, Bridge* _Bridge, Vector3 _Position)
 {
 	Object* pObject = ObjectPool::GetInstance()->ThrowObject(_Key);
 
@@ -64,9 +64,7 @@ list<Object*>* ObjectManager::GetObjectList(string _strKey)
 	map<string, list<Object*>>::iterator iter = EnableList->find(_strKey);
 
 	if (iter == EnableList->end())
-	{
 		return nullptr;
-	}
 
 	return &iter->second;
 }
@@ -90,11 +88,9 @@ void ObjectManager::Update()
 
 void ObjectManager::Render()
 {
-	for (map<string, list<Object*>>::iterator iter = EnableList->begin();
-		iter != EnableList->end(); ++iter)
+	for (map<string, list<Object*>>::iterator iter = EnableList->begin(); iter != EnableList->end(); ++iter)
 	{
-		for (list<Object*>::iterator iter2 = iter->second.begin();
-			iter2 != iter->second.end(); ++iter2)
+		for (list<Object*>::iterator iter2 = iter->second.begin(); iter2 != iter->second.end(); ++iter2)
 		{
 			(*iter2)->Render();
 		}

@@ -19,5 +19,3 @@ const int MAX_SIZE = 2;
 const SHORT ConsoleWidthSize = 80;
 const SHORT ConsoleHeightSize = 55;
 
-const string NORMALBULLET = "NormalBullet";
-const string LASERBULLET = "LaserBullet";

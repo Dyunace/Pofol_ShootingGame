@@ -4,7 +4,6 @@
 #include "SceneManager.h"
 #include "CursorManager.h"
 #include "Warning.h"
-#include "UserInstance.h"
 
 Menu::Menu() : Selection(0), isWarning(false) {}
 Menu::~Menu(){}

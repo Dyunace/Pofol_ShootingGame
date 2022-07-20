@@ -16,3 +16,6 @@ using namespace std;
 #include "Constant.h"
 #include "Struct.h"
 #include "Define.h"
+
+
+#include "ConstText.h"

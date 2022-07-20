@@ -7,12 +7,15 @@ public:
 	Enemy();
 	Enemy(Transform _Info);
 	virtual ~Enemy();
+
+	virtual Object* Clone() override { return new Enemy(*this); };
 public:
-	virtual Object* Initialize(string _Key) PURE;
-	virtual int Update() PURE;
-	virtual void Render() PURE;
-	virtual void Release() PURE;
-	virtual void ShootBullet() PURE;
+	virtual Object* Initialize(string _Key) override;
+	virtual int Update() override;
+	virtual void Render() override;
+	virtual void Release() override;
+	
+	void ShootBullet();
 protected:
 	int Hp;
 };

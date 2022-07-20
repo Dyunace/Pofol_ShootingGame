@@ -41,18 +41,8 @@ Object* ObjectPool::ThrowObject(string _Key)
 
 void ObjectPool::Update()
 {
-	CursorManager::GetInstance()->WriteBuffer(0.0f, 0.0f, (char*)"DisNormalBullet : ");
-	CursorManager::GetInstance()->WriteBuffer(20.0f, 0.0f, (int)DisableList["NormalBullet"].size());
+	DedugRender();
 
-	CursorManager::GetInstance()->WriteBuffer(0.0f, 1.0f, (char*)"EnNormalBullet : ");
-	CursorManager::GetInstance()->WriteBuffer(20.0f, 1.0f, (int)EnableList["NormalBullet"].size());
-
-	CursorManager::GetInstance()->WriteBuffer(0.0f, 2.0f, (char*)"DisLaserBullet : ");
-	CursorManager::GetInstance()->WriteBuffer(20.0f, 2.0f, (int)DisableList["LaserBullet"].size());
-
-	CursorManager::GetInstance()->WriteBuffer(0.0f, 3.0f, (char*)"EnLaserBullet : ");
-	CursorManager::GetInstance()->WriteBuffer(20.0f, 3.0f, (int)EnableList["LaserBullet"].size());
-	
 	for (map<string, list<Object*>>::iterator iter = EnableList.begin();
 		iter != EnableList.end(); ++iter)
 	{
@@ -72,4 +62,25 @@ void ObjectPool::Update()
 				++iter2;
 		}
 	}
+}
+
+void ObjectPool::DedugRender()
+{
+	CursorManager::GetInstance()->WriteBuffer(0.0f, 0.0f, (char*)"DisNormalEnemy : ");
+	CursorManager::GetInstance()->WriteBuffer(20.0f, 0.0f, (int)DisableList[NORMALENEMY].size());
+
+	CursorManager::GetInstance()->WriteBuffer(0.0f, 1.0f, (char*)"EnNormalEnemy : ");
+	CursorManager::GetInstance()->WriteBuffer(20.0f, 1.0f, (int)EnableList[NORMALENEMY].size());
+
+	CursorManager::GetInstance()->WriteBuffer(0.0f, 2.0f, (char*)"DisNormalBullet : ");
+	CursorManager::GetInstance()->WriteBuffer(20.0f, 2.0f, (int)DisableList[NORMALBULLET].size());
+
+	CursorManager::GetInstance()->WriteBuffer(0.0f, 3.0f, (char*)"EnNormalBullet : ");
+	CursorManager::GetInstance()->WriteBuffer(20.0f, 3.0f, (int)EnableList[NORMALBULLET].size());
+
+	CursorManager::GetInstance()->WriteBuffer(0.0f, 4.0f, (char*)"DisLaserBullet : ");
+	CursorManager::GetInstance()->WriteBuffer(20.0f, 4.0f, (int)DisableList[LASERBULLET].size());
+
+	CursorManager::GetInstance()->WriteBuffer(0.0f, 5.0f, (char*)"EnLaserBullet : ");
+	CursorManager::GetInstance()->WriteBuffer(20.0f, 5.0f, (int)EnableList[LASERBULLET].size());
 }

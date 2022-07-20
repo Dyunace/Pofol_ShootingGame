@@ -5,21 +5,21 @@
 #include "ObjectManager.h"
 #include "CollisionManager.h"
 #include "UserInstance.h"
+#include "NormalEnemy.h"
 
 Stage::Stage() : pPlayer(nullptr), pEnemy(nullptr) {}
 Stage::~Stage(){}
 
 void Stage::Initialize()
 {
-	ObjectManager::GetInstance()->AddObject("Player");
-	pPlayer = ObjectManager::GetInstance()->GetObjectList("Player")->front();
-	pPlayer->Initialize("Player");
+	ObjectManager::GetInstance()->AddObject(PLAYER);
+	pPlayer = ObjectManager::GetInstance()->GetObjectList(PLAYER)->front();
+	pPlayer->Initialize(PLAYER);
 	pPlayer->SetPosition(40, 40);
 
-	ObjectManager::GetInstance()->AddObject("NormalEnemy");
-	pEnemy = ObjectManager::GetInstance()->GetObjectList("NormalEnemy")->front();
-	pEnemy->Initialize("NormalEnemy");
-	pEnemy->SetPosition(40, 10);
+	Bridge* enemy = new NormalEnemy;
+	ObjectManager::GetInstance()->AddBridge(NORMALENEMY, enemy, Vector3(40, 10));
+	pEnemy = ObjectManager::GetInstance()->GetObjectList(NORMALENEMY)->front();
 
 	((Player*)pPlayer)->SetBullet(UserInstance::GetInstance()->GetBullet());
 }
@@ -27,40 +27,38 @@ void Stage::Initialize()
 void Stage::Update()
 {
 	auto BulletList = ObjectManager::GetInstance()->GetObjectList(((Player*)pPlayer)->GetBullet());
-	auto NormalEnemyList = ObjectManager::GetInstance()->GetObjectList("NormalEnemy");
+	auto NormalEnemyList = ObjectManager::GetInstance()->GetObjectList(NORMALENEMY);
 
-	// 오브젝트 리스트 검사
+	// 오브젝트 리스트 업데이트
 	ObjectManager::GetInstance()->Update();
 
 	// 총알 & 적 충돌 검사
-	if (BulletList && NormalEnemyList)
+	if (NormalEnemyList)
 	{
-		for (auto NormalEnemyIter = NormalEnemyList->begin(); 
-			NormalEnemyIter != NormalEnemyList->end();
-			++NormalEnemyList
-			)
+		if (BulletList)
 		{
-			for (auto BulletIter = BulletList->begin();
-				BulletIter != BulletList->end();
-				)
+			for (auto NormalEnemyIter = NormalEnemyList->begin(); NormalEnemyIter != NormalEnemyList->end(); ++NormalEnemyIter)
 			{
-				if (CollisionManager::CircleCollision(*NormalEnemyIter, *BulletIter))
+				for (auto BulletIter = BulletList->begin();	BulletIter != BulletList->end();)
 				{
-					// 충돌 검사 디버그
-					CursorManager::GetInstance()->WriteBuffer(
-						(*NormalEnemyIter)->GetPosition().x,
-						(*NormalEnemyIter)->GetPosition().y - (*NormalEnemyIter)->GetScale().y,
-						(char*)"Hit!"
-					);
-
-					// 총알 정보 삭제
-					::Safe_Delete((*BulletIter)->GetBridge());
-
-					// DisableList에 보관
-					BulletIter = ObjectManager::GetInstance()->ThrowObject(BulletIter, (*BulletIter));
+					if (CollisionManager::CircleCollision(*NormalEnemyIter, *BulletIter))
+					{
+						// 충돌 검사 디버그
+						CursorManager::GetInstance()->WriteBuffer(
+							(*NormalEnemyIter)->GetPosition().x,
+							(*NormalEnemyIter)->GetPosition().y - (*NormalEnemyIter)->GetScale().y,
+							(char*)"Hit!"
+						);
+	
+						// 총알 정보 삭제
+						::Safe_Delete((*BulletIter)->GetBridge());
+	
+						// DisableList에 보관
+						BulletIter = ObjectManager::GetInstance()->ThrowObject(BulletIter, (*BulletIter));
+					}
+					else
+						++BulletIter;
 				}
-				else
-					++BulletIter;
 			}
 		}
 	}
@@ -73,6 +71,5 @@ void Stage::Render()
 
 void Stage::Release()
 {
-	delete pPlayer;
-	pPlayer = nullptr;
+
 }

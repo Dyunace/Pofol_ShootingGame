@@ -1,18 +1,15 @@
-// Shooting v1.9.1 WeaponSelect
+// Shooting v1.9.2 WeaponSelect
 /*
 	변경점:
-		WeaponSelect에서 나갔다 들어오면 Player가 중복 생성되는 문제 해결
-
-		BulletManager 구현, 레벨 별 탄막 생성 및 방향 결정 구현
-		레벨 별 탄막은 WeaponSelect에서 확인 가능
-
-		무기 선택 시 Priview에 바뀐 무기 표시되도록 적용
-
-		MakeBorder 함수 교정
-
-	다음 할 일:
 		WeaponSelect에 각 무기 설명 쓰기
 		WeaponSelect에서 Stage로 넘어가기
+		WeaponSelect에서 Stage로 무기 정보 넘겨주기
+
+		LaserBullet 발사 방식 개선
+		
+	다음 할 일:
+		적 추가 구현
+		적 총알 발사
 */
 #define _CRT_SECLRE_NO_WARNING
 #include "Headers.h"

@@ -49,7 +49,6 @@ int Player::Update()
 	// 공격 (F버튼)
 	if (dwKey & KEY_F)
 		ShootBullet();
-
 	// 공격 (스페이스 바)
 	if (dwKey & KEY_SPACE)
 		ShootBullet();
@@ -71,13 +70,16 @@ void Player::Release()
 {
 }
 
-void Player::ShootBullet()
+void Player::ShootBullet(float _LimitY)
 {
 	if (DelayCount == 0)
 	{
-		BulletManager::GetInstance()->MakePlayerBullet(pBullet, TransInfo.Position);
+		BulletManager::GetInstance()->MakePlayerBullet(pBullet, TransInfo.Position, _LimitY);
+
 		if (pBullet == NORMALBULLET)
 			DelayCount = 2;
+		else if (pBullet == LASERBULLET)
+			DelayCount = 0;
 	}
 	else if (DelayCount > 0)
 		--DelayCount;

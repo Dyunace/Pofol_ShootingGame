@@ -55,9 +55,11 @@
     <ClInclude Include="BulletManager.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Constant.h" />
+    <ClInclude Include="ConstText.h" />
     <ClInclude Include="CursorManager.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyBridge.h" />
     <ClInclude Include="LaserBullet.h" />
     <ClInclude Include="NormalEnemy.h" />
     <ClInclude Include="Enums.h" />

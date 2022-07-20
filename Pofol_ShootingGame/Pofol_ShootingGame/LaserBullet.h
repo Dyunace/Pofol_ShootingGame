@@ -3,6 +3,8 @@
 
 class LaserBullet : public BulletBridge
 {
+private:
+	int Count;
 public:
 	LaserBullet();
 	virtual ~LaserBullet();

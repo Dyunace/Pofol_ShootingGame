@@ -24,6 +24,6 @@ public:
 	void SetBullet(string _Bullet) { pBullet = _Bullet; }	// 총알 교체하기
 
 public:
-	void ShootBullet();
+	void ShootBullet(float _LimitY = 0);
 };
 

@@ -16,7 +16,7 @@ void NormalBullet::Initialize()
 int NormalBullet::Update()
 {
 	// 이동
-	pObject->SetPosition(pObject->GetPosition().x + TargetDirection.x, pObject->GetPosition().y - TargetDirection.y);
+	pObject->SetPosition(pObject->GetPosition().x + TargetDirection.x, pObject->GetPosition().y - 1);
 
 	// BufferOver 체크
 	if (pObject->GetPosition().y < 0)

@@ -2,44 +2,33 @@
 #include "CursorManager.h"
 
 NormalEnemy::NormalEnemy(){}
-NormalEnemy::NormalEnemy(Transform _Info){}
 NormalEnemy::~NormalEnemy(){}
 
-Object* NormalEnemy::Initialize(string _Key)
+void NormalEnemy::Initialize()
 {
-    str = "NormalEnemy";
-
-    Buffer[0] = (char*)"┏";
-    Buffer[1] = (char*)"┓";
-    Buffer[2] = (char*)"Ⅵ";
-    Buffer[3] = (char*)"Ⅳ";
-
-    TransInfo.Position = Vector3(0, 0);
-    TransInfo.Rotation = Vector3(0, 0);
-    TransInfo.Scale = Vector3(4, 2); // 적의 크기
-
-    return this;
+	Buffer[0] = (char*)"┏";
+	Buffer[1] = (char*)"┓";
+	Buffer[2] = (char*)"Ⅵ";
+	Buffer[3] = (char*)"Ⅳ";
 }
 
 int NormalEnemy::Update()
 {
-    return 0;
+	pObject->SetPosition(40, 10);
+
+	return 0;
 }
 
 void NormalEnemy::Render()
 {
-    for (int i = 0; i < 4; ++i)
-        CursorManager::GetInstance()->WriteBuffer(
-            TransInfo.Position.x + (i % 2 * 2) - TransInfo.Scale.x * 0.25,
-            TransInfo.Position.y + (i / 2) + TransInfo.Scale.y,
-            Buffer[i]
-        );
+	for (int i = 0; i < 4; ++i)
+		CursorManager::GetInstance()->WriteBuffer(
+			pObject->GetPosition().x + ((i % 2) * 2),
+			pObject->GetPosition().y + (i / 2) + pObject->GetScale().y,
+			Buffer[i]
+		);
 }
 
 void NormalEnemy::Release()
-{
-}
-
-void NormalEnemy::ShootBullet()
 {
 }

@@ -25,4 +25,7 @@ public:
 	void CatchObject(Object* _Object);
 	Object* ThrowObject(string _Key);
 	void Update();
+
+public:
+	void DedugRender();
 };

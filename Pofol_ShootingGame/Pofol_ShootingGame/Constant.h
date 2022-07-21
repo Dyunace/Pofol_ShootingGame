@@ -1,5 +1,6 @@
 #pragma once
 
+// Key
 const DWORD KEY_UP = 1;
 const DWORD KEY_DOWN = 2;
 const DWORD KEY_LEFT = 4;
@@ -13,9 +14,23 @@ const DWORD KEY_ESC = 512;
 const DWORD KEY_F = 1024;
 const DWORD KEY_D = 2048;
 
+
+// Buffer
 const int BUFFER_OVER = 1;
 const int MAX_SIZE = 2;
 
+
+// Console Window
 const SHORT ConsoleWidthSize = 80;
 const SHORT ConsoleHeightSize = 55;
 
+
+// String
+const string PLAYER = "Player";
+const string NORMALENEMY = "NormalEnemy";
+
+const string NORMALBULLET = "NormalBullet";
+const string LASERBULLET = "LaserBullet";
+
+const string ENORMALBULLET = "ENormalBullet";
+const string ESPECIALBULLET = "ESpecialBullet";

@@ -5,9 +5,10 @@
 class EnemyBridge : public Bridge
 {
 protected:
-	char* Buffer[4];
+	int ShootDelay;
+	int Hp;
 public:
-	EnemyBridge() : Buffer() {};
+	EnemyBridge() : ShootDelay(0), Hp(0) {};
 	virtual ~EnemyBridge() {};
 
 public:
@@ -15,4 +16,11 @@ public:
 	virtual int Update() PURE;
 	virtual void Render() PURE;
 	virtual void Release() PURE;
+public:
+	virtual void ShootBullet() PURE;
+
+public:
+	int GetHP() { return Hp; }
+
+	void TakeDamage(int _Damage) { Hp -= _Damage; }
 };

@@ -9,7 +9,7 @@ enum SCENEID
 	EXIT,
 };
 
-enum class WARNING
+enum WARNING
 {
 	WOPTION,
 	WEXIT,

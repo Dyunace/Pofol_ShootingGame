@@ -10,7 +10,6 @@ Object* Bullet::Initialize(string _Key)
 	str = _Key;
 
 	TransInfo.Position = Vector3(0.0f, 0.0f);
-	TransInfo.Rotation = Vector3(0.0f, 0.0f);
 	TransInfo.Scale = Vector3(2, 1);
 
 	return this;

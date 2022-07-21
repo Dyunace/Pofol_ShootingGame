@@ -1,11 +1,8 @@
 #include "LaserBullet.h"
 #include "CursorManager.h"
-#include "MathManager.h"
 #include "ObjectManager.h"
-#include "InputManager.h"
-#include "SceneManager.h"
 
-LaserBullet::LaserBullet() : Count(1) {}
+LaserBullet::LaserBullet() {}
 LaserBullet::~LaserBullet(){}
 
 void LaserBullet::Initialize()
@@ -20,18 +17,14 @@ int LaserBullet::Update()
 {
 	auto player = ObjectManager::GetInstance()->GetObjectList(PLAYER)->front();
 
+	// Player의 위치에 따라 함께 이동
 	if (player)
 		pObject->SetPosition(player->GetPosition().x + TargetDirection.x, pObject->GetPosition().y);
 
-	if (pObject->GetPosition().y < 0)
+	if (BufferCheck())
 		return BUFFER_OVER;
 
-	if (Count == 0)
-		return BUFFER_OVER;
-
-	--Count;
-
-	return 0;
+	return BUFFER_OVER;
 }
 
 void LaserBullet::Render()

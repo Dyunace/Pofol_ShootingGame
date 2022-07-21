@@ -25,6 +25,11 @@ void Prototype::Initialize()
 	ProtoTypeList[Key] = (new Bullet(Info))->Initialize(Key);
 	Key = LASERBULLET;
 	ProtoTypeList[Key] = (new Bullet(Info))->Initialize(Key);
+
+	Key = ENORMALBULLET;
+	ProtoTypeList[Key] = (new Bullet(Info))->Initialize(Key);
+	Key = ESPECIALBULLET;
+	ProtoTypeList[Key] = (new Bullet(Info))->Initialize(Key);
 }
 
 Object* Prototype::ProtoTypeObject(string _Key)

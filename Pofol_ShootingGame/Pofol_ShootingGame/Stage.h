@@ -10,6 +10,7 @@ public:
 private:
 	Object* pPlayer;
 	Object* pEnemy;
+	bool isLaser;
 public:
 	virtual void Initialize() override;
 	virtual void Update() override;

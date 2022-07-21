@@ -7,6 +7,7 @@ private:
 	char* MyBuffer;
 	Transform TransInfo;
 	int MoveCount;
+	float MoveSpeed;
 public:
 	BGIcon();
 	~BGIcon();

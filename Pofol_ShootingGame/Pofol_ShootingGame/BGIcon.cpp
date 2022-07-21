@@ -1,7 +1,7 @@
 #include "BGIcon.h"
 #include "CursorManager.h"
 
-BGIcon::BGIcon() : MyBuffer(nullptr), MoveCount(0) {}
+BGIcon::BGIcon() : MyBuffer(nullptr), MoveCount(0), MoveSpeed(0) {}
 BGIcon::~BGIcon() { Release(); }
 
 /// <summary>
@@ -25,6 +25,7 @@ void BGIcon::setIcon(const int _rand)
 	}
 
 	MoveCount = 0;
+	MoveSpeed = ((rand() % 3) / 2 + 0.5f);
 }
 
 void BGIcon::SetPosition(float _x, float _y)
@@ -45,13 +46,16 @@ void BGIcon::Update()
 	// 카운트가 충족될 때마다 별이 한 칸씩 내려감
 	if (MoveCount >= 6)
 	{
-		TransInfo.Position.y += 1;
+		TransInfo.Position.y += MoveSpeed;
 		MoveCount = 0;
 	}
 
+	// 별이 화면 맨 아래로 내려가면 최상단으로 다시 올라감
 	if (TransInfo.Position.y == ConsoleHeightSize)
 	{
 		TransInfo.Position.y = 0;
+
+		MoveSpeed = ((rand() % 3) / 2 + 0.5f);
 	}
 }
 

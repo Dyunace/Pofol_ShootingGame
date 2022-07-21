@@ -91,12 +91,6 @@
     <Filter Include="소스 파일\02.Object\Bullet\BulletBridge">
       <UniqueIdentifier>{2216a7b0-8ee1-4f2d-bb6c-c1b3d8e77460}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\02.Object\Bullet\BulletBridge\LaserBullet">
-      <UniqueIdentifier>{42563bed-ae89-4070-a5b8-b7331eb777b1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\02.Object\Bullet\BulletBridge\NomalBullet">
-      <UniqueIdentifier>{2e3c421b-a8a9-443d-bc1b-3bad2db419de}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\99.Manager\ObjectFactory">
       <UniqueIdentifier>{7da3bddf-0d23-43f5-98fb-210959cdfeaa}</UniqueIdentifier>
     </Filter>
@@ -126,6 +120,24 @@
     </Filter>
     <Filter Include="소스 파일\02.Object\Enemy\EnemyBridge\BossEnemy">
       <UniqueIdentifier>{a1a323c3-06ca-479c-9178-2e9c44201943}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Bullet\BulletBridge\EnemyBullet">
+      <UniqueIdentifier>{54cec3ab-2301-4da8-ab14-eeb5c9ed72a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Bullet\BulletBridge\PlayerBullet">
+      <UniqueIdentifier>{0c52529a-f860-47f0-a2f2-0c6b147a8a58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Bullet\BulletBridge\PlayerBullet\LaserBullet">
+      <UniqueIdentifier>{42563bed-ae89-4070-a5b8-b7331eb777b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Bullet\BulletBridge\PlayerBullet\NomalBullet">
+      <UniqueIdentifier>{2e3c421b-a8a9-443d-bc1b-3bad2db419de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Bullet\BulletBridge\EnemyBullet\ENormalBullet">
+      <UniqueIdentifier>{0e5b67cf-b475-4e31-9e00-a4da67877e1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Bullet\BulletBridge\EnemyBullet\ESpecialBullet">
+      <UniqueIdentifier>{90b8f879-925b-4ef0-9474-4a6a6cba60e5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -181,7 +193,7 @@
       <Filter>소스 파일\98.Pattern\Proto</Filter>
     </ClCompile>
     <ClCompile Include="NormalBullet.cpp">
-      <Filter>소스 파일\02.Object\Bullet\BulletBridge\NomalBullet</Filter>
+      <Filter>소스 파일\02.Object\Bullet\BulletBridge\PlayerBullet\NomalBullet</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>소스 파일\02.Object\Enemy</Filter>
@@ -202,10 +214,13 @@
       <Filter>소스 파일\02.Object\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="LaserBullet.cpp">
-      <Filter>소스 파일\02.Object\Bullet\BulletBridge\LaserBullet</Filter>
+      <Filter>소스 파일\02.Object\Bullet\BulletBridge\PlayerBullet\LaserBullet</Filter>
     </ClCompile>
     <ClCompile Include="BulletManager.cpp">
       <Filter>소스 파일\99.Manager\BulletManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ENormalBullet.cpp">
+      <Filter>소스 파일\02.Object\Bullet\BulletBridge\EnemyBullet\ENormalBullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -270,7 +285,7 @@
       <Filter>소스 파일\98.Pattern\Proto</Filter>
     </ClInclude>
     <ClInclude Include="NormalBullet.h">
-      <Filter>소스 파일\02.Object\Bullet\BulletBridge\NomalBullet</Filter>
+      <Filter>소스 파일\02.Object\Bullet\BulletBridge\PlayerBullet\NomalBullet</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>소스 파일\02.Object\Enemy</Filter>
@@ -303,7 +318,7 @@
       <Filter>소스 파일\99.Manager\CollisionManager</Filter>
     </ClInclude>
     <ClInclude Include="LaserBullet.h">
-      <Filter>소스 파일\02.Object\Bullet\BulletBridge\LaserBullet</Filter>
+      <Filter>소스 파일\02.Object\Bullet\BulletBridge\PlayerBullet\LaserBullet</Filter>
     </ClInclude>
     <ClInclude Include="Bridge.h">
       <Filter>소스 파일\98.Pattern\Bridge</Filter>
@@ -317,8 +332,11 @@
     <ClInclude Include="EnemyBridge.h">
       <Filter>소스 파일\02.Object\Enemy\EnemyBridge</Filter>
     </ClInclude>
-    <ClInclude Include="ConstText.h">
+    <ClInclude Include="Localize.h">
       <Filter>헤더 파일\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="ENormalBullet.h">
+      <Filter>소스 파일\02.Object\Bullet\BulletBridge\EnemyBullet\ENormalBullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

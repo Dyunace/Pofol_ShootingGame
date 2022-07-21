@@ -33,4 +33,15 @@ public:
 		else
 			return 0; 
 	}
+
+	bool BufferCheck() 
+	{
+		if (pObject->GetPosition().y <= 0 || pObject->GetPosition().y >= ConsoleHeightSize - 1 ||
+			pObject->GetPosition().x <= 0 || pObject->GetPosition().x >= ConsoleWidthSize - 1)
+			return true;
+
+		return false;
+	};
+
+	int GetDamage() { return Damage; };
 };

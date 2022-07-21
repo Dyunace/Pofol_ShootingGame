@@ -1,6 +1,5 @@
 #include "NormalBullet.h"
 #include "CursorManager.h"
-#include "MathManager.h"
 
 NormalBullet::NormalBullet() {}
 NormalBullet::~NormalBullet(){}
@@ -9,7 +8,7 @@ void NormalBullet::Initialize()
 {
 	Buffer[0] = (char*)"¢Á";
 
-	Damage = 1;
+	Damage = 2;
 	Color = 13;
 }
 
@@ -19,7 +18,7 @@ int NormalBullet::Update()
 	pObject->SetPosition(pObject->GetPosition().x + TargetDirection.x, pObject->GetPosition().y - 1);
 
 	// BufferOver Ã¼Å©
-	if (pObject->GetPosition().y < 0)
+	if (BufferCheck())
 		return BUFFER_OVER;
 
 	return 0;

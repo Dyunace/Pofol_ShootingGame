@@ -36,7 +36,6 @@ void Menu::Update()
 			{
 			case 0:
 				SceneManager::GetInstance()->SetScene(WEAPON);
-				//SceneManager::GetInstance()->SetScene(STAGE);
 				break;
 			case 1:
 				SceneManager::GetInstance();

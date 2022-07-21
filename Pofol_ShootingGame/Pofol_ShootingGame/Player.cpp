@@ -53,6 +53,8 @@ int Player::Update()
 	if (dwKey & KEY_SPACE)
 		ShootBullet();
 
+	--DelayCount;
+
 	return 0;
 }
 
@@ -72,15 +74,13 @@ void Player::Release()
 
 void Player::ShootBullet(float _LimitY)
 {
-	if (DelayCount == 0)
+	if (DelayCount < 0)
 	{
 		BulletManager::GetInstance()->MakePlayerBullet(pBullet, TransInfo.Position, _LimitY);
 
 		if (pBullet == NORMALBULLET)
-			DelayCount = 2;
+			DelayCount = 1;
 		else if (pBullet == LASERBULLET)
 			DelayCount = 0;
 	}
-	else if (DelayCount > 0)
-		--DelayCount;
 }

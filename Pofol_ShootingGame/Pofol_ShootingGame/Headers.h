@@ -17,5 +17,4 @@ using namespace std;
 #include "Struct.h"
 #include "Define.h"
 
-
-#include "ConstText.h"
+#include "Localize.h"

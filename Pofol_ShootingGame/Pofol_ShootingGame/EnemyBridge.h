@@ -7,6 +7,7 @@ class EnemyBridge : public Bridge
 protected:
 	int ShootDelay;
 	int Hp;
+	int MoveType;
 public:
 	EnemyBridge() : ShootDelay(0), Hp(0) {};
 	virtual ~EnemyBridge() {};

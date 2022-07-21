@@ -25,6 +25,7 @@
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="CursorManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyMovement.cpp" />
     <ClCompile Include="ENormalBullet.cpp" />
     <ClCompile Include="LaserBullet.cpp" />
     <ClCompile Include="NormalEnemy.cpp" />
@@ -56,6 +57,7 @@
     <ClInclude Include="BulletManager.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Constant.h" />
+    <ClInclude Include="EnemyMovement.h" />
     <ClInclude Include="ENormalBullet.h" />
     <ClInclude Include="Localize.h" />
     <ClInclude Include="CursorManager.h" />

@@ -3,6 +3,7 @@
 #include "SceneManager.h"
 #include "CursorManager.h"
 #include "Player.h"
+#include "NormalEnemy.h"
 #include "NormalBullet.h"
 #include "LaserBullet.h"
 #include "ObjectManager.h"
@@ -37,10 +38,12 @@ void WeaponSelect::Update()
 	{
 		for (auto iter = BulletList->begin(); iter != BulletList->end(); ++iter)
 		{
-			int result = ((BulletBridge*)((*iter)->GetBridge()))->BulletPriview(16, 24, 7);
+			int result = ((BulletBridge*)((*iter)->GetBridge()))->BulletPriview(17, 21, 8);
 	
 			if (result == BUFFER_OVER)
 			{
+				CursorManager::GetInstance()->WriteBuffer((*iter)->GetPosition(), (char*)"B_O");
+
 				// Remove Bullet Data
 				::Safe_Delete((*iter)->GetBridge());
 	
@@ -52,13 +55,11 @@ void WeaponSelect::Update()
 
 	if (InputManager::GetInstance()->GetKey() & KEY_RIGHT && Selection < 1)
 	{
-		ReleaseBullet();
 		++Selection;
 		SwitchBullet();
 	}
 	if (InputManager::GetInstance()->GetKey() & KEY_LEFT && Selection > 0)
 	{
-		ReleaseBullet();
 		--Selection;
 		SwitchBullet();
 	}
@@ -67,7 +68,7 @@ void WeaponSelect::Update()
 	{
 		// 여기에 스테이지 넘어가기 만들기
 		UserInstance::GetInstance()->SetBullet(((Player*)pPlayer)->GetBullet());
-		SceneManager::GetInstance()->SetScene(STAGE);
+		SceneManager::GetInstance()->SetScene(STAGE1);
 	}
 
 	// Go Back
@@ -125,6 +126,8 @@ void WeaponSelect::Release()
 
 void WeaponSelect::SwitchBullet()
 {
+	ReleaseBullet();
+
 	switch (Selection)
 	{
 	case 0:

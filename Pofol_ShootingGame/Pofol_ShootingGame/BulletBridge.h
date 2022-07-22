@@ -28,12 +28,15 @@ public:
 public:
 	int BulletPriview(float _left, float _Width, float _up)
 	{
-		if (pObject->GetPosition().x <= _left || pObject->GetPosition().x >= _left + (_Width * 2) - 2 || pObject->GetPosition().y < _up)
+		if (pObject->GetPosition().x <= _left || pObject->GetPosition().x >= _left + (_Width * 2) || pObject->GetPosition().y < _up)
 			return BUFFER_OVER;
 		else
-			return 0; 
+			return 0;
 	}
 
+	int GetDamage() { return Damage; };
+
+protected:
 	bool BufferCheck() 
 	{
 		if (pObject->GetPosition().y <= 0 || pObject->GetPosition().y >= ConsoleHeightSize - 1 ||
@@ -42,6 +45,4 @@ public:
 
 		return false;
 	};
-
-	int GetDamage() { return Damage; };
 };

@@ -4,18 +4,24 @@
 class Object;
 class Stage : public Scene
 {
+protected:
+	Object* pPlayer;
+	bool isLaser;
+
+	list<Object*>* NormalEnemyList;
+	
+	list<Object*>* PlayerBulletList;
+	list<Object*>* ENormalBulletList;
 public:
 	Stage();
 	virtual ~Stage();
-private:
-	Object* pPlayer;
-	Object* pEnemy;
-	bool isLaser;
 public:
-	virtual void Initialize() override;
-	virtual void Update() override;
-	virtual void Render() override;
-	virtual void Release() override;
+	virtual void Initialize() PURE;
+	virtual void Update() PURE;
+	virtual void Render() PURE;
+	virtual void Release() PURE;
 
+	void GetObjectLists();
+	void CollisionCheck();
 };
 

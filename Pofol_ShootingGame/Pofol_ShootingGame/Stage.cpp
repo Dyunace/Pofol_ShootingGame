@@ -7,37 +7,19 @@
 #include "UserInstance.h"
 #include "NormalEnemy.h"
 
-Stage::Stage() : pPlayer(nullptr), pEnemy(nullptr), isLaser(false) {}
+Stage::Stage() : ENormalBulletList(), NormalEnemyList(), pPlayer(nullptr), PlayerBulletList(), isLaser(false) {}
 Stage::~Stage(){}
 
-void Stage::Initialize()
+void Stage::GetObjectLists()
 {
-	ObjectManager::GetInstance()->AddObject(PLAYER);
 	pPlayer = ObjectManager::GetInstance()->GetObjectList(PLAYER)->front();
-	pPlayer->Initialize(PLAYER);
-	pPlayer->SetPosition(40, 40);
-	((Player*)pPlayer)->SetBullet(UserInstance::GetInstance()->GetBullet());
-	
-	// LaserBullet 중복 체크 방지
-	if (((Player*)pPlayer)->GetBullet() == LASERBULLET)
-		isLaser = true;
-
-	Bridge* enemy = new NormalEnemy;
-	ObjectManager::GetInstance()->AddBridge(NORMALENEMY, enemy, Vector3(40, 10));
-	pEnemy = ObjectManager::GetInstance()->GetObjectList(NORMALENEMY)->front();
-
-	((Player*)pPlayer)->SetBullet(UserInstance::GetInstance()->GetBullet());
+	NormalEnemyList = ObjectManager::GetInstance()->GetObjectList(NORMALENEMY);
+	PlayerBulletList = ObjectManager::GetInstance()->GetObjectList(((Player*)pPlayer)->GetBullet());
+	ENormalBulletList = ObjectManager::GetInstance()->GetObjectList(ENORMALBULLET);
 }
 
-void Stage::Update()
+void Stage::CollisionCheck()
 {
-	auto NormalEnemyList = ObjectManager::GetInstance()->GetObjectList(NORMALENEMY);
-	auto PlayerBulletList = ObjectManager::GetInstance()->GetObjectList(((Player*)pPlayer)->GetBullet());
-	auto ENormalBulletList = ObjectManager::GetInstance()->GetObjectList(ENORMALBULLET);
-
-	// 오브젝트 리스트 업데이트
-	ObjectManager::GetInstance()->Update();
-
 	// 플레이어 총알 & 적 충돌 검사
 	if (NormalEnemyList)
 	{
@@ -47,7 +29,7 @@ void Stage::Update()
 			{
 				bool canDamage = true;
 
-				for (auto PlayerBulletIter = PlayerBulletList->begin();	PlayerBulletIter != PlayerBulletList->end();)
+				for (auto PlayerBulletIter = PlayerBulletList->begin(); PlayerBulletIter != PlayerBulletList->end();)
 				{
 					if (CollisionManager::CircleCollision(*NormalEnemyIter, *PlayerBulletIter))
 					{
@@ -57,7 +39,7 @@ void Stage::Update()
 							(*NormalEnemyIter)->GetPosition().y - (*NormalEnemyIter)->GetScale().y,
 							(char*)"Hit!"
 						);
-						
+
 						if (canDamage)
 						{
 							// Enemy에 데미지 계산
@@ -70,7 +52,7 @@ void Stage::Update()
 
 						// 총알 정보 삭제
 						::Safe_Delete((*PlayerBulletIter)->GetBridge());
-	
+
 						// DisableList에 보관
 						PlayerBulletIter = ObjectManager::GetInstance()->ThrowObject(PlayerBulletIter, (*PlayerBulletIter));
 
@@ -87,17 +69,12 @@ void Stage::Update()
 	{
 		for (auto NormalEnemyIter = NormalEnemyList->begin(); NormalEnemyIter != NormalEnemyList->end();)
 		{
-			// 체력 표시
-			CursorManager::GetInstance()->WriteBuffer
-			((*NormalEnemyIter)->GetPosition().x, (*NormalEnemyIter)->GetPosition().y - 1,
-				((EnemyBridge*)((*NormalEnemyIter)->GetBridge()))->GetHP());
-
 			if (((EnemyBridge*)((*NormalEnemyIter)->GetBridge()))->GetHP() <= 0)
 			{
-				
+
 				// 적 정보 삭제
 				::Safe_Delete((*NormalEnemyIter)->GetBridge());
-				
+
 				// DisableList에 보관
 				NormalEnemyIter = ObjectManager::GetInstance()->ThrowObject(NormalEnemyIter, (*NormalEnemyIter));
 			}
@@ -105,7 +82,6 @@ void Stage::Update()
 				++NormalEnemyIter;
 		}
 	}
-
 
 	// 적 총알 & 플레이어 충돌 검사
 	if (ENormalBulletList)
@@ -131,14 +107,4 @@ void Stage::Update()
 				++ENormalBulletIter;
 		}
 	}
-}
-
-void Stage::Render()
-{
-	ObjectManager::GetInstance()->Render();
-}
-
-void Stage::Release()
-{
-
 }

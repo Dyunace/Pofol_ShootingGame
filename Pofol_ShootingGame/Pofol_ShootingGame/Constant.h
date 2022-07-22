@@ -26,11 +26,11 @@ const SHORT ConsoleHeightSize = 55;
 
 
 // String
-const string PLAYER = "Player";
-const string NORMALENEMY = "NormalEnemy";
+const string PLAYER = "0_Player";
+const string NORMALENEMY = "1_NormalEnemy";
 
-const string NORMALBULLET = "NormalBullet";
-const string LASERBULLET = "LaserBullet";
+const string NORMALBULLET = "2_NormalBullet";
+const string LASERBULLET = "3_LaserBullet";
 
-const string ENORMALBULLET = "ENormalBullet";
-const string ESPECIALBULLET = "ESpecialBullet";
+const string ENORMALBULLET = "4_ENormalBullet";
+const string ESPECIALBULLET = "5_ESpecialBullet";

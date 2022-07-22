@@ -15,5 +15,6 @@ public:
 	virtual void Render()PURE;
 	virtual void Release()PURE;
 public:
+	Object* GetpObject() { return pObject; }
 	void SetObject(Object* _Object) { pObject = _Object; }
 };

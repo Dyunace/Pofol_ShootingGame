@@ -19,6 +19,12 @@ private:
 	UserInstance();
 public:
 	~UserInstance();
+private:
+	int Life;
+	int Boom;
+	int Score;
+	string BulletName;
+	int BulletLevel;
 public:
 	int GetLife() { return Life; }
 	void AddLife(int _Num) { Life += _Num; }
@@ -34,12 +40,5 @@ public:
 
 	int GetBulletLevel() { return BulletLevel; }
 	void AddBulletLevel(int _Num) { BulletLevel += _Num; }
-
-private:
-	int Life;
-	int Boom;
-	int Score;
-	string BulletName;
-	int BulletLevel;
 };
 

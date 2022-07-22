@@ -2,7 +2,7 @@
 #include "CursorManager.h"
 #include "ObjectManager.h"
 
-LaserBullet::LaserBullet() {}
+LaserBullet::LaserBullet() : Count(1) {}
 LaserBullet::~LaserBullet(){}
 
 void LaserBullet::Initialize()
@@ -24,7 +24,12 @@ int LaserBullet::Update()
 	if (BufferCheck())
 		return BUFFER_OVER;
 
-	return BUFFER_OVER;
+	if (Count == 0)
+		return BUFFER_OVER;
+
+	--Count;
+
+	return 0;
 }
 
 void LaserBullet::Render()

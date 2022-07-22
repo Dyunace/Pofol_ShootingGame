@@ -88,7 +88,7 @@ void ObjectManager::Update()
 
 void ObjectManager::Render()
 {
-	for (map<string, list<Object*>>::iterator iter = EnableList->begin(); iter != EnableList->end(); ++iter)
+	for (auto iter = EnableList->begin(); iter != EnableList->end(); ++iter)
 	{
 		for (list<Object*>::iterator iter2 = iter->second.begin(); iter2 != iter->second.end(); ++iter2)
 		{

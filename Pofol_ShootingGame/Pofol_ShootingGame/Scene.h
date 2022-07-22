@@ -3,6 +3,8 @@
 
 class Scene
 {
+protected:
+	int SceneCount;
 public:
 	Scene();
 	virtual ~Scene();

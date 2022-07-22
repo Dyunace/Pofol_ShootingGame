@@ -1,13 +1,8 @@
 #include "Scene.h"
 #include "CursorManager.h"
 
-Scene::Scene()
-{
-}
-
-Scene::~Scene()
-{
-}
+Scene::Scene() : SceneCount(0) {}
+Scene::~Scene(){}
 
 
 void Scene::MakeBorder(float _x, float _y, float _Width, float _Height)

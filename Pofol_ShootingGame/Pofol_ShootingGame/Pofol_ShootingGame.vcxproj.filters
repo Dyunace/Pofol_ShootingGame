@@ -139,8 +139,8 @@
     <Filter Include="소스 파일\02.Object\Bullet\BulletBridge\EnemyBullet\ESpecialBullet">
       <UniqueIdentifier>{90b8f879-925b-4ef0-9474-4a6a6cba60e5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\99.Manager\EnemyMovement">
-      <UniqueIdentifier>{7c210997-197d-4939-bf3e-b1cdd2b4c121}</UniqueIdentifier>
+    <Filter Include="소스 파일\01.Scene\Stage\Stage1">
+      <UniqueIdentifier>{aefdca47-e064-4990-b667-a2dedf25b238}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -225,8 +225,8 @@
     <ClCompile Include="ENormalBullet.cpp">
       <Filter>소스 파일\02.Object\Bullet\BulletBridge\EnemyBullet\ENormalBullet</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyMovement.cpp">
-      <Filter>소스 파일\99.Manager\EnemyMovement</Filter>
+    <ClCompile Include="Stage1.cpp">
+      <Filter>소스 파일\01.Scene\Stage\Stage1</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -344,8 +344,8 @@
     <ClInclude Include="ENormalBullet.h">
       <Filter>소스 파일\02.Object\Bullet\BulletBridge\EnemyBullet\ENormalBullet</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyMovement.h">
-      <Filter>소스 파일\99.Manager\EnemyMovement</Filter>
+    <ClInclude Include="Stage1.h">
+      <Filter>소스 파일\01.Scene\Stage\Stage1</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

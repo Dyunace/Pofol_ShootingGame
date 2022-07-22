@@ -1,7 +1,7 @@
 #include "Enemy.h"
 #include "Bridge.h"
 
-Enemy::Enemy(){}
+Enemy::Enemy() {}
 Enemy::Enemy(Transform _Info){}
 Enemy::~Enemy(){}
 

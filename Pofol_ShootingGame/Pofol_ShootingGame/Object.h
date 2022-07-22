@@ -11,10 +11,6 @@ protected:
 	// 총알
 	Bridge* pBridge;
 
-	// 공통 기본 정보
-	int hp;
-	float Speed;
-
 	// 딜레이 카운트
 	int DelayCount;
 public:

@@ -63,16 +63,16 @@ void Menu::Render()
 		Warning::GetInstance()->Render();
 	else
 	{
-		int y;
+		float y = 0.0f;
 
 		if (Selection == 0)
-			y = 27;
+			y = 27.0f;
 		else if (Selection == 1)
-			y = 30;
+			y = 30.0f;
 		else if (Selection == 2)
-			y = 33;
+			y = 33.0f;
 		
-		CursorManager::GetInstance()->WriteBuffer(45, y, (char*)"<<", 12);
+		CursorManager::GetInstance()->WriteBuffer(45.0f, y, (char*)"<<", 12);
 	}
 }
 

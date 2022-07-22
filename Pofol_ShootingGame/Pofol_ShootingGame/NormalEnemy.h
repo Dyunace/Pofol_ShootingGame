@@ -16,4 +16,5 @@ public:
 	virtual void Release() override;
 public:
 	virtual void ShootBullet() override;
+	virtual void SetMovement(int _Type) override;
 };

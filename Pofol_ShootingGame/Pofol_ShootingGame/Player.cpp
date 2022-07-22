@@ -6,16 +6,15 @@
 #include "LaserBullet.h"
 #include "BulletManager.h"
 
-Player::Player() {}
-Player::Player(Transform _Info) : Object(_Info) {}
+Player::Player() : Buffer() {}
+Player::Player(Transform _Info) : Object(_Info), Buffer() {}
 Player::~Player(){}
 
 Object* Player::Initialize(string _Key)
 {
 	str = _Key;
-	hp = 1;
 
-	pBullet = "NormalBullet";
+	pBullet = NORMALBULLET;
 
 	// Buffer[4] 코어를 기준으로 함
 	Buffer[0] = (char*)"┏";

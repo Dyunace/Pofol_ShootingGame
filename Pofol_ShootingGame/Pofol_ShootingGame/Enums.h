@@ -5,7 +5,7 @@ enum SCENEID
 	LOGO,
 	MENU,
 	WEAPON,
-	STAGE,
+	STAGE1,
 	EXIT,
 };
 

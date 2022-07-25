@@ -108,3 +108,9 @@ void Stage::CollisionCheck()
 		}
 	}
 }
+
+void Stage::GetUserInstance()
+{
+	// PlayerÀÇ Bullet ¼¼ÆÃ
+	((Player*)pPlayer)->SetBullet(UserInstance::GetInstance()->GetBullet());
+}

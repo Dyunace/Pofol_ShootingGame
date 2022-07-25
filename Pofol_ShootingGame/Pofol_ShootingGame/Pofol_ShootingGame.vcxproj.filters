@@ -109,18 +109,6 @@
     <Filter Include="소스 파일\02.Object\Enemy\EnemyBridge">
       <UniqueIdentifier>{9997793a-d346-45f4-a02f-106cfb9f1aa5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\02.Object\Enemy\EnemyBridge\NormalEnemy">
-      <UniqueIdentifier>{48606c89-323c-41d7-8223-23ebf5e809b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\02.Object\Enemy\EnemyBridge\ESmall">
-      <UniqueIdentifier>{247e7484-689b-445a-9acf-eaa7d0c67442}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\02.Object\Enemy\EnemyBridge\BigEnemy">
-      <UniqueIdentifier>{3dc9a9fd-79d7-45b0-9084-e69486805af2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\02.Object\Enemy\EnemyBridge\BossEnemy">
-      <UniqueIdentifier>{a1a323c3-06ca-479c-9178-2e9c44201943}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\02.Object\Bullet\BulletBridge\EnemyBullet">
       <UniqueIdentifier>{54cec3ab-2301-4da8-ab14-eeb5c9ed72a4}</UniqueIdentifier>
     </Filter>
@@ -144,6 +132,18 @@
     </Filter>
     <Filter Include="소스 파일\99.Manager\UserInterface">
       <UniqueIdentifier>{e19fcd68-2d1b-4b67-a136-17470c09873b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Enemy\EnemyBridge\01_NormalEnemy">
+      <UniqueIdentifier>{48606c89-323c-41d7-8223-23ebf5e809b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Enemy\EnemyBridge\02_SmallEnemy">
+      <UniqueIdentifier>{247e7484-689b-445a-9acf-eaa7d0c67442}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Enemy\EnemyBridge\03_BigEnemy">
+      <UniqueIdentifier>{3dc9a9fd-79d7-45b0-9084-e69486805af2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Enemy\EnemyBridge\11_BossEnemy">
+      <UniqueIdentifier>{a1a323c3-06ca-479c-9178-2e9c44201943}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -205,7 +205,7 @@
       <Filter>소스 파일\02.Object\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="NormalEnemy.cpp">
-      <Filter>소스 파일\02.Object\Enemy\EnemyBridge\NormalEnemy</Filter>
+      <Filter>소스 파일\02.Object\Enemy\EnemyBridge\01_NormalEnemy</Filter>
     </ClCompile>
     <ClCompile Include="ObjectPool.cpp">
       <Filter>소스 파일\98.Pattern\ObjectPool</Filter>
@@ -230,6 +230,12 @@
     </ClCompile>
     <ClCompile Include="Stage1.cpp">
       <Filter>소스 파일\01.Scene\Stage\Stage1</Filter>
+    </ClCompile>
+    <ClCompile Include="SmallEnemy.cpp">
+      <Filter>소스 파일\02.Object\Enemy\EnemyBridge\02_SmallEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBridge.cpp">
+      <Filter>소스 파일\02.Object\Enemy\EnemyBridge</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -303,7 +309,7 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="NormalEnemy.h">
-      <Filter>소스 파일\02.Object\Enemy\EnemyBridge\NormalEnemy</Filter>
+      <Filter>소스 파일\02.Object\Enemy\EnemyBridge\01_NormalEnemy</Filter>
     </ClInclude>
     <ClInclude Include="ObjectPool.h">
       <Filter>소스 파일\98.Pattern\ObjectPool</Filter>
@@ -352,6 +358,9 @@
     </ClInclude>
     <ClInclude Include="UserInterface.h">
       <Filter>소스 파일\99.Manager\UserInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="SmallEnemy.h">
+      <Filter>소스 파일\02.Object\Enemy\EnemyBridge\02_SmallEnemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

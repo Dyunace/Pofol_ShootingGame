@@ -1,13 +1,14 @@
 #include "Stage1.h"
-#include "Player.h"
-#include "NormalBullet.h"
 #include "CursorManager.h"
 #include "ObjectManager.h"
-#include "CollisionManager.h"
-#include "UserInstance.h"
-#include "NormalEnemy.h"
 
-Stage1::Stage1() : pEnemy(nullptr) {}
+#include "Player.h"
+#include "NormalEnemy.h"
+#include "SmallEnemy.h"
+
+#include "NormalBullet.h"
+
+Stage1::Stage1() {}
 Stage1::~Stage1(){}
 
 void Stage1::Initialize()
@@ -16,19 +17,11 @@ void Stage1::Initialize()
 	pPlayer = ObjectManager::GetInstance()->GetObjectList(PLAYER)->front();
 	pPlayer->SetPosition(40, 40);
 
-	// Player의 Bullet 세팅
-	((Player*)pPlayer)->SetBullet(UserInstance::GetInstance()->GetBullet());
+	GetUserInstance();
+
 	// Laser Bullet 중복 방지
 	if (((Player*)pPlayer)->GetBullet() == LASERBULLET)
 		isLaser = true;
-
-	// 테스트용 Enemy
-	Bridge* enemy = new NormalEnemy;
-	ObjectManager::GetInstance()->AddBridge(NORMALENEMY, enemy, Vector3(40, 10));
-	pEnemy = ObjectManager::GetInstance()->GetObjectList(NORMALENEMY)->front();
-	((EnemyBridge*)enemy)->SetMovement(0);
-
-	((Player*)pPlayer)->SetBullet(UserInstance::GetInstance()->GetBullet());
 
 	// 오브젝트 정보 가져오기
 	GetObjectLists();
@@ -42,18 +35,25 @@ void Stage1::Update()
 
 	++SceneCount;
 
+	if (SceneCount == 30)
+	{
+		Bridge* sEnemy = new NormalEnemy;
+		ObjectManager::GetInstance()->AddBridge(NORMALENEMY, sEnemy, Vector3(40, 10));
+		((EnemyBridge*)sEnemy)->SetMovement(0);
+	}
+
 	if (SceneCount == 60)
 	{
-		Bridge* EnemyBridge = new NormalEnemy;
-		ObjectManager::GetInstance()->AddBridge(NORMALENEMY, EnemyBridge, Vector3(20, 15));
-		((NormalEnemy*)EnemyBridge)->SetMovement(11);
+		Bridge* sEnemy = new SmallEnemy;
+		ObjectManager::GetInstance()->AddBridge(NORMALENEMY, sEnemy, Vector3(20, 5));
+		((EnemyBridge*)sEnemy)->SetMovement(3);
 	}
 
 	if (SceneCount == 90)
 	{
-		Bridge* EnemyBridge = new NormalEnemy;
-		ObjectManager::GetInstance()->AddBridge(NORMALENEMY, EnemyBridge, Vector3(60, 10));
-		((NormalEnemy*)EnemyBridge)->SetMovement(99);
+		Bridge* sEnemy = new NormalEnemy;
+		ObjectManager::GetInstance()->AddBridge(NORMALENEMY, sEnemy, Vector3(60, 10));
+		((EnemyBridge*)sEnemy)->SetMovement(11);
 	}
 }
 

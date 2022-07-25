@@ -19,6 +19,9 @@ void Prototype::Initialize()
 	// Àû
 	Key = NORMALENEMY;
 	ProtoTypeList[Key] = (new Enemy(Info))->Initialize(Key);
+	Key = SMALLENEMY;
+	ProtoTypeList[Key] = (new Enemy(Info))->Initialize(Key);
+
 
 	// ÃÑ¾Ë
 	Key = NORMALBULLET;

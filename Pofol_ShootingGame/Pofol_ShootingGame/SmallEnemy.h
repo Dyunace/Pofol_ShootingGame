@@ -1,14 +1,13 @@
 #pragma once
 #include "EnemyBridge.h"
 
-class NormalEnemy : public EnemyBridge
+class SmallEnemy : public EnemyBridge
 {
 private:
-	char* Buffer[4];
-	string pBullet;
+	char* Buffer[2];
 public:
-	NormalEnemy();
-	virtual ~NormalEnemy();
+	SmallEnemy();
+	virtual ~SmallEnemy();
 public:
 	virtual void Initialize() override;
 	virtual int Update() override;

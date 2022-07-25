@@ -22,7 +22,7 @@ void BulletManager::MakePlayerBullet(string _Key, Vector3 _Position, float _Limi
 
 	float Limit = _LimitY;
 	float PosX = _Position.x;
-	float PosY = _Position.y;
+	float PosY = ((_Position.y * 100) / 100);
 
 	if (_Key == NORMALBULLET)
 	{
@@ -57,7 +57,7 @@ void BulletManager::MakePlayerBullet(string _Key, Vector3 _Position, float _Limi
 	}
 	else if (_Key == LASERBULLET)
 	{
-		for (auto i = Limit; i < PosY - 1; ++i)
+		for (auto i = Limit; i < PosY - 2; ++i)
 		{
 			// Lv. 1
 			if (BulletLevel == 1 || BulletLevel == 3)

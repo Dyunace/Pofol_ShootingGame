@@ -11,10 +11,8 @@ protected:
 	int Color;
 
 	int Damage;
-
-	Vector3 TargetDirection;
 public:
-	BulletBridge() : Speed(0), Color(0), Damage(0), TargetDirection(0, 1), Buffer() {};
+	BulletBridge() : Speed(0), Color(0), Damage(0), Buffer() {};
 	virtual ~BulletBridge() {};
 public:
 	virtual void Initialize()PURE;

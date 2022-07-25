@@ -1,6 +1,7 @@
 #include "NormalEnemy.h"
 #include "CursorManager.h"
 #include "BulletManager.h"
+#include "Object.h"
 
 NormalEnemy::NormalEnemy() : Buffer() {}
 NormalEnemy::~NormalEnemy(){}
@@ -19,8 +20,6 @@ void NormalEnemy::Initialize()
 
 int NormalEnemy::Update()
 {
-	auto Pos = pObject->GetPosition();
-
 	Movement();
 
 	if (ShootDelay < 0)
@@ -61,9 +60,4 @@ void NormalEnemy::ShootBullet()
 	BulletManager::GetInstance()->MakeEnemyBullet(pBullet, pObject->GetPosition());
 
 	ShootDelay = 60;
-}
-
-void NormalEnemy::SetMovement(int _Type)
-{
-	MoveType = _Type;
 }

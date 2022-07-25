@@ -15,7 +15,9 @@ void NormalBullet::Initialize()
 int NormalBullet::Update()
 {
 	// 이동
-	pObject->SetPosition(pObject->GetPosition().x + TargetDirection.x, pObject->GetPosition().y - 1);
+	pObject->SetPosition(
+		pObject->GetPosition().x + pObject->GetDirection().x, 
+		pObject->GetPosition().y - 1);
 
 	// BufferOver 체크
 	if (BufferCheck())
@@ -35,10 +37,10 @@ void NormalBullet::Release()
 
 void NormalBullet::SetTarget(Vector3 _Target)
 {
-	TargetDirection = _Target;
+	pObject->SetDirection(_Target);
 }
 
 void NormalBullet::SetTarget(float _x, float _y)
 {
-	TargetDirection = Vector3(_x, _y);
+	pObject->SetDirection(_x, _y);
 }

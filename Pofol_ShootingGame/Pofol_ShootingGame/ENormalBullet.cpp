@@ -16,7 +16,10 @@ void ENormalBullet::Initialize()
 int ENormalBullet::Update()
 {
 	// 이동
-	pObject->SetPosition(pObject->GetPosition().x + TargetDirection.x, pObject->GetPosition().y + TargetDirection.y);
+	pObject->SetPosition(
+		pObject->GetPosition().x + pObject->GetDirection().x,
+		pObject->GetPosition().y + pObject->GetDirection().y
+	);
 
 	// BufferOver 체크
 	if (BufferCheck())
@@ -36,10 +39,10 @@ void ENormalBullet::Release()
 
 void ENormalBullet::SetTarget(Vector3 _Target)
 {
-	TargetDirection = MathManager::GetDirection(pObject->GetPosition(), _Target);
+	pObject->SetDirection(MathManager::GetDirection(pObject->GetPosition(), _Target));
 }
 
 void ENormalBullet::SetTarget(float _x, float _y)
 {
-	TargetDirection = MathManager::GetDirection(pObject->GetPosition(), Vector3(_x, _y));
+	pObject->SetDirection(MathManager::GetDirection(pObject->GetPosition(), Vector3(_x, _y)));
 }

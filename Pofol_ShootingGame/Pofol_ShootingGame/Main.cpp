@@ -1,8 +1,16 @@
-// Shooting v1.11.2 EnemyMovement
+// Shooting v1.11.3 EnemyMovement
 /*
 	주요 변경점:
-		UserInterface 클래스 생성
-		Scene::MakeBorder 함수 대체 사용
+		SmallEnemy 생성
+			1. SmallEnemy는 Player의 x축을 기준으로 Direction만큼 x축 이동함.
+			2. Y축 이동은 자신의 MoveSpeed만큼 이동함.
+			3. 이동 방식은 아래의 가변 패턴을 사용
+
+		EnemyMovement 행동 가변 Type 만들기
+			1. Movement에 가변형 Type을 위한 case를 만든다.
+			2. Movement에서 MoveCount를 확인하고, 일정 틱이 지나면 다음 Type으로 바꾼다.
+			3. Stage에서는 초기 설정으로 가변 Type을 설정한다.
+
 
 	다음 할 일:
 		본격적으로 EnemySetting하기

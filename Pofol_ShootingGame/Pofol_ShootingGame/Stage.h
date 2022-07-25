@@ -23,5 +23,7 @@ public:
 
 	void GetObjectLists();
 	void CollisionCheck();
+
+	void GetUserInstance();
 };
 

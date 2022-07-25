@@ -34,6 +34,10 @@ public:
 	Vector3 GetScale() const { return TransInfo.Scale; }
 	void SetScale(float _x, float _y) { TransInfo.Scale = Vector3(_x, _y); }
 
+	Vector3 GetDirection() const { return TransInfo.Direction; }
+	void SetDirection(float _x, float _y) { TransInfo.Direction = Vector3(_x, _y); }
+	void SetDirection(Vector3 _Position) { TransInfo.Direction = _Position; }
+
 	// ÃÑ¾Ë ºê¸´Áö
 	Bridge* GetBridge() { return pBridge; }
 	void SetBridge(Bridge* _Bridge) { pBridge = _Bridge; }

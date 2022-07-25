@@ -34,6 +34,7 @@
     <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Prototype.cpp" />
+    <ClCompile Include="SmallEnemy.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Stage1.cpp" />
     <ClCompile Include="UserInstance.cpp" />
@@ -47,6 +48,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="WeaponSelect.cpp" />
+    <ClCompile Include="EnemyBridge.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
@@ -74,6 +76,7 @@
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Prototype.h" />
+    <ClInclude Include="SmallEnemy.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Stage1.h" />
     <ClInclude Include="UserInstance.h" />

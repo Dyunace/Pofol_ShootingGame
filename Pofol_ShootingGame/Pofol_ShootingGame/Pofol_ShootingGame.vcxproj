@@ -77,6 +77,7 @@
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Stage1.h" />
     <ClInclude Include="UserInstance.h" />
+    <ClInclude Include="UserInterface.h" />
     <ClInclude Include="Warning.h" />
     <ClInclude Include="Headers.h" />
     <ClInclude Include="InputManager.h" />

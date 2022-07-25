@@ -9,6 +9,7 @@
 #include "ObjectManager.h"
 #include "ObjectPool.h"
 #include "UserInstance.h"
+#include "UserInterface.h"
 
 WeaponSelect::WeaponSelect() : pPlayer(nullptr), Selection(0) {}
 WeaponSelect::~WeaponSelect() { Release(); }
@@ -79,20 +80,20 @@ void WeaponSelect::Update()
 void WeaponSelect::Render()
 {
 	// Side Border
-	MakeBorder(10, 2, 30, 50);
+	UserInterface::MakeUI(10, 2, 30, 50);
 
 	// Priview Border
 	CursorManager::GetInstance()->WriteBuffer(31, 4, (char*)"Priview Weapon Lv.3");
-	MakeBorder(16, 7, 24, 15);
+	UserInterface::MakeUI(16, 7, 24, 15);
 
 
 	// Weapon Select
 	CursorManager::GetInstance()->WriteBuffer(28, 25, (char*)"Select Weapon With Start");
 
-	MakeBorder(24, 28, 5, 5);
+	UserInterface::MakeUI(24, 28, 5, 5);
 	CursorManager::GetInstance()->WriteBuffer(28, 30, (char*)"¢Á");
 
-	MakeBorder(46, 28, 5, 5);
+	UserInterface::MakeUI(46, 28, 5, 5);
 	CursorManager::GetInstance()->WriteBuffer(50, 30, (char*)"¥±");
 
 	// Selection

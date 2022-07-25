@@ -142,6 +142,9 @@
     <Filter Include="소스 파일\01.Scene\Stage\Stage1">
       <UniqueIdentifier>{aefdca47-e064-4990-b667-a2dedf25b238}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\99.Manager\UserInterface">
+      <UniqueIdentifier>{e19fcd68-2d1b-4b67-a136-17470c09873b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -346,6 +349,9 @@
     </ClInclude>
     <ClInclude Include="Stage1.h">
       <Filter>소스 파일\01.Scene\Stage\Stage1</Filter>
+    </ClInclude>
+    <ClInclude Include="UserInterface.h">
+      <Filter>소스 파일\99.Manager\UserInterface</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

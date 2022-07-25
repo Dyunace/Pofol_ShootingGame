@@ -4,6 +4,7 @@
 #include "SceneManager.h"
 #include "CursorManager.h"
 #include "Warning.h"
+#include "UserInterface.h"
 
 Menu::Menu() : Selection(0), isWarning(false) {}
 Menu::~Menu(){}
@@ -54,7 +55,7 @@ void Menu::Update()
 void Menu::Render()
 {
 	LogoImage::GetInstance()->RenderLogoImage(46);
-	Scene::MakeBorder(25, 24, 15, 13);
+	UserInterface::MakeUI(25, 24, 15, 13);
 	CursorManager::GetInstance()->WriteBuffer(30, 27, (char*)"Start Game");
 	CursorManager::GetInstance()->WriteBuffer(30, 30, (char*)"Option");
 	CursorManager::GetInstance()->WriteBuffer(30, 33, (char*)"Exit Game");

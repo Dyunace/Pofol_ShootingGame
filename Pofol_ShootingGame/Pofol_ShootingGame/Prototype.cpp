@@ -21,6 +21,8 @@ void Prototype::Initialize()
 	ProtoTypeList[Key] = (new Enemy(Info))->Initialize(Key);
 	Key = SMALLENEMY;
 	ProtoTypeList[Key] = (new Enemy(Info))->Initialize(Key);
+	Key = BIGENEMY;
+	ProtoTypeList[Key] = (new Enemy(Info))->Initialize(Key);
 
 
 	// ÃÑ¾Ë

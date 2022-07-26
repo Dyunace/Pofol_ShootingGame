@@ -13,7 +13,11 @@ Stage::~Stage(){}
 void Stage::GetObjectLists()
 {
 	pPlayer = ObjectManager::GetInstance()->GetObjectList(PLAYER)->front();
+
 	NormalEnemyList = ObjectManager::GetInstance()->GetObjectList(NORMALENEMY);
+	SmallEnemyList = ObjectManager::GetInstance()->GetObjectList(SMALLENEMY);
+	BigEnemyList = ObjectManager::GetInstance()->GetObjectList(BIGENEMY);
+
 	PlayerBulletList = ObjectManager::GetInstance()->GetObjectList(((Player*)pPlayer)->GetBullet());
 	ENormalBulletList = ObjectManager::GetInstance()->GetObjectList(ENORMALBULLET);
 }
@@ -21,45 +25,125 @@ void Stage::GetObjectLists()
 void Stage::CollisionCheck()
 {
 	// 플레이어 총알 & 적 충돌 검사
-	if (NormalEnemyList)
+	if (NormalEnemyList && PlayerBulletList)
 	{
-		if (PlayerBulletList)
+		for (auto NormalEnemyIter = NormalEnemyList->begin();
+			NormalEnemyIter != NormalEnemyList->end(); ++NormalEnemyIter)
 		{
-			for (auto NormalEnemyIter = NormalEnemyList->begin(); NormalEnemyIter != NormalEnemyList->end(); ++NormalEnemyIter)
+			bool canDamage = true;
+
+			for (auto PlayerBulletIter = PlayerBulletList->begin();
+				PlayerBulletIter != PlayerBulletList->end();)
 			{
-				bool canDamage = true;
-
-				for (auto PlayerBulletIter = PlayerBulletList->begin(); PlayerBulletIter != PlayerBulletList->end();)
+				if (CollisionManager::CircleCollision(*NormalEnemyIter, *PlayerBulletIter))
 				{
-					if (CollisionManager::CircleCollision(*NormalEnemyIter, *PlayerBulletIter))
+					// 충돌 검사 디버그
+					CursorManager::GetInstance()->WriteBuffer(
+						(*NormalEnemyIter)->GetPosition().x,
+						(*NormalEnemyIter)->GetPosition().y - (*NormalEnemyIter)->GetScale().y,
+						(char*)"Hit!"
+					);
+
+					if (canDamage)
 					{
-						// 충돌 검사 디버그
-						CursorManager::GetInstance()->WriteBuffer(
-							(*NormalEnemyIter)->GetPosition().x,
-							(*NormalEnemyIter)->GetPosition().y - (*NormalEnemyIter)->GetScale().y,
-							(char*)"Hit!"
-						);
+						// Enemy에 데미지 계산
+						((EnemyBridge*)((*NormalEnemyIter)->GetBridge()))->TakeDamage(
+							((BulletBridge*)((*PlayerBulletIter)->GetBridge()))->GetDamage());
 
-						if (canDamage)
-						{
-							// Enemy에 데미지 계산
-							((EnemyBridge*)((*NormalEnemyIter)->GetBridge()))->TakeDamage(
-								((BulletBridge*)((*PlayerBulletIter)->GetBridge()))->GetDamage());
-
-							if (isLaser)
-								canDamage = false;
-						}
-
-						// 총알 정보 삭제
-						::Safe_Delete((*PlayerBulletIter)->GetBridge());
-
-						// DisableList에 보관
-						PlayerBulletIter = ObjectManager::GetInstance()->ThrowObject(PlayerBulletIter, (*PlayerBulletIter));
-
+						if (isLaser)
+							canDamage = false;
 					}
-					else
-						++PlayerBulletIter;
+
+					// 총알 정보 삭제
+					::Safe_Delete((*PlayerBulletIter)->GetBridge());
+
+					// DisableList에 보관
+					PlayerBulletIter = ObjectManager::GetInstance()->ThrowObject(PlayerBulletIter, (*PlayerBulletIter));
 				}
+				else
+					++PlayerBulletIter;
+			}
+		}
+	}
+
+	if (SmallEnemyList && PlayerBulletList)
+	{
+		for (auto SmallEnemyIter = SmallEnemyList->begin();
+			SmallEnemyIter != SmallEnemyList->end(); ++SmallEnemyIter)
+		{
+			bool canDamage = true;
+
+			for (auto PlayerBulletIter = PlayerBulletList->begin();
+				PlayerBulletIter != PlayerBulletList->end();)
+			{
+				if (CollisionManager::CircleCollision(*SmallEnemyIter, *PlayerBulletIter))
+				{
+					// 충돌 검사 디버그
+					CursorManager::GetInstance()->WriteBuffer(
+						(*SmallEnemyIter)->GetPosition().x,
+						(*SmallEnemyIter)->GetPosition().y - (*SmallEnemyIter)->GetScale().y,
+						(char*)"Hit!"
+					);
+
+					if (canDamage)
+					{
+						// Enemy에 데미지 계산
+						((EnemyBridge*)((*SmallEnemyIter)->GetBridge()))->TakeDamage(
+							((BulletBridge*)((*PlayerBulletIter)->GetBridge()))->GetDamage());
+
+						if (isLaser)
+							canDamage = false;
+					}
+
+					// 총알 정보 삭제
+					::Safe_Delete((*PlayerBulletIter)->GetBridge());
+
+					// DisableList에 보관
+					PlayerBulletIter = ObjectManager::GetInstance()->ThrowObject(PlayerBulletIter, (*PlayerBulletIter));
+				}
+				else
+					++PlayerBulletIter;
+			}
+		}
+	}
+
+	if (BigEnemyList && PlayerBulletList)
+	{
+		for (auto BigEnemyIter = BigEnemyList->begin();
+			BigEnemyIter != BigEnemyList->end(); ++BigEnemyIter)
+		{
+			bool canDamage = true;
+
+			for (auto PlayerBulletIter = PlayerBulletList->begin();
+				PlayerBulletIter != PlayerBulletList->end();)
+			{
+				if (CollisionManager::CircleCollision(*BigEnemyIter, *PlayerBulletIter))
+				{
+					// 충돌 검사 디버그
+					CursorManager::GetInstance()->WriteBuffer(
+						(*BigEnemyIter)->GetPosition().x,
+						(*BigEnemyIter)->GetPosition().y - (*BigEnemyIter)->GetScale().y,
+						(char*)"Hit!"
+					);
+
+					if (canDamage)
+					{
+						// Enemy에 데미지 계산
+						((EnemyBridge*)((*BigEnemyIter)->GetBridge()))->TakeDamage(
+							((BulletBridge*)((*PlayerBulletIter)->GetBridge()))->GetDamage());
+
+						if (isLaser)
+							canDamage = false;
+					}
+
+					// 총알 정보 삭제
+					::Safe_Delete((*PlayerBulletIter)->GetBridge());
+
+					// DisableList에 보관
+					PlayerBulletIter = ObjectManager::GetInstance()->ThrowObject(PlayerBulletIter, (*PlayerBulletIter));
+				}
+				else
+					++PlayerBulletIter;
 			}
 		}
 	}
@@ -80,6 +164,44 @@ void Stage::CollisionCheck()
 			}
 			else
 				++NormalEnemyIter;
+		}
+	}
+
+	// 적 처치 검사
+	if (SmallEnemyList)
+	{
+		for (auto SmallEnemyIter = SmallEnemyList->begin(); SmallEnemyIter != SmallEnemyList->end();)
+		{
+			if (((EnemyBridge*)((*SmallEnemyIter)->GetBridge()))->GetHP() <= 0)
+			{
+
+				// 적 정보 삭제
+				::Safe_Delete((*SmallEnemyIter)->GetBridge());
+
+				// DisableList에 보관
+				SmallEnemyIter = ObjectManager::GetInstance()->ThrowObject(SmallEnemyIter, (*SmallEnemyIter));
+			}
+			else
+				++SmallEnemyIter;
+		}
+	}
+
+	// 적 처치 검사
+	if (BigEnemyList)
+	{
+		for (auto BigEnemyIter = BigEnemyList->begin(); BigEnemyIter != BigEnemyList->end();)
+		{
+			if (((EnemyBridge*)((*BigEnemyIter)->GetBridge()))->GetHP() <= 0)
+			{
+
+				// 적 정보 삭제
+				::Safe_Delete((*BigEnemyIter)->GetBridge());
+
+				// DisableList에 보관
+				BigEnemyIter = ObjectManager::GetInstance()->ThrowObject(BigEnemyIter, (*BigEnemyIter));
+			}
+			else
+				++BigEnemyIter;
 		}
 	}
 

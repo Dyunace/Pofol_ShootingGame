@@ -9,8 +9,9 @@ protected:
 	float MoveSpeed;
 	int MoveType;
 	int MoveCount;
+	int BulletType;
 public:
-	EnemyBridge() : ShootDelay(0), Hp(0), MoveSpeed(0.0f), MoveType(0), MoveCount(0) {};
+	EnemyBridge() : ShootDelay(0), Hp(0), MoveSpeed(0.0f), MoveType(0), MoveCount(0), BulletType(0) {};
 	virtual ~EnemyBridge() {};
 
 public:

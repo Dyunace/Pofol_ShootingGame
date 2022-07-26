@@ -9,6 +9,8 @@ protected:
 	bool isLaser;
 
 	list<Object*>* NormalEnemyList;
+	list<Object*>* SmallEnemyList;
+	list<Object*>* BigEnemyList;
 	
 	list<Object*>* PlayerBulletList;
 	list<Object*>* ENormalBulletList;

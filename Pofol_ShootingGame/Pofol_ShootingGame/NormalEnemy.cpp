@@ -13,9 +13,10 @@ void NormalEnemy::Initialize()
 	Buffer[2] = (char*)"¥µ";
 	Buffer[3] = (char*)"¥³";
 
-	Hp = 10;
+	Hp = 20;
 	MoveSpeed = 0.25f;
-	pBullet = ENORMALBULLET;
+
+	BulletType = 2;
 }
 
 int NormalEnemy::Update()
@@ -57,7 +58,7 @@ void NormalEnemy::Release()
 
 void NormalEnemy::ShootBullet()
 {
-	BulletManager::GetInstance()->MakeEnemyBullet(pBullet, pObject->GetPosition());
+	BulletManager::GetInstance()->MakeEnemyBullet(BulletType, pObject->GetPosition());
 
-	ShootDelay = 60;
+	ShootDelay = 15;
 }

@@ -1,5 +1,6 @@
 #include "SmallEnemy.h"
 #include "CursorManager.h"
+#include "BulletManager.h"
 #include "Object.h"
 
 SmallEnemy::SmallEnemy() : Buffer() {}
@@ -10,8 +11,9 @@ void SmallEnemy::Initialize()
     Buffer[0] = (char*)"¥Ì";
     Buffer[1] = (char*)"¥×";
 
-	Hp = 3;
+	Hp = 10;
 	MoveSpeed = 0.5f;
+	BulletType = 1;
 }
 
 int SmallEnemy::Update()
@@ -53,4 +55,7 @@ void SmallEnemy::Release()
 
 void SmallEnemy::ShootBullet()
 {
+	BulletManager::GetInstance()->MakeEnemyBullet(BulletType, pObject->GetPosition());
+
+	ShootDelay = 10;
 }

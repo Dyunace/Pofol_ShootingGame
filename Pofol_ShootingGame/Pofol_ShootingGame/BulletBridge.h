@@ -7,8 +7,8 @@ class BulletBridge : public Bridge
 protected:
 	// Bullet 기본 정보
 	char* Buffer[1];
-	float Speed;
 	int Color;
+	float Speed;
 
 	int Damage;
 public:
@@ -26,7 +26,9 @@ public:
 public:
 	int BulletPriview(float _left, float _Width, float _up)
 	{
-		if (pObject->GetPosition().x <= _left || pObject->GetPosition().x >= _left + (_Width * 2) || pObject->GetPosition().y < _up)
+		if (pObject->GetPosition().x <= _left + Speed ||
+			pObject->GetPosition().x >= _left + (_Width * 2) - Speed ||
+			pObject->GetPosition().y < _up + Speed)
 			return BUFFER_OVER;
 		else
 			return 0;

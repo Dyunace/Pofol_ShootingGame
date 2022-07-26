@@ -8,8 +8,9 @@ void NormalBullet::Initialize()
 {
 	Buffer[0] = (char*)"⊙";
 
-	Damage = 2;
+	Damage = 4;
 	Color = 13;
+	Speed = 2.0f;
 }
 
 int NormalBullet::Update()
@@ -17,7 +18,7 @@ int NormalBullet::Update()
 	// 이동
 	pObject->SetPosition(
 		pObject->GetPosition().x + pObject->GetDirection().x, 
-		pObject->GetPosition().y - 1);
+		pObject->GetPosition().y - Speed);
 
 	// BufferOver 체크
 	if (BufferCheck())

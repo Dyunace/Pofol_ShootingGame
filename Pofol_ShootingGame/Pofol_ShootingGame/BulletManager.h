@@ -20,6 +20,6 @@ public:
 	~BulletManager();
 public:
 	void MakePlayerBullet(string _Key, Vector3 _Position, float _LimitY);
-	void MakeEnemyBullet(string _Key, Vector3 _Position);
+	void MakeEnemyBullet(int _BulletType, Vector3 _Position);
 };
 

@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "NormalEnemy.h"
 #include "SmallEnemy.h"
+#include "BigEnemy.h"
 
 #include "NormalBullet.h"
 
@@ -45,14 +46,14 @@ void Stage1::Update()
 	if (SceneCount == 60)
 	{
 		Bridge* sEnemy = new SmallEnemy;
-		ObjectManager::GetInstance()->AddBridge(NORMALENEMY, sEnemy, Vector3(20, 5));
-		((EnemyBridge*)sEnemy)->SetMovement(3);
+		ObjectManager::GetInstance()->AddBridge(SMALLENEMY, sEnemy, Vector3(20, 5));
+		((EnemyBridge*)sEnemy)->SetMovement(1);
 	}
 
 	if (SceneCount == 90)
 	{
-		Bridge* sEnemy = new NormalEnemy;
-		ObjectManager::GetInstance()->AddBridge(NORMALENEMY, sEnemy, Vector3(60, 10));
+		Bridge* sEnemy = new BigEnemy;
+		ObjectManager::GetInstance()->AddBridge(BIGENEMY, sEnemy, Vector3(60, 10));
 		((EnemyBridge*)sEnemy)->SetMovement(11);
 	}
 }

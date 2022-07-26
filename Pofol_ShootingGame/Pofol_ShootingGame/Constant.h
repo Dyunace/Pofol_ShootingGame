@@ -29,9 +29,13 @@ const SHORT ConsoleHeightSize = 55;
 const string PLAYER = "00_Player";
 const string NORMALENEMY = "01_NormalEnemy";
 const string SMALLENEMY = "02_SmallEnemy";
+const string BIGENEMY = "03_BigEnemy";
 
 const string NORMALBULLET = "11_NormalBullet";
 const string LASERBULLET = "12_LaserBullet";
 
 const string ENORMALBULLET = "21_ENormalBullet";
 const string ESPECIALBULLET = "22_ESpecialBullet";
+
+// ETC
+const int EnemyBulletTargetY = 50;

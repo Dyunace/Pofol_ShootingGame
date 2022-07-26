@@ -22,12 +22,6 @@
     <Filter Include="소스 파일\99.Manager">
       <UniqueIdentifier>{1b83a19c-336f-46d5-ad13-32efa3e357f3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\99.Manager\SceneManager">
-      <UniqueIdentifier>{ec629ac9-953c-4865-b5c0-fb92c8b39bf9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\99.Manager\CursorManager">
-      <UniqueIdentifier>{fa6d97a8-70e8-4bc6-9f8d-ed778b219675}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\01.Scene">
       <UniqueIdentifier>{c7ff7425-9804-4e39-b300-d08757b0e6ca}</UniqueIdentifier>
     </Filter>
@@ -45,12 +39,6 @@
     </Filter>
     <Filter Include="소스 파일\99.Manager\InputManager">
       <UniqueIdentifier>{7e465dbf-afb0-4264-bb2e-b0fa44239fcf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\99.Manager\BackGround">
-      <UniqueIdentifier>{83a33279-085c-4abe-a9ce-f2a8653e1b74}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\99.Manager\BackGround\BGIcon">
-      <UniqueIdentifier>{fc8ef1a9-a379-4b73-8008-e8ff231ded7c}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\01.Scene\Option">
       <UniqueIdentifier>{17ca44dc-37c1-467d-b3ae-4757f647abe5}</UniqueIdentifier>
@@ -85,26 +73,11 @@
     <Filter Include="소스 파일\98.Pattern\ObjectPool">
       <UniqueIdentifier>{5d5a2786-9160-4bff-9de7-19c4c366bd22}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\99.Manager\ObjectManager">
-      <UniqueIdentifier>{da21f5cc-e4b7-4c11-b446-ce53bd0d8594}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\02.Object\Bullet\BulletBridge">
       <UniqueIdentifier>{2216a7b0-8ee1-4f2d-bb6c-c1b3d8e77460}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\99.Manager\ObjectFactory">
-      <UniqueIdentifier>{7da3bddf-0d23-43f5-98fb-210959cdfeaa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\99.Manager\MathManager">
-      <UniqueIdentifier>{0db98196-359a-4723-9a5e-3734da2e8f07}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\99.Manager\CollisionManager">
-      <UniqueIdentifier>{9c421ef6-19a4-41f7-9309-3bec547a1e6d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\98.Pattern\Bridge">
       <UniqueIdentifier>{7f8f949a-1964-4ac4-b2d9-b4220c143e8e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\99.Manager\BulletManager">
-      <UniqueIdentifier>{5d978a15-71bd-476f-ac8a-89476c5e6c80}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\02.Object\Enemy\EnemyBridge">
       <UniqueIdentifier>{9997793a-d346-45f4-a02f-106cfb9f1aa5}</UniqueIdentifier>
@@ -130,9 +103,6 @@
     <Filter Include="소스 파일\01.Scene\Stage\Stage1">
       <UniqueIdentifier>{aefdca47-e064-4990-b667-a2dedf25b238}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\99.Manager\UserInterface">
-      <UniqueIdentifier>{e19fcd68-2d1b-4b67-a136-17470c09873b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\02.Object\Enemy\EnemyBridge\01_NormalEnemy">
       <UniqueIdentifier>{48606c89-323c-41d7-8223-23ebf5e809b6}</UniqueIdentifier>
     </Filter>
@@ -145,6 +115,45 @@
     <Filter Include="소스 파일\02.Object\Enemy\EnemyBridge\11_BossEnemy">
       <UniqueIdentifier>{a1a323c3-06ca-479c-9178-2e9c44201943}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\99.Manager\Object">
+      <UniqueIdentifier>{79319a28-6ff1-45da-82ce-36e6eedb549b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99.Manager\Object\ObjectManager">
+      <UniqueIdentifier>{da21f5cc-e4b7-4c11-b446-ce53bd0d8594}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99.Manager\Object\ObjectFactory">
+      <UniqueIdentifier>{7da3bddf-0d23-43f5-98fb-210959cdfeaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99.Manager\Object\BulletManager">
+      <UniqueIdentifier>{5d978a15-71bd-476f-ac8a-89476c5e6c80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99.Manager\Math">
+      <UniqueIdentifier>{1fa047c9-dd1c-4e78-b6a3-5c55fef61354}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99.Manager\Math\MathManager">
+      <UniqueIdentifier>{0db98196-359a-4723-9a5e-3734da2e8f07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99.Manager\Math\CollisionManager">
+      <UniqueIdentifier>{9c421ef6-19a4-41f7-9309-3bec547a1e6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99.Manager\Scene">
+      <UniqueIdentifier>{34b527c5-489c-444d-b027-845df18855d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99.Manager\Scene\BackGround">
+      <UniqueIdentifier>{83a33279-085c-4abe-a9ce-f2a8653e1b74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99.Manager\Scene\BackGround\BGIcon">
+      <UniqueIdentifier>{fc8ef1a9-a379-4b73-8008-e8ff231ded7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99.Manager\Scene\CursorManager">
+      <UniqueIdentifier>{fa6d97a8-70e8-4bc6-9f8d-ed778b219675}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99.Manager\Scene\UserInterface">
+      <UniqueIdentifier>{e19fcd68-2d1b-4b67-a136-17470c09873b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99.Manager\Scene\SceneManager">
+      <UniqueIdentifier>{ec629ac9-953c-4865-b5c0-fb92c8b39bf9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -154,10 +163,10 @@
       <Filter>소스 파일\00.MainUpdate</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>소스 파일\99.Manager\SceneManager</Filter>
+      <Filter>소스 파일\99.Manager\Scene\SceneManager</Filter>
     </ClCompile>
     <ClCompile Include="CursorManager.cpp">
-      <Filter>소스 파일\99.Manager\CursorManager</Filter>
+      <Filter>소스 파일\99.Manager\Scene\CursorManager</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>소스 파일\01.Scene</Filter>
@@ -172,10 +181,10 @@
       <Filter>소스 파일\01.Scene\Menu</Filter>
     </ClCompile>
     <ClCompile Include="BackGround.cpp">
-      <Filter>소스 파일\99.Manager\BackGround</Filter>
+      <Filter>소스 파일\99.Manager\Scene\BackGround</Filter>
     </ClCompile>
     <ClCompile Include="BGIcon.cpp">
-      <Filter>소스 파일\99.Manager\BackGround\BGIcon</Filter>
+      <Filter>소스 파일\99.Manager\Scene\BackGround\BGIcon</Filter>
     </ClCompile>
     <ClCompile Include="LogoImage.cpp">
       <Filter>소스 파일\01.Scene\Logo\LogoImage</Filter>
@@ -211,7 +220,7 @@
       <Filter>소스 파일\98.Pattern\ObjectPool</Filter>
     </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
-      <Filter>소스 파일\99.Manager\ObjectManager</Filter>
+      <Filter>소스 파일\99.Manager\Object\ObjectManager</Filter>
     </ClCompile>
     <ClCompile Include="Stage.cpp">
       <Filter>소스 파일\01.Scene\Stage</Filter>
@@ -223,7 +232,7 @@
       <Filter>소스 파일\02.Object\Bullet\BulletBridge\PlayerBullet\LaserBullet</Filter>
     </ClCompile>
     <ClCompile Include="BulletManager.cpp">
-      <Filter>소스 파일\99.Manager\BulletManager</Filter>
+      <Filter>소스 파일\99.Manager\Object\BulletManager</Filter>
     </ClCompile>
     <ClCompile Include="ENormalBullet.cpp">
       <Filter>소스 파일\02.Object\Bullet\BulletBridge\EnemyBullet\ENormalBullet</Filter>
@@ -237,6 +246,12 @@
     <ClCompile Include="EnemyBridge.cpp">
       <Filter>소스 파일\02.Object\Enemy\EnemyBridge</Filter>
     </ClCompile>
+    <ClCompile Include="BigEnemy.cpp">
+      <Filter>소스 파일\02.Object\Enemy\EnemyBridge\03_BigEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="BossEnemy.cpp">
+      <Filter>소스 파일\02.Object\Enemy\EnemyBridge\11_BossEnemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enums.h">
@@ -246,10 +261,10 @@
       <Filter>소스 파일\00.MainUpdate</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
-      <Filter>소스 파일\99.Manager\SceneManager</Filter>
+      <Filter>소스 파일\99.Manager\Scene\SceneManager</Filter>
     </ClInclude>
     <ClInclude Include="CursorManager.h">
-      <Filter>소스 파일\99.Manager\CursorManager</Filter>
+      <Filter>소스 파일\99.Manager\Scene\CursorManager</Filter>
     </ClInclude>
     <ClInclude Include="Struct.h">
       <Filter>헤더 파일\Include</Filter>
@@ -276,10 +291,10 @@
       <Filter>소스 파일\01.Scene\Menu</Filter>
     </ClInclude>
     <ClInclude Include="BackGround.h">
-      <Filter>소스 파일\99.Manager\BackGround</Filter>
+      <Filter>소스 파일\99.Manager\Scene\BackGround</Filter>
     </ClInclude>
     <ClInclude Include="BGIcon.h">
-      <Filter>소스 파일\99.Manager\BackGround\BGIcon</Filter>
+      <Filter>소스 파일\99.Manager\Scene\BackGround\BGIcon</Filter>
     </ClInclude>
     <ClInclude Include="Warning.h">
       <Filter>소스 파일\01.Scene\WarningSelection</Filter>
@@ -315,7 +330,7 @@
       <Filter>소스 파일\98.Pattern\ObjectPool</Filter>
     </ClInclude>
     <ClInclude Include="ObjectManager.h">
-      <Filter>소스 파일\99.Manager\ObjectManager</Filter>
+      <Filter>소스 파일\99.Manager\Object\ObjectManager</Filter>
     </ClInclude>
     <ClInclude Include="Stage.h">
       <Filter>소스 파일\01.Scene\Stage</Filter>
@@ -324,13 +339,13 @@
       <Filter>소스 파일\02.Object\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="ObjectFactory.h">
-      <Filter>소스 파일\99.Manager\ObjectFactory</Filter>
+      <Filter>소스 파일\99.Manager\Object\ObjectFactory</Filter>
     </ClInclude>
     <ClInclude Include="MathManager.h">
-      <Filter>소스 파일\99.Manager\MathManager</Filter>
+      <Filter>소스 파일\99.Manager\Math\MathManager</Filter>
     </ClInclude>
     <ClInclude Include="CollisionManager.h">
-      <Filter>소스 파일\99.Manager\CollisionManager</Filter>
+      <Filter>소스 파일\99.Manager\Math\CollisionManager</Filter>
     </ClInclude>
     <ClInclude Include="LaserBullet.h">
       <Filter>소스 파일\02.Object\Bullet\BulletBridge\PlayerBullet\LaserBullet</Filter>
@@ -342,7 +357,7 @@
       <Filter>소스 파일\02.Object\Bullet\BulletBridge</Filter>
     </ClInclude>
     <ClInclude Include="BulletManager.h">
-      <Filter>소스 파일\99.Manager\BulletManager</Filter>
+      <Filter>소스 파일\99.Manager\Object\BulletManager</Filter>
     </ClInclude>
     <ClInclude Include="EnemyBridge.h">
       <Filter>소스 파일\02.Object\Enemy\EnemyBridge</Filter>
@@ -357,10 +372,16 @@
       <Filter>소스 파일\01.Scene\Stage\Stage1</Filter>
     </ClInclude>
     <ClInclude Include="UserInterface.h">
-      <Filter>소스 파일\99.Manager\UserInterface</Filter>
+      <Filter>소스 파일\99.Manager\Scene\UserInterface</Filter>
     </ClInclude>
     <ClInclude Include="SmallEnemy.h">
       <Filter>소스 파일\02.Object\Enemy\EnemyBridge\02_SmallEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="BigEnemy.h">
+      <Filter>소스 파일\02.Object\Enemy\EnemyBridge\03_BigEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="BossEnemy.h">
+      <Filter>소스 파일\02.Object\Enemy\EnemyBridge\11_BossEnemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

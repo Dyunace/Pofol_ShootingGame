@@ -6,8 +6,16 @@
 #include "CollisionManager.h"
 #include "UserInstance.h"
 #include "NormalEnemy.h"
+#include "DamageManager.h"
 
-Stage::Stage() : ENormalBulletList(), NormalEnemyList(), pPlayer(nullptr), PlayerBulletList(), isLaser(false) {}
+Stage::Stage() : 
+	pPlayer(nullptr), 
+	PlayerBulletList(nullptr),
+	ENormalBulletList(nullptr),
+	NormalEnemyList(nullptr),
+	SmallEnemyList(nullptr),
+	BigEnemyList(nullptr),
+	isLaser(false) {}
 Stage::~Stage(){}
 
 void Stage::GetObjectLists()
@@ -24,209 +32,101 @@ void Stage::GetObjectLists()
 
 void Stage::CollisionCheck()
 {
-	// 플레이어 총알 & 적 충돌 검사
-	if (NormalEnemyList && PlayerBulletList)
+	if (PlayerBulletList)
 	{
-		for (auto NormalEnemyIter = NormalEnemyList->begin();
-			NormalEnemyIter != NormalEnemyList->end(); ++NormalEnemyIter)
+		for (int i = 0; i < 3; ++i)
 		{
-			bool canDamage = true;
+			list<Object*>* CurrentEnemyList = nullptr;
 
-			for (auto PlayerBulletIter = PlayerBulletList->begin();
-				PlayerBulletIter != PlayerBulletList->end();)
+			switch (i)
 			{
-				if (CollisionManager::CircleCollision(*NormalEnemyIter, *PlayerBulletIter))
+			case 0:
+				CurrentEnemyList = NormalEnemyList;
+				break;
+			case 1:
+				CurrentEnemyList = SmallEnemyList;
+				break;
+			case 2:
+				CurrentEnemyList = BigEnemyList;
+				break;
+			default:
+				break;
+			}
+
+			if (CurrentEnemyList)
+			{
+				for (auto CurrentEnemyIter = CurrentEnemyList->begin();
+					CurrentEnemyIter != CurrentEnemyList->end();)
+				{
+					bool canDamage = true;
+
+					for (auto PlayerBulletIter = PlayerBulletList->begin();
+						PlayerBulletIter != PlayerBulletList->end();)
+					{
+						if (CollisionManager::RectCollision
+						(*CurrentEnemyIter, *PlayerBulletIter))
+						{
+							// 충돌 검사 디버그
+							CursorManager::GetInstance()->WriteBuffer(
+								(*CurrentEnemyIter)->GetPosition().x,
+								(*CurrentEnemyIter)->GetPosition().y
+									- (*CurrentEnemyIter)->GetScale().y,
+								(char*)"Hit!"
+							);
+
+							if (canDamage)
+							{
+								DamageManager::TakeDamage(
+									(*PlayerBulletIter), (*CurrentEnemyIter));
+
+								if (isLaser)
+									canDamage = false;
+							}
+
+							// 총알 정보 삭제
+							::Safe_Delete((*PlayerBulletIter)->GetBridge());
+
+							// DisableList에 보관
+							PlayerBulletIter = ObjectManager::GetInstance()->
+								ThrowObject(PlayerBulletIter, (*PlayerBulletIter));
+						}
+						else
+							++PlayerBulletIter;
+					}
+
+					DamageManager::DeathCheck(CurrentEnemyIter, (*CurrentEnemyIter));
+				}
+			}
+		}
+	}
+
+	if (pPlayer)
+	{
+		// 적 총알 & 플레이어 충돌 검사
+		if (ENormalBulletList)
+		{
+			for (auto ENormalBulletIter = ENormalBulletList->begin();
+				ENormalBulletIter != ENormalBulletList->end();)
+			{
+				if (CollisionManager::CircleCollision(*ENormalBulletIter, pPlayer))
 				{
 					// 충돌 검사 디버그
 					CursorManager::GetInstance()->WriteBuffer(
-						(*NormalEnemyIter)->GetPosition().x,
-						(*NormalEnemyIter)->GetPosition().y - (*NormalEnemyIter)->GetScale().y,
+						pPlayer->GetPosition().x,
+						pPlayer->GetPosition().y - 2,
 						(char*)"Hit!"
 					);
 
-					if (canDamage)
-					{
-						// Enemy에 데미지 계산
-						((EnemyBridge*)((*NormalEnemyIter)->GetBridge()))->TakeDamage(
-							((BulletBridge*)((*PlayerBulletIter)->GetBridge()))->GetDamage());
-
-						if (isLaser)
-							canDamage = false;
-					}
-
 					// 총알 정보 삭제
-					::Safe_Delete((*PlayerBulletIter)->GetBridge());
+					::Safe_Delete((*ENormalBulletIter)->GetBridge());
 
 					// DisableList에 보관
-					PlayerBulletIter = ObjectManager::GetInstance()->ThrowObject(PlayerBulletIter, (*PlayerBulletIter));
+					ENormalBulletIter = ObjectManager::GetInstance()->
+						ThrowObject(ENormalBulletIter, (*ENormalBulletIter));
 				}
 				else
-					++PlayerBulletIter;
+					++ENormalBulletIter;
 			}
-		}
-	}
-
-	if (SmallEnemyList && PlayerBulletList)
-	{
-		for (auto SmallEnemyIter = SmallEnemyList->begin();
-			SmallEnemyIter != SmallEnemyList->end(); ++SmallEnemyIter)
-		{
-			bool canDamage = true;
-
-			for (auto PlayerBulletIter = PlayerBulletList->begin();
-				PlayerBulletIter != PlayerBulletList->end();)
-			{
-				if (CollisionManager::CircleCollision(*SmallEnemyIter, *PlayerBulletIter))
-				{
-					// 충돌 검사 디버그
-					CursorManager::GetInstance()->WriteBuffer(
-						(*SmallEnemyIter)->GetPosition().x,
-						(*SmallEnemyIter)->GetPosition().y - (*SmallEnemyIter)->GetScale().y,
-						(char*)"Hit!"
-					);
-
-					if (canDamage)
-					{
-						// Enemy에 데미지 계산
-						((EnemyBridge*)((*SmallEnemyIter)->GetBridge()))->TakeDamage(
-							((BulletBridge*)((*PlayerBulletIter)->GetBridge()))->GetDamage());
-
-						if (isLaser)
-							canDamage = false;
-					}
-
-					// 총알 정보 삭제
-					::Safe_Delete((*PlayerBulletIter)->GetBridge());
-
-					// DisableList에 보관
-					PlayerBulletIter = ObjectManager::GetInstance()->ThrowObject(PlayerBulletIter, (*PlayerBulletIter));
-				}
-				else
-					++PlayerBulletIter;
-			}
-		}
-	}
-
-	if (BigEnemyList && PlayerBulletList)
-	{
-		for (auto BigEnemyIter = BigEnemyList->begin();
-			BigEnemyIter != BigEnemyList->end(); ++BigEnemyIter)
-		{
-			bool canDamage = true;
-
-			for (auto PlayerBulletIter = PlayerBulletList->begin();
-				PlayerBulletIter != PlayerBulletList->end();)
-			{
-				if (CollisionManager::CircleCollision(*BigEnemyIter, *PlayerBulletIter))
-				{
-					// 충돌 검사 디버그
-					CursorManager::GetInstance()->WriteBuffer(
-						(*BigEnemyIter)->GetPosition().x,
-						(*BigEnemyIter)->GetPosition().y - (*BigEnemyIter)->GetScale().y,
-						(char*)"Hit!"
-					);
-
-					if (canDamage)
-					{
-						// Enemy에 데미지 계산
-						((EnemyBridge*)((*BigEnemyIter)->GetBridge()))->TakeDamage(
-							((BulletBridge*)((*PlayerBulletIter)->GetBridge()))->GetDamage());
-
-						if (isLaser)
-							canDamage = false;
-					}
-
-					// 총알 정보 삭제
-					::Safe_Delete((*PlayerBulletIter)->GetBridge());
-
-					// DisableList에 보관
-					PlayerBulletIter = ObjectManager::GetInstance()->ThrowObject(PlayerBulletIter, (*PlayerBulletIter));
-				}
-				else
-					++PlayerBulletIter;
-			}
-		}
-	}
-
-	// 적 처치 검사
-	if (NormalEnemyList)
-	{
-		for (auto NormalEnemyIter = NormalEnemyList->begin(); NormalEnemyIter != NormalEnemyList->end();)
-		{
-			if (((EnemyBridge*)((*NormalEnemyIter)->GetBridge()))->GetHP() <= 0)
-			{
-
-				// 적 정보 삭제
-				::Safe_Delete((*NormalEnemyIter)->GetBridge());
-
-				// DisableList에 보관
-				NormalEnemyIter = ObjectManager::GetInstance()->ThrowObject(NormalEnemyIter, (*NormalEnemyIter));
-			}
-			else
-				++NormalEnemyIter;
-		}
-	}
-
-	// 적 처치 검사
-	if (SmallEnemyList)
-	{
-		for (auto SmallEnemyIter = SmallEnemyList->begin(); SmallEnemyIter != SmallEnemyList->end();)
-		{
-			if (((EnemyBridge*)((*SmallEnemyIter)->GetBridge()))->GetHP() <= 0)
-			{
-
-				// 적 정보 삭제
-				::Safe_Delete((*SmallEnemyIter)->GetBridge());
-
-				// DisableList에 보관
-				SmallEnemyIter = ObjectManager::GetInstance()->ThrowObject(SmallEnemyIter, (*SmallEnemyIter));
-			}
-			else
-				++SmallEnemyIter;
-		}
-	}
-
-	// 적 처치 검사
-	if (BigEnemyList)
-	{
-		for (auto BigEnemyIter = BigEnemyList->begin(); BigEnemyIter != BigEnemyList->end();)
-		{
-			if (((EnemyBridge*)((*BigEnemyIter)->GetBridge()))->GetHP() <= 0)
-			{
-
-				// 적 정보 삭제
-				::Safe_Delete((*BigEnemyIter)->GetBridge());
-
-				// DisableList에 보관
-				BigEnemyIter = ObjectManager::GetInstance()->ThrowObject(BigEnemyIter, (*BigEnemyIter));
-			}
-			else
-				++BigEnemyIter;
-		}
-	}
-
-	// 적 총알 & 플레이어 충돌 검사
-	if (ENormalBulletList)
-	{
-		for (auto ENormalBulletIter = ENormalBulletList->begin(); ENormalBulletIter != ENormalBulletList->end();)
-		{
-			if (CollisionManager::CircleCollision(*ENormalBulletIter, pPlayer))
-			{
-				// 충돌 검사 디버그
-				CursorManager::GetInstance()->WriteBuffer(
-					(pPlayer)->GetPosition().x - 1,
-					(pPlayer)->GetPosition().y - 4,
-					(char*)"Hit!"
-				);
-
-				// 총알 정보 삭제
-				::Safe_Delete((*ENormalBulletIter)->GetBridge());
-
-				// DisableList에 보관
-				ENormalBulletIter = ObjectManager::GetInstance()->ThrowObject(ENormalBulletIter, (*ENormalBulletIter));
-			}
-			else
-				++ENormalBulletIter;
 		}
 	}
 }

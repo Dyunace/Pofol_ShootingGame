@@ -37,6 +37,7 @@ void ObjectManager::AddBridge(string _Key, Bridge* _Bridge, Vector3 _Position)
 	else
 		iter->second.push_back(pObject);
 
+	_Bridge->Initialize();
 	pObject->SetPosition(_Position);
 }
 

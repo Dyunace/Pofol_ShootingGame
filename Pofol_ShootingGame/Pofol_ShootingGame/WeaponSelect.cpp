@@ -43,8 +43,6 @@ void WeaponSelect::Update()
 	
 			if (result == BUFFER_OVER)
 			{
-				CursorManager::GetInstance()->WriteBuffer((*iter)->GetPosition(), (char*)"B_O");
-
 				// Remove Bullet Data
 				::Safe_Delete((*iter)->GetBridge());
 	

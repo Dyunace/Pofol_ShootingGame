@@ -20,8 +20,7 @@ int LaserBullet::Update()
 	// Player의 위치에 따라 함께 이동
 	if (player)
 		pObject->SetPosition(
-			player->GetPosition().x + pObject->GetDirection().x,
-			pObject->GetPosition().y);
+			pObject->GetDirection().x + player->GetPosition().x, pObject->GetPosition().y);
 
 	if (BufferCheck())
 		return BUFFER_OVER;
@@ -36,7 +35,10 @@ int LaserBullet::Update()
 
 void LaserBullet::Render()
 {
-	CursorManager::GetInstance()->WriteBuffer(pObject->GetPosition(), Buffer[0], Color);
+	CursorManager::GetInstance()->WriteBuffer(
+		pObject->GetPosition().x - pObject->GetScale().x * 0.5f,
+		pObject->GetPosition().y,
+		Buffer[0], Color);
 }
 
 void LaserBullet::Release()

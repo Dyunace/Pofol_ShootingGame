@@ -63,8 +63,8 @@
     <ClInclude Include="BulletManager.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Constant.h" />
+    <ClInclude Include="DamageManager.h" />
     <ClInclude Include="ENormalBullet.h" />
-    <ClInclude Include="Localize.h" />
     <ClInclude Include="CursorManager.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enemy.h" />

@@ -1,19 +1,21 @@
-// Shooting v1.12.0 Stage & Enemy
+// Shooting v1.12.1 Stage & Enemy
 /*
 	주요 변경점:
-		BigEnemy 추가
-		MakeEnemyBullet 생성 방식 개선
-			자료 조사 정보를 기반으로 약간 개선
-			1. 소형 적은 1탄을 쓴다.
-			2. 중형 적은 2탄을 쓴다.
-			3. 대형 적은 3탄을 쓴다.
+		DmamageManager 생성
+			데미지 계산은 이곳에서 실행
 
-		PlayerBullet 변경, Enemy Hp 변경
-		StageCheck에서 소형, 대형 적을 인식하도록 변경
+		Stage DamageCheck 코드 간략화
+
+		피격 판정 개선
+			타격 판정을 RectCollision으로 변경 (피격은 그대로 CircleCollision)
+			Player/Enemy Render 위치 및 식 변경
+			Player/Enemy Bullet Render 위치 및 식 변경
+		
+		적 타격 시 깜빡임 표시
+			타격 시 1frame 동안 적 본체 Render 꺼짐
+			이후 최소 2frame 동안 Render 활성화
 
 	다음 할 일:
-		DamageManager를 만들어서 데미지 관리를 따로 할 것
-		적 피격 시 깜빡임 이펙트 추가할 것
 		BossEnemy 만들 것
 
 		이동 패턴 만들기
@@ -26,7 +28,6 @@
 				2. 출현 후, 제자리 고정 (대형, 다수)
 
 			4. 이동 함수에서 목표 지점을 설정하고 그 위치로 이동할 것 (직선 이동용)
-
 
 
 	자료 조사 (1945):

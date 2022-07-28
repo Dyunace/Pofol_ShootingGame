@@ -14,6 +14,9 @@ void SmallEnemy::Initialize()
 	Hp = 10;
 	MoveSpeed = 0.5f;
 	BulletType = 1;
+
+	if (pObject)
+		pObject->SetScale(2.0f, 1.0f);
 }
 
 int SmallEnemy::Update()
@@ -33,20 +36,18 @@ int SmallEnemy::Update()
 
 void SmallEnemy::Render()
 {
-	for (int i = 0; i < 2; ++i)
-		CursorManager::GetInstance()->WriteBuffer(
-			pObject->GetPosition().x,
-			pObject->GetPosition().y + (i % 2),
-			Buffer[i]
-		);
+	if (DamageEfect != 3)
+		for (int i = 0; i < 2; ++i)
+			CursorManager::GetInstance()->WriteBuffer(
+				pObject->GetPosition().x - pObject->GetScale().x * 0.5f,
+				pObject->GetPosition().y - pObject->GetScale().y * 0.5f + (i % 2),
+				Buffer[i]
+			);
 
-	// 체력 표시
-	CursorManager::GetInstance()->WriteBuffer
-	(pObject->GetPosition().x, pObject->GetPosition().y - 1, GetHP());
+	if (DamageEfect != 0)
+		--DamageEfect;
 
-	// 이동 타입 표시
-	CursorManager::GetInstance()->WriteBuffer
-	(pObject->GetPosition().x, pObject->GetPosition().y - 2, GetMoveType());
+	DebugRender();
 }
 
 void SmallEnemy::Release()

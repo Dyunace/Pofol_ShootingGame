@@ -16,7 +16,7 @@ Object* Player::Initialize(string _Key)
 
 	pBullet = NORMALBULLET;
 
-	// Buffer[4] 코어를 기준으로 함
+	// Buffer[4] 코어가 기준
 	Buffer[0] = (char*)"┏";
 	Buffer[1] = (char*)"Π";
 	Buffer[2] = (char*)"┓";
@@ -26,7 +26,7 @@ Object* Player::Initialize(string _Key)
 
 	TransInfo.Position = Vector3(0, 0);
 	TransInfo.Rotation = Vector3(0, 0);
-	TransInfo.Scale = Vector3(2, 1); // 코어의 크기
+	TransInfo.Scale = Vector3(2.0f, 1.0f); // 코어의 크기
 
 	return this;
 }
@@ -37,9 +37,9 @@ int Player::Update()
 
 	// 이동
 	if (dwKey & KEY_UP && TransInfo.Position.y - TransInfo.Scale.y > 0)
-		TransInfo.Position.y -= 0.75;	// 위로 이동 시 감속
+		TransInfo.Position.y -= 1.0;	// 위로 이동 시 감속
 	if (dwKey & KEY_DOWN && TransInfo.Position.y + TransInfo.Scale.y < ConsoleHeightSize)
-		TransInfo.Position.y += 1.25;	// 아래로 이동 시 가속
+		TransInfo.Position.y += 1.0;	// 아래로 이동 시 가속
 	if (dwKey & KEY_LEFT && TransInfo.Position.x - TransInfo.Scale.x > 0)
 		TransInfo.Position.x -= 1.5;
 	if (dwKey & KEY_RIGHT && TransInfo.Position.x + TransInfo.Scale.x * 2 < ConsoleWidthSize)
@@ -61,8 +61,8 @@ void Player::Render()
 {
 	for (int i = 0; i < 6; ++i)
 		CursorManager::GetInstance()->WriteBuffer(
-			TransInfo.Position.x + (i % 3  * 2) - TransInfo.Scale.x,
-			TransInfo.Position.y + (i / 3) - TransInfo.Scale.y,
+			TransInfo.Position.x - TransInfo.Scale.x * 1.5f + ((i % 3) * 2),
+			TransInfo.Position.y - TransInfo.Scale.y + (i / 3),
 			Buffer[i]
 		);
 }

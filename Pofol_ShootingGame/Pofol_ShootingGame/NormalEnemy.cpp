@@ -15,8 +15,10 @@ void NormalEnemy::Initialize()
 
 	Hp = 20;
 	MoveSpeed = 0.25f;
-
 	BulletType = 2;
+
+	if (pObject)
+		pObject->SetScale(4.0f, 2.0f);
 }
 
 int NormalEnemy::Update()
@@ -36,20 +38,20 @@ int NormalEnemy::Update()
 
 void NormalEnemy::Render()
 {
-	for (int i = 0; i < 4; ++i)
-		CursorManager::GetInstance()->WriteBuffer(
-			pObject->GetPosition().x + (i % 2 * 2),
-			pObject->GetPosition().y + (i / 2),
-			Buffer[i]
-		);
+	if (DamageEfect != 3)
+	{
+		for (int i = 0; i < 4; ++i)
+			CursorManager::GetInstance()->WriteBuffer(
+				pObject->GetPosition().x - pObject->GetScale().x * 0.5f + (i % 2 * 2),
+				pObject->GetPosition().y - pObject->GetScale().y * 0.5f + (i / 2),
+				Buffer[i]
+			);
+	}
 
-	// 체력 표시
-	CursorManager::GetInstance()->WriteBuffer
-	(pObject->GetPosition().x, pObject->GetPosition().y - 1,GetHP());
+	if (DamageEfect != 0)
+		--DamageEfect;
 
-	// 이동 타입 표시
-	CursorManager::GetInstance()->WriteBuffer
-	(pObject->GetPosition().x, pObject->GetPosition().y - 2, GetMoveType());
+	DebugRender();
 }
 
 void NormalEnemy::Release()

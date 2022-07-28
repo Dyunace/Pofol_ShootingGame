@@ -154,6 +154,9 @@
     <Filter Include="소스 파일\99.Manager\Scene\SceneManager">
       <UniqueIdentifier>{ec629ac9-953c-4865-b5c0-fb92c8b39bf9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\99.Manager\Math\DamageManager">
+      <UniqueIdentifier>{b5cb50f0-233d-4b49-b35f-f6c622ee4a30}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -362,9 +365,6 @@
     <ClInclude Include="EnemyBridge.h">
       <Filter>소스 파일\02.Object\Enemy\EnemyBridge</Filter>
     </ClInclude>
-    <ClInclude Include="Localize.h">
-      <Filter>헤더 파일\Include</Filter>
-    </ClInclude>
     <ClInclude Include="ENormalBullet.h">
       <Filter>소스 파일\02.Object\Bullet\BulletBridge\EnemyBullet\ENormalBullet</Filter>
     </ClInclude>
@@ -382,6 +382,9 @@
     </ClInclude>
     <ClInclude Include="BossEnemy.h">
       <Filter>소스 파일\02.Object\Enemy\EnemyBridge\11_BossEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageManager.h">
+      <Filter>소스 파일\99.Manager\Math\DamageManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

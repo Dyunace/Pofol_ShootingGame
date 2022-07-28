@@ -18,7 +18,7 @@ void BulletManager::MakePlayerBullet(string _Key, Vector3 _Position, float _Limi
 	BulletLevel = 3;
 
 	float PosX = _Position.x;
-	float PosY = ((_Position.y * 100) / 100);
+	float PosY = ((_Position.y * 100) / 100) - 1;
 
 	if (_Key == NORMALBULLET)
 	{
@@ -28,7 +28,7 @@ void BulletManager::MakePlayerBullet(string _Key, Vector3 _Position, float _Limi
 			for (float f = 0.0f; f < 2; ++f)
 			{
 				Bridge* pBullet = new NormalBullet;
-				ObjectManager::GetInstance()->AddBridge(_Key, pBullet, Vector3(PosX, PosY - 1));
+				ObjectManager::GetInstance()->AddBridge(_Key, pBullet, Vector3(PosX, PosY));
 				((BulletBridge*)pBullet)->SetTarget(-1.0f + (f * 2), 1.0f);
 			}
 		}
@@ -39,22 +39,22 @@ void BulletManager::MakePlayerBullet(string _Key, Vector3 _Position, float _Limi
 			for (float f = 0; f < 2; ++f)
 			{
 				Bridge* pBullet = new NormalBullet;
-				ObjectManager::GetInstance()->AddBridge(_Key, pBullet, Vector3(PosX, PosY - 1));
+				ObjectManager::GetInstance()->AddBridge(_Key, pBullet, Vector3(PosX, PosY));
 				((BulletBridge*)pBullet)->SetTarget(-2.0f + (f * 4), 1.0f);
 			}
 		}
 
 		// Lv.1
 		Bridge* pBullet = new NormalBullet;
-		ObjectManager::GetInstance()->AddBridge(_Key, pBullet, Vector3(PosX, PosY - 1));
+		ObjectManager::GetInstance()->AddBridge(_Key, pBullet, Vector3(PosX, PosY));
 		((BulletBridge*)pBullet)->SetTarget(0.0f, 1.0f);
 	}
 	else if (_Key == LASERBULLET)
 	{
-		for (auto i = _LimitY; i < PosY - 2; ++i)
+		for (auto i = _LimitY; i < PosY; ++i)
 		{
 			// Lv. 1
-			if (BulletLevel == 1 || BulletLevel >= 3)
+			if (BulletLevel == 1)
 			{
 				Bridge* pBullet = new LaserBullet;
 				ObjectManager::GetInstance()->AddBridge(_Key, pBullet, Vector3(PosX, i));
@@ -76,12 +76,12 @@ void BulletManager::MakePlayerBullet(string _Key, Vector3 _Position, float _Limi
 			// Lv.3
 			if (BulletLevel >= 3)
 			{
-				for (float f = 0; f < 2; ++f)
+				for (float f = 0; f < 3; ++f)
 				{
 					Bridge* pBullet = new LaserBullet;
 					ObjectManager::GetInstance()->AddBridge(
-						_Key, pBullet, Vector3(PosX - 2 + (f * 4), i));
-					((BulletBridge*)pBullet)->SetTarget(-2.0f + (f * 4), 1.0f);
+						_Key, pBullet, Vector3(PosX - 2 + (f * 2), i));
+					((BulletBridge*)pBullet)->SetTarget(-2.0f + (f * 2), 1.0f);
 				}
 			}
 		}
@@ -102,7 +102,7 @@ void BulletManager::MakeEnemyBullet(int _BulletType, Vector3 _Position)
 
 		((BulletBridge*)pBullet)->SetTarget(
 			player->GetPosition().x,
-			EnemyBulletTargetY
+			player->GetPosition().y
 		);
 	}
 	else if (_BulletType == 2)
@@ -114,12 +114,12 @@ void BulletManager::MakeEnemyBullet(int _BulletType, Vector3 _Position)
 			ObjectManager::GetInstance()->AddBridge(
 				ENORMALBULLET,
 				pBullet,
-				Vector3(_Position.x + (i * 2), _Position.y + 2)
+				Vector3(_Position.x - 1 + (i * 2), _Position.y + 1)
 			);
 
 			((BulletBridge*)pBullet)->SetTarget(
 				player->GetPosition().x - 4 + (i * 8),
-				EnemyBulletTargetY
+				player->GetPosition().y
 			);
 		}
 	}
@@ -132,12 +132,12 @@ void BulletManager::MakeEnemyBullet(int _BulletType, Vector3 _Position)
 			ObjectManager::GetInstance()->AddBridge(
 				ENORMALBULLET,
 				pBullet,
-				Vector3(_Position.x + (i * 2), _Position.y + 3)
+				Vector3(_Position.x - 2 + (i * 2), _Position.y + 1.5f)
 			);
 
 			((BulletBridge*)pBullet)->SetTarget(
 				player->GetPosition().x - 6 + (i * 6),
-				EnemyBulletTargetY
+				player->GetPosition().y
 			);
 		}
 	}

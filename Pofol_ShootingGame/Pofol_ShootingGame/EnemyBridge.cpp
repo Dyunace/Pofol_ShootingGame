@@ -2,6 +2,7 @@
 
 #include "MathManager.h"
 #include "ObjectManager.h"
+#include "CursorManager.h"
 
 #include "Object.h"
 
@@ -62,7 +63,6 @@ void EnemyBridge::Movement()
 		break;
 
 
-
 	case 99:
 		// 옆으로 퇴장
 		if (PosX < 40)
@@ -75,4 +75,19 @@ void EnemyBridge::Movement()
 	}
 
 	++(this->MoveCount);
+}
+
+void EnemyBridge::DebugRender()
+{
+	// 체력 표시
+	CursorManager::GetInstance()->WriteBuffer(
+		pObject->GetPosition().x - pObject->GetScale().x * 0.5f,
+		pObject->GetPosition().y - pObject->GetScale().y * 0.5f - 1,
+		GetHP());
+
+	// 이동 타입 표시
+	CursorManager::GetInstance()->WriteBuffer(
+		pObject->GetPosition().x - pObject->GetScale().x * 0.5f,
+		pObject->GetPosition().y - pObject->GetScale().y * 0.5f - 2,
+		GetMoveType());
 }

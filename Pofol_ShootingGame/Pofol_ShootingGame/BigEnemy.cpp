@@ -21,6 +21,9 @@ void BigEnemy::Initialize()
 	Hp = 50;
 	MoveSpeed = 0.25f;
 	BulletType = 3;
+
+	if (pObject)
+		pObject->SetScale(6.0f, 3.0f);
 }
 
 int BigEnemy::Update()
@@ -40,21 +43,19 @@ int BigEnemy::Update()
 
 void BigEnemy::Render()
 {
-	for (int y = 0; y < 3; ++y)
-		for (int x = 0; x < 3; ++x)
-			CursorManager::GetInstance()->WriteBuffer(
-				pObject->GetPosition().x + (x % 3 * 2),
-				pObject->GetPosition().y + (y % 3),
-				Buffer[(x + (y * 3))]
-			);
+	if (DamageEfect != 3)
+		for (int y = 0; y < 3; ++y)
+			for (int x = 0; x < 3; ++x)
+				CursorManager::GetInstance()->WriteBuffer(
+					pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) + (x % 3 * 2),
+					pObject->GetPosition().y - (pObject->GetScale().y * 0.5f) + (y % 3),
+					Buffer[(x + (y * 3))]
+				);
 
-	// 체력 표시
-	CursorManager::GetInstance()->WriteBuffer
-	(pObject->GetPosition().x, pObject->GetPosition().y - 1, GetHP());
+	if (DamageEfect != 0)
+		--DamageEfect;
 
-	// 이동 타입 표시
-	CursorManager::GetInstance()->WriteBuffer
-	(pObject->GetPosition().x, pObject->GetPosition().y - 2, GetMoveType());
+	DebugRender();
 }
 
 void BigEnemy::Release()

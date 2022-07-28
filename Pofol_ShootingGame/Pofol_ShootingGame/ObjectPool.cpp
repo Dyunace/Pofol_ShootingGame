@@ -90,4 +90,9 @@ void ObjectPool::DedugRender()
 	CursorManager::GetInstance()->WriteBuffer(20.0f, 12.0f, (int)DisableList[BIGENEMY].size());
 	CursorManager::GetInstance()->WriteBuffer(0.0f, 13.0f, (char*)"EnBigEnemy : ");
 	CursorManager::GetInstance()->WriteBuffer(20.0f, 13.0f, (int)EnableList[BIGENEMY].size());
+
+	CursorManager::GetInstance()->WriteBuffer(0.0f, 15.0f, (char*)"DisEnemyBullet : ");
+	CursorManager::GetInstance()->WriteBuffer(20.0f, 15.0f, (int)DisableList[ENORMALBULLET].size());
+	CursorManager::GetInstance()->WriteBuffer(0.0f, 16.0f, (char*)"EnEnemyBullet : ");
+	CursorManager::GetInstance()->WriteBuffer(20.0f, 16.0f, (int)EnableList[ENORMALBULLET].size());
 }

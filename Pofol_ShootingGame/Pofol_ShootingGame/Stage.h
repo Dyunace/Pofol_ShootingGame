@@ -14,6 +14,7 @@ protected:
 	
 	list<Object*>* PlayerBulletList;
 	list<Object*>* ENormalBulletList;
+
 public:
 	Stage();
 	virtual ~Stage();

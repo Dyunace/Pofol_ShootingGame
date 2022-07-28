@@ -1,8 +1,8 @@
 #include "Bullet.h"
 #include "Bridge.h"
 
-Bullet::Bullet() : Color(13), Speed(1) {}
-Bullet::Bullet(Transform _Info){}
+Bullet::Bullet() {}
+Bullet::Bullet(Transform _Info) {}
 Bullet::~Bullet(){}
 
 Object* Bullet::Initialize(string _Key)

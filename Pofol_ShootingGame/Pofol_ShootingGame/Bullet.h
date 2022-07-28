@@ -3,9 +3,6 @@
 
 class Bullet : public Object
 {
-protected:
-	float Speed;
-	int Color;
 public:
 	Bullet();
 	Bullet(Transform _Info);

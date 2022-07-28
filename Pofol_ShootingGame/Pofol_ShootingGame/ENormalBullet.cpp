@@ -30,7 +30,10 @@ int ENormalBullet::Update()
 
 void ENormalBullet::Render()
 {
-	CursorManager::GetInstance()->WriteBuffer(pObject->GetPosition(), Buffer[0], Color);
+	CursorManager::GetInstance()->WriteBuffer(
+		pObject->GetPosition().x - pObject->GetScale().x * 0.5f,
+		pObject->GetPosition().y,
+		Buffer[0], Color);
 }
 
 void ENormalBullet::Release()

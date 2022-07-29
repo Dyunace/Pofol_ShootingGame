@@ -15,6 +15,10 @@ protected:
 	list<Object*>* PlayerBulletList;
 	list<Object*>* ENormalBulletList;
 
+protected:
+	int StageWave;
+	int StageCount;
+
 public:
 	Stage();
 	virtual ~Stage();
@@ -24,9 +28,15 @@ public:
 	virtual void Render() PURE;
 	virtual void Release() PURE;
 
+protected:
 	void GetObjectLists();
 	void CollisionCheck();
 
 	void GetUserInstance();
+
+	void MakeEnemy(string _EnemyType, Vector3 _Position, int _MoveType);
+	void MakeEnemy(string _EnemyType, float _x, float _y, int _MoveType);
+
+	bool WaveCheck();
 };
 

@@ -16,7 +16,8 @@ public:
 	virtual void Render() override;
 	virtual void Release() override;
 
-public:
+private:
+	void MakePreview();
 	void SwitchBullet();
 	void ReleaseBullet();
 };

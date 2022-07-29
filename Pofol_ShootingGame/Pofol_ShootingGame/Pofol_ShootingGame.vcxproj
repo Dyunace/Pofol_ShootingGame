@@ -75,7 +75,6 @@
     <ClInclude Include="MathManager.h" />
     <ClInclude Include="NormalBullet.h" />
     <ClInclude Include="Object.h" />
-    <ClInclude Include="ObjectFactory.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Player.h" />

@@ -1,13 +1,7 @@
 #include "Stage1.h"
-#include "CursorManager.h"
+
 #include "ObjectManager.h"
-
 #include "Player.h"
-#include "NormalEnemy.h"
-#include "SmallEnemy.h"
-#include "BigEnemy.h"
-
-#include "NormalBullet.h"
 
 Stage1::Stage1() {}
 Stage1::~Stage1(){}
@@ -26,6 +20,8 @@ void Stage1::Initialize()
 
 	// 오브젝트 정보 가져오기
 	GetObjectLists();
+
+	StageWave = 1;
 }
 
 void Stage1::Update()
@@ -34,28 +30,45 @@ void Stage1::Update()
 
 	CollisionCheck();
 
-	++SceneCount;
-
-	if (SceneCount == 30)
+	if (StageWave == 1)
 	{
-		Bridge* sEnemy = new NormalEnemy;
-		ObjectManager::GetInstance()->AddBridge(NORMALENEMY, sEnemy, Vector3(40, 10));
-		((EnemyBridge*)sEnemy)->SetMovement(0);
+		// 이동 경로는 EnemyBridge.cpp 참조
+
+		if (StageCount == 30)
+			MakeEnemy(NORMALENEMY, 55, -1, 11);	// 0 = 정지
+
+		else if (StageCount == 60)
+			MakeEnemy(SMALLENEMY, 40, -1, 11);	// 1 = 아래로 이동, 밖으로 나가기
+			
+		else if (StageCount == 10)
+			MakeEnemy(BIGENEMY, 70, -1, 11);		// 11 = 아래로 이동 후 정지
+
+		else if (StageCount > 90 && WaveCheck())
+		{
+			++StageWave;
+			StageCount = 0;
+		}
 	}
 
-	if (SceneCount == 60)
+	else if (StageWave == 2)
 	{
-		Bridge* sEnemy = new SmallEnemy;
-		ObjectManager::GetInstance()->AddBridge(SMALLENEMY, sEnemy, Vector3(20, 5));
-		((EnemyBridge*)sEnemy)->SetMovement(1);
+		if (StageCount == 30)
+			MakeEnemy(BIGENEMY, 40, 5, 11);
+
+		else if (StageCount == 60)
+			MakeEnemy(BIGENEMY, 20, 10, 0);
+
+		else if (StageCount == 90)
+			MakeEnemy(BIGENEMY, 60, 5, 11);
+
+		else if (StageCount > 90 && WaveCheck())
+		{
+			++StageWave;
+			StageCount = 0;
+		}
 	}
 
-	if (SceneCount == 90)
-	{
-		Bridge* sEnemy = new BigEnemy;
-		ObjectManager::GetInstance()->AddBridge(BIGENEMY, sEnemy, Vector3(60, 10));
-		((EnemyBridge*)sEnemy)->SetMovement(11);
-	}
+	++StageCount;
 }
 
 void Stage1::Render()

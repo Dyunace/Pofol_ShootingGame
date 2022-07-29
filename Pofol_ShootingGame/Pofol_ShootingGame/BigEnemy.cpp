@@ -44,18 +44,44 @@ int BigEnemy::Update()
 void BigEnemy::Render()
 {
 	if (DamageEfect != 3)
-		for (int y = 0; y < 3; ++y)
-			for (int x = 0; x < 3; ++x)
-				CursorManager::GetInstance()->WriteBuffer(
-					pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) + (x % 3 * 2),
-					pObject->GetPosition().y - (pObject->GetScale().y * 0.5f) + (y % 3),
-					Buffer[(x + (y * 3))]
-				);
+	{
+		if (pObject->GetPosition().y < -1) {}
+		else if (pObject->GetPosition().y == -1)
+		{
+			for (int y = 0; y < 1; ++y)
+				for (int x = 0; x < 3; ++x)
+					CursorManager::GetInstance()->WriteBuffer(
+						pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) + (x % 3 * 2),
+						pObject->GetPosition().y + (y + 1),
+						Buffer[(x + (y * 3) + 6)]
+					);
+		}
+		else if (pObject->GetPosition().y == 0)
+		{
+			for (int y = 0; y < 2; ++y)
+				for (int x = 0; x < 3; ++x)
+					CursorManager::GetInstance()->WriteBuffer(
+						pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) + (x % 3 * 2),
+						pObject->GetPosition().y + y,
+						Buffer[(x + (y * 3) + 3)]
+					);
+		}
+		else if (pObject->GetPosition().y > 0)
+		{
+			for (int y = 0; y < 3; ++y)
+				for (int x = 0; x < 3; ++x)
+					CursorManager::GetInstance()->WriteBuffer(
+						pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) + (x % 3 * 2),
+						pObject->GetPosition().y + (y - 1),
+						Buffer[(x + (y * 3))]
+					);
+		}
+	}
 
 	if (DamageEfect != 0)
 		--DamageEfect;
 
-	DebugRender();
+	//DebugRender();
 }
 
 void BigEnemy::Release()

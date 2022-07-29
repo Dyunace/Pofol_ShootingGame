@@ -42,13 +42,16 @@ int Warning::Update()
 	if (InputManager::GetInstance()->GetKey() & KEY_RIGHT)
 		Selection = 1;
 
-	if (InputManager::GetInstance()->GetKey() & KEY_ENTER || InputManager::GetInstance()->GetKey() & KEY_F)
+	if (InputManager::GetInstance()->GetKey() & KEY_ENTER || 
+		InputManager::GetInstance()->GetKey() & KEY_F ||
+		InputManager::GetInstance()->GetKey() & KEY_SPACE)
 	{
 		if (Selection == 0)
 			SceneManager::GetInstance()->SetScene(EXIT);
 		else if (Selection == 1)
 		{
 			State = 0;
+
 			return 1;
 		}
 	}

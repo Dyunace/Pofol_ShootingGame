@@ -33,6 +33,7 @@ void Menu::Update()
 
 		if (InputManager::GetInstance()->GetKey() & KEY_ENTER || InputManager::GetInstance()->GetKey() & KEY_F)
 		{
+
 			switch (Selection)
 			{
 			case 0:

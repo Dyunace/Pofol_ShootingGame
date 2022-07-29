@@ -8,8 +8,9 @@
 
 bool EnemyBridge::BufferCheck()
 {
-	if (pObject->GetPosition().y <= 0 || pObject->GetPosition().y + pObject->GetScale().y >= ConsoleHeightSize - 1 ||
-		pObject->GetPosition().x <= 0 || pObject->GetPosition().x + pObject->GetScale().x >= ConsoleWidthSize - 1)
+	if (pObject->GetPosition().y + 1 >= ConsoleHeightSize - 1 ||
+		pObject->GetPosition().x + pObject->GetScale().x * 0.5f >= ConsoleWidthSize ||
+		pObject->GetPosition().x - pObject->GetScale().x * 0.5f <= 0 )
 		return true;
 
 	return false;

@@ -24,33 +24,9 @@ void WeaponSelect::Initialize()
 
 void WeaponSelect::Update()
 {
-	auto BulletList = ObjectManager::GetInstance()->GetObjectList(((Player*)pPlayer)->GetBullet());
-
 	ObjectPool::GetInstance()->DedugRender();
 
-	// Shoot Bullet
-	((Player*)pPlayer)->ShootBullet(7);
-
-	ObjectManager::GetInstance()->Update();
-	pPlayer->SetPosition(39, 20);
-
-	// Priview Buffer Over Check
-	if (BulletList)
-	{
-		for (auto iter = BulletList->begin(); iter != BulletList->end(); ++iter)
-		{
-			int result = ((BulletBridge*)((*iter)->GetBridge()))->BulletPriview(17, 21, 8);
-	
-			if (result == BUFFER_OVER)
-			{
-				// Remove Bullet Data
-				::Safe_Delete((*iter)->GetBridge());
-	
-				// Save in Disable List
-				iter = ObjectManager::GetInstance()->ThrowObject(iter, (*iter));
-			}
-		}
-	}
+	MakePreview();
 
 	if (InputManager::GetInstance()->GetKey() & KEY_RIGHT && Selection < 1)
 	{
@@ -63,9 +39,8 @@ void WeaponSelect::Update()
 		SwitchBullet();
 	}
 
-	if (InputManager::GetInstance()->GetKey() & KEY_F || InputManager::GetInstance()->GetKey() & KEY_ENTER)
+	if (SelectionAccept())
 	{
-		// 여기에 스테이지 넘어가기 만들기
 		UserInstance::GetInstance()->SetBullet(((Player*)pPlayer)->GetBullet());
 		SceneManager::GetInstance()->SetScene(STAGE1);
 	}
@@ -121,6 +96,35 @@ void WeaponSelect::Release()
 
 	// Remove Player
 	ObjectManager::GetInstance()->ThrowObject(ObjectManager::GetInstance()->GetObjectList(PLAYER)->begin(), pPlayer);
+}
+
+void WeaponSelect::MakePreview()
+{
+	ObjectManager::GetInstance()->Update();
+	pPlayer->SetPosition(39, 20);
+
+	auto BulletList = ObjectManager::GetInstance()->GetObjectList(((Player*)pPlayer)->GetBullet());
+
+	// Shoot Bullet
+	((Player*)pPlayer)->ShootBullet(7);
+
+	// Priview Buffer Over Check
+	if (BulletList)
+	{
+		for (auto iter = BulletList->begin(); iter != BulletList->end(); ++iter)
+		{
+			int result = ((BulletBridge*)((*iter)->GetBridge()))->BulletPriview(17, 21, 8);
+
+			if (result == BUFFER_OVER)
+			{
+				// Remove Bullet Data
+				::Safe_Delete((*iter)->GetBridge());
+
+				// Save in Disable List
+				iter = ObjectManager::GetInstance()->ThrowObject(iter, (*iter));
+			}
+		}
+	}
 }
 
 void WeaponSelect::SwitchBullet()

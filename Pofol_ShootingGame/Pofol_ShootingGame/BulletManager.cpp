@@ -18,7 +18,7 @@ void BulletManager::MakePlayerBullet(string _Key, Vector3 _Position, float _Limi
 	BulletLevel = 3;
 
 	float PosX = _Position.x;
-	float PosY = ((_Position.y * 100) / 100) - 1;
+	float PosY = ((_Position.y * 100) / 100) - 2;
 
 	if (_Key == NORMALBULLET)
 	{

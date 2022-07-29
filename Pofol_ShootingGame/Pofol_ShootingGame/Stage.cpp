@@ -1,12 +1,19 @@
 #include "Stage.h"
-#include "Player.h"
-#include "NormalBullet.h"
 #include "CursorManager.h"
-#include "ObjectManager.h"
 #include "CollisionManager.h"
-#include "UserInstance.h"
-#include "NormalEnemy.h"
 #include "DamageManager.h"
+#include "UserInstance.h"
+
+#include "ObjectManager.h"
+#include "Player.h"
+
+#include "NormalEnemy.h"
+#include "SmallEnemy.h"
+#include "BigEnemy.h"
+
+#include "NormalBullet.h"
+#include "LaserBullet.h"
+#include "ENormalBullet.h"
 
 Stage::Stage() : 
 	pPlayer(nullptr), 
@@ -15,7 +22,10 @@ Stage::Stage() :
 	NormalEnemyList(nullptr),
 	SmallEnemyList(nullptr),
 	BigEnemyList(nullptr),
-	isLaser(false) {}
+	isLaser(false),
+	StageWave(0),
+	StageCount(0)
+{}
 Stage::~Stage(){}
 
 void Stage::GetObjectLists()
@@ -117,7 +127,7 @@ void Stage::CollisionCheck()
 						(char*)"Hit!"
 					);
 
-					// 총알 정보 삭제
+					// Bullet Bridge 삭제
 					::Safe_Delete((*ENormalBulletIter)->GetBridge());
 
 					// DisableList에 보관
@@ -135,4 +145,62 @@ void Stage::GetUserInstance()
 {
 	// Player의 Bullet 세팅
 	((Player*)pPlayer)->SetBullet(UserInstance::GetInstance()->GetBullet());
+}
+
+void Stage::MakeEnemy(string _EnemyType, Vector3 _Position, int _MoveType)
+{
+	if (_EnemyType == NORMALENEMY)
+	{
+		Bridge* sEnemy = new NormalEnemy;
+		ObjectManager::GetInstance()->AddBridge(NORMALENEMY, sEnemy, _Position);
+		((EnemyBridge*)sEnemy)->SetMovement(_MoveType);
+	}
+	else if (_EnemyType == SMALLENEMY)
+	{
+		Bridge* sEnemy = new SmallEnemy;
+		ObjectManager::GetInstance()->AddBridge(SMALLENEMY, sEnemy, _Position);
+		((EnemyBridge*)sEnemy)->SetMovement(_MoveType);
+	}
+	else if (_EnemyType == BIGENEMY)
+	{
+		Bridge* sEnemy = new BigEnemy;
+		ObjectManager::GetInstance()->AddBridge(BIGENEMY, sEnemy, _Position);
+		((EnemyBridge*)sEnemy)->SetMovement(_MoveType);
+	}
+
+	else {	}
+}
+
+void Stage::MakeEnemy(string _EnemyType, float _x, float _y, int _MoveType)
+{
+	if (_EnemyType == NORMALENEMY)
+	{
+		Bridge* sEnemy = new NormalEnemy;
+		ObjectManager::GetInstance()->AddBridge(NORMALENEMY, sEnemy, Vector3(_x, _y));
+		((EnemyBridge*)sEnemy)->SetMovement(_MoveType);
+	}
+	else if (_EnemyType == SMALLENEMY)
+	{
+		Bridge* sEnemy = new SmallEnemy;
+		ObjectManager::GetInstance()->AddBridge(SMALLENEMY, sEnemy, Vector3(_x, _y));
+		((EnemyBridge*)sEnemy)->SetMovement(_MoveType);
+	}
+	else if (_EnemyType == BIGENEMY)     
+	{
+		Bridge* sEnemy = new BigEnemy;
+		ObjectManager::GetInstance()->AddBridge(BIGENEMY, sEnemy, Vector3(_x, _y));
+		((EnemyBridge*)sEnemy)->SetMovement(_MoveType);
+	}
+
+	else {}
+}
+
+bool Stage::WaveCheck()
+{
+	if (NormalEnemyList->begin() == NormalEnemyList->end() &&
+		SmallEnemyList->begin() == SmallEnemyList->end() &&
+		BigEnemyList->begin() == BigEnemyList->end())
+		return true;
+
+	return false;
 }

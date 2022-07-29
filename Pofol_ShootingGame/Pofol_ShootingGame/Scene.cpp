@@ -1,5 +1,15 @@
 #include "Scene.h"
 #include "CursorManager.h"
+#include "InputManager.h"
 
-Scene::Scene() : SceneCount(0) {}
+Scene::Scene() { }
 Scene::~Scene(){}
+
+bool Scene::SelectionAccept()
+{
+	if (InputManager::GetInstance()->GetKey() & KEY_ENTER || 
+		InputManager::GetInstance()->GetKey() & KEY_F ||
+		InputManager::GetInstance()->GetKey() & KEY_SPACE)
+		return true;
+	return false;
+}

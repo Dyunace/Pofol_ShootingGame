@@ -24,7 +24,6 @@ void Prototype::Initialize()
 	Key = BIGENEMY;
 	ProtoTypeList[Key] = (new Enemy(Info))->Initialize(Key);
 
-
 	// ÃÑ¾Ë
 	Key = NORMALBULLET;
 	ProtoTypeList[Key] = (new Bullet(Info))->Initialize(Key);
@@ -35,6 +34,20 @@ void Prototype::Initialize()
 	ProtoTypeList[Key] = (new Bullet(Info))->Initialize(Key);
 	Key = ESPECIALBULLET;
 	ProtoTypeList[Key] = (new Bullet(Info))->Initialize(Key);
+
+	// º¸½º
+	Key = STAGE1_BOSS_CORE;
+	ProtoTypeList[Key] = (new Enemy(Info))->Initialize(Key);
+	Key = STAGE1_BOSS_HEAD;
+	ProtoTypeList[Key] = (new Enemy(Info))->Initialize(Key);
+	Key = STAGE1_BOSS_ARM_LEFT;
+	ProtoTypeList[Key] = (new Enemy(Info))->Initialize(Key);
+	Key = STAGE1_BOSS_ARM_RIGHT;
+	ProtoTypeList[Key] = (new Enemy(Info))->Initialize(Key);
+	Key = STAGE1_BOSS_SHIELD_LEFT;
+	ProtoTypeList[Key] = (new Enemy(Info))->Initialize(Key);
+	Key = STAGE1_BOSS_SHIELD_RIGHT;
+	ProtoTypeList[Key] = (new Enemy(Info))->Initialize(Key);
 }
 
 Object* Prototype::ProtoTypeObject(string _Key)

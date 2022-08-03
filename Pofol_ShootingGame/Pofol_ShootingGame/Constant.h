@@ -31,11 +31,18 @@ const string NORMALENEMY = "01_NormalEnemy";
 const string SMALLENEMY = "02_SmallEnemy";
 const string BIGENEMY = "03_BigEnemy";
 
-const string NORMALBULLET = "11_NormalBullet";
-const string LASERBULLET = "12_LaserBullet";
+const string NORMALBULLET = "10_NormalBullet";
+const string LASERBULLET = "11_LaserBullet";
 
-const string ENORMALBULLET = "21_ENormalBullet";
-const string ESPECIALBULLET = "22_ESpecialBullet";
+const string ENORMALBULLET = "20_ENormalBullet";
+const string ESPECIALBULLET = "21_ESpecialBullet";
+
+const string STAGE1_BOSS_CORE = "30_Stage1_Boss_Core";
+const string STAGE1_BOSS_HEAD = "30_Stage1_Boss_Head";
+const string STAGE1_BOSS_ARM_LEFT = "30_Stage1_Boss_Arm_Left";
+const string STAGE1_BOSS_ARM_RIGHT = "30_Stage1_Boss_Arm_Right";
+const string STAGE1_BOSS_SHIELD_LEFT = "30_Stage1_Boss_Shield_Left";
+const string STAGE1_BOSS_SHIELD_RIGHT = "30_Stage1_Boss_Shield_Right";
 
 // ETC
 const int EnemyBulletTargetY = 50;

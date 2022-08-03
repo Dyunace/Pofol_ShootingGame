@@ -35,14 +35,14 @@ void BackGround::Release()
 
 void BackGround::MakeBG()
 {
-	srand(DWORD(GetTickCount64()));
-	
 	for (int x = 0; x < 3; ++x)
 	{
 		for (int y = 0; y < 3; ++y)
 		{
 			for (int i = 0; i < rand() % MaxIcon + MinIcon; ++i)
 			{
+				srand(DWORD(GetTickCount64() * (i + 1) + (x + 1) + ((y + 1) * 3)));
+
 				// 아이콘 만들기
 				BGIcon* Icon = new BGIcon;
 				Icon->setIcon(rand() % 2);

@@ -9,7 +9,7 @@ void LaserBullet::Initialize()
 { 
 	Buffer[0] = (char*)"¥±";
 
-	Damage = 1;
+	Damage = 3;
 	Color = 13;
 }
 

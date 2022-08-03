@@ -1,34 +1,33 @@
-// Shooting v1.12.2 Stage & Enemy
+// Shooting v1.12.3 Stage & Enemy
 /*
 	주요 변경점:
-		Stage에서 사용할 StageWave, StageCount 변수 생성
-			StageCount는 Scene에 있던 SceneCount를 가져옴
-			Wave가 시작되면 StageCount가 증가하면서 Enemy 생성
-			해당 웨이브의 마지막 Enemy가 생성되고 모든 적이 화면에서 사라지면 Wave 진행 및 StageCount 초기화
+		Stage1Boss 추가
+			각각 코어, 머리, 팔, 장갑으로 이루어짐
+			총 2페이즈로 구성
+				1페이즈는 코어를 제외한 부위 파괴 가능
+				2페이즈는 코어 전투
 
-		MakeEnemy 함수로 적 생성 코드 간략화
-			매개변수를 EnemyType, Position, MoveType으로 간략화
+		DamageCheck 함수 생성
+			기존 CollisionCheck에 있던 기능을 분리
 
-		Enemy의 BufferCheck 에서 Y 0 에 삭제되지 않도록 변경
-			적들은 Y 0 부터 등장할 예정
+		BossDamageCheck 함수 생성
+			각각의 보스는 페이즈 별 데미지 계산이 다르기 때문에 스테이지에서 개별 관리
 
-		Enemy 생성 시 y축에 따른 이미지 출력이 깨지지 않도록 변경
-			y축이 0과 같거나 작을 경우, Enemy 자신의 Buffer를 일부만 출력
-			y축 출력 값 조정 (소수점을 계산하지 않는 식으로 변경)
+		BigEnemy 이미지 변경
+			1945 대형 적 이미지 차용. 가로가 넓은 삼각형 형태의 적
 
 	다음 할 일:
-		BossEnemy 만들 것
+		스테이지 웨이브 늘리기
+		보스 총알 구현하기
+			팔: 2탄
+			머리 : 3탄
+			장갑 : 1탄
+			코어 : 특수탄 (이미지는 ＠ 사용)
 
-		이동 패턴 만들기
-			소형
-				1. 출현 시점부터 한 방향으로 이동 (소형)
-			중형
-				1. 출현 후 스테이지에 머무르다 밖으로 빠져나가기 (중형)
-			대형
-				1. 출현 후, 좌 우로 반복 이동하기 (대형, 단일)
-				2. 출현 후, 제자리 고정 (대형, 다수)
+		폭탄 기능 구현
+		플레이어 피격 구현
 
-			4. 이동 함수에서 목표 지점을 설정하고 그 위치로 이동할 것 (직선 이동용)
+		UI 화면에 띄우기
 */
 #define _CRT_SECLRE_NO_WARNING
 #include "Headers.h"

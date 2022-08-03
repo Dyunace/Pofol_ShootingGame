@@ -1,13 +1,13 @@
 #pragma once
-#include "EnemyBridge.h"
+#include "Stage1_Boss.h"
 
-class BigEnemy : public EnemyBridge
+class Stage1_Boss_Shield_Right : public Stage1_Boss
 {
 private:
-	char* Buffer[16];
+	char* Buffer[10];
 public:
-	BigEnemy();
-	virtual ~BigEnemy();
+	Stage1_Boss_Shield_Right();
+	~Stage1_Boss_Shield_Right();
 public:
 	virtual void Initialize() override;
 	virtual int Update() override;

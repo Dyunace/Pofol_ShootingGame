@@ -16,6 +16,7 @@ protected:
 	list<Object*>* ENormalBulletList;
 
 protected:
+	int CurStage;
 	int StageWave;
 	int StageCount;
 
@@ -31,6 +32,7 @@ public:
 protected:
 	void GetObjectLists();
 	void CollisionCheck();
+	void DamageCheck(list<Object*>* _CurrentList);
 
 	void GetUserInstance();
 

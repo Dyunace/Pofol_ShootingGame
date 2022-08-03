@@ -29,7 +29,7 @@ public:
 	void SetHp(int _Damage) { Hp = _Damage; }
 
 	int GetMoveType() const { return MoveType; }
-	void SetMovement(int _Type) { MoveType = _Type; }
+	void SetMovement(int _Type) { MoveType = _Type; MoveCount = 0; }
 
 	int GetMoveCount() const { return MoveCount; }
 
@@ -37,6 +37,6 @@ public:
 	void SetDamageEfect(int _Count) { DamageEfect = _Count; }
 protected:
 	bool BufferCheck();
-	void Movement();
+	void Movement(Vector3 _MoveLimit = Vector3(0, 0));
 	void DebugRender();
 };

@@ -16,16 +16,12 @@ bool EnemyBridge::BufferCheck()
 	return false;
 };
 
-void EnemyBridge::Movement()
+void EnemyBridge::Movement(Vector3 _MoveLimit)
 {
 	float PosX = pObject->GetPosition().x;
 	float PosY = pObject->GetPosition().y;
 
 	Object* pPlayer = ObjectManager::GetInstance()->GetObjectList(PLAYER)->front();
-
-	// 등장 후 일정 시간이 지나면 강제 퇴장
-	if (MoveCount > 1000)
-		MoveType = 99;
 
 	switch (MoveType)
 	{
@@ -50,19 +46,47 @@ void EnemyBridge::Movement()
 		break;
 
 		// 아래로 이동 후 정지
-	case 11:
+	case 10:
 		if (MoveCount < 30)
 			pObject->SetPosition(PosX, PosY + MoveSpeed);
 		break;
-	case 12:
+	case 11:
 		if (MoveCount < 60)
 			pObject->SetPosition(PosX, PosY + MoveSpeed);
 		break;
-	case 13:
+	case 12:
 		if (MoveCount < 90)
 			pObject->SetPosition(PosX, PosY + MoveSpeed);
 		break;
 
+
+		// 이동 연계
+	case 20:
+		// 아래로 이동 후 좌 우 이동 (우 시작)
+		if (pObject->GetPosition().y - _MoveLimit.y < 0)
+			pObject->SetPosition(PosX, PosY + MoveSpeed);
+		else
+			this->SetMovement(22);
+		break;
+	case 21:
+		// 아래로 이동 후 좌 우 이동 (좌 시작)
+		if (pObject->GetPosition().y - _MoveLimit.y < 0)
+			pObject->SetPosition(PosX + MoveSpeed, PosY);
+		else
+			this->SetMovement(23);
+		break;
+	case 22:
+		// 좌우 이동 (우 방향)
+			pObject->SetPosition(PosX + MoveSpeed, PosY);
+		if (pObject->GetPosition().x + _MoveLimit.x > ConsoleWidthSize)
+			this->SetMovement(23);
+		break;
+	case 23:
+		// 좌우 이동 (좌 방향)
+			pObject->SetPosition(PosX - MoveSpeed, PosY);
+		if (pObject->GetPosition().x - _MoveLimit.x < 0)
+			this->SetMovement(22);
+		break;
 
 	case 99:
 		// 옆으로 퇴장

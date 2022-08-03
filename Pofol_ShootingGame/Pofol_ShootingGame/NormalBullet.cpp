@@ -8,7 +8,7 @@ void NormalBullet::Initialize()
 {
 	Buffer[0] = (char*)"¢Á";
 
-	Damage = 4;
+	Damage = 2;
 	Color = 13;
 	Speed = 2.0f;
 }

@@ -22,7 +22,10 @@
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BGIcon.cpp" />
     <ClCompile Include="BigEnemy.cpp" />
-    <ClCompile Include="BossEnemy.cpp" />
+    <ClCompile Include="Stage1_Boss_Arm_Left.cpp" />
+    <ClCompile Include="Stage1_Boss_Arm_Right.cpp" />
+    <ClCompile Include="Stage1_Boss_Head.cpp" />
+    <ClCompile Include="Stage1_Boss_Core.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="CursorManager.cpp" />
@@ -39,6 +42,9 @@
     <ClCompile Include="SmallEnemy.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Stage1.cpp" />
+    <ClCompile Include="Stage1_Boss.cpp" />
+    <ClCompile Include="Stage1_Boss_Shield_Left.cpp" />
+    <ClCompile Include="Stage1_Boss_Shield_Right.cpp" />
     <ClCompile Include="UserInstance.cpp" />
     <ClCompile Include="Warning.cpp" />
     <ClCompile Include="InputManager.cpp" />
@@ -56,7 +62,10 @@
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="BGIcon.h" />
     <ClInclude Include="BigEnemy.h" />
-    <ClInclude Include="BossEnemy.h" />
+    <ClInclude Include="Stage1_Boss_Arm_Left.h" />
+    <ClInclude Include="Stage1_Boss_Arm_Right.h" />
+    <ClInclude Include="Stage1_Boss_Head.h" />
+    <ClInclude Include="Stage1_Boss_Core.h" />
     <ClInclude Include="Bridge.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletBridge.h" />
@@ -82,6 +91,9 @@
     <ClInclude Include="SmallEnemy.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Stage1.h" />
+    <ClInclude Include="Stage1_Boss.h" />
+    <ClInclude Include="Stage1_Boss_Shield_Left.h" />
+    <ClInclude Include="Stage1_Boss_Shield_Right.h" />
     <ClInclude Include="UserInstance.h" />
     <ClInclude Include="UserInterface.h" />
     <ClInclude Include="Warning.h" />

@@ -1,5 +1,4 @@
 #include "Scene.h"
-#include "CursorManager.h"
 #include "InputManager.h"
 
 Scene::Scene() { }

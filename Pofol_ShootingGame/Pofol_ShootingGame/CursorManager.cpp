@@ -2,7 +2,7 @@
 
 CursorManager* CursorManager::Instance = nullptr;
 
-CursorManager::CursorManager() : BufferIndex(0) 
+CursorManager::CursorManager() : BufferIndex(0)
 {
 	for (int i = 0; i < 2; ++i)
 		hBuffer[i] = nullptr;
@@ -14,7 +14,7 @@ void CursorManager::CreateBuffer(const int& _Width, const int& _Height)
 	// 커서 설정
 	CONSOLE_CURSOR_INFO Cursor;
 
-	Cursor.bVisible = FALSE;	// 커서 안보이게 함	
+	Cursor.bVisible = FALSE;	// 커서 안보이게 함
 	Cursor.dwSize = 1;			// 커서의 사이즈 설정
 
 	COORD Size = { (SHORT)_Width, (SHORT)_Height };
@@ -23,7 +23,8 @@ void CursorManager::CreateBuffer(const int& _Width, const int& _Height)
 	for (int i = 0; i < 2; ++i)
 	{
 		// 버퍼 생성
-		hBuffer[i] = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
+		hBuffer[i] = CreateConsoleScreenBuffer
+		(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
 
 		// 버퍼 사이즈 생성
 		SetConsoleScreenBufferSize(hBuffer[i], Size);
@@ -87,25 +88,6 @@ void CursorManager::WriteBuffer(float _x, float _y, int _Value, int _Color)
 	WriteFile(hBuffer[BufferIndex], pBuffer, (DWORD)strlen(pBuffer), &dw, NULL);
 }
 
-void CursorManager::WriteBuffer(float _x, float _y, int _Value)
-{
-	DWORD dw;
-
-	COORD CurSorPosition = { (SHORT)_x ,(SHORT)_y };
-
-	// 좌표 이동
-	SetConsoleCursorPosition(hBuffer[BufferIndex], CurSorPosition);
-
-	char Buffer[4];
-	_itoa(_Value, Buffer, 10);
-
-	char* pBuffer = new char[strlen(Buffer)];
-	strcpy(pBuffer, Buffer);
-
-	// 버퍼에 쓰기
-	WriteFile(hBuffer[BufferIndex], pBuffer, (DWORD)strlen(pBuffer), &dw, NULL);
-}
-
 void CursorManager::FlipingBuffer()
 {
 	SetConsoleActiveScreenBuffer(hBuffer[BufferIndex]);
@@ -119,7 +101,8 @@ void CursorManager::ClearBuffer()
 	DWORD dw;
 	COORD Coord = { 0, 0 };
 
-	FillConsoleOutputCharacter(hBuffer[BufferIndex], ' ', ConsoleWidthSize * ConsoleHeightSize, Coord, &dw);
+	FillConsoleOutputCharacter
+	(hBuffer[BufferIndex], ' ', ConsoleWidthSize * ConsoleHeightSize, Coord, &dw);
 }
 
 void CursorManager::DestroyBuffer()

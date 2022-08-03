@@ -41,8 +41,6 @@ Object* ObjectPool::ThrowObject(string _Key)
 
 void ObjectPool::Update()
 {
-	DedugRender();
-
 	for (map<string, list<Object*>>::iterator iter = EnableList.begin();
 		iter != EnableList.end(); ++iter)
 	{
@@ -62,6 +60,8 @@ void ObjectPool::Update()
 				++iter2;
 		}
 	}
+
+	DedugRender();
 }
 
 void ObjectPool::DedugRender()

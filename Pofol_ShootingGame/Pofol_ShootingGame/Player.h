@@ -6,6 +6,8 @@ class Player : public Object
 private:
 	char* Buffer[6];
 	string pBullet;
+
+	int BoomDelayCount;
 public:
 	Player();
 	Player(Transform _Info);
@@ -25,5 +27,6 @@ public:
 
 public:
 	void ShootBullet(float _LimitY = 0);
+	void ShootBoom();
 };
 

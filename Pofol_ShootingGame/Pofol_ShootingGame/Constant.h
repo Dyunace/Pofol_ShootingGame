@@ -33,6 +33,7 @@ const string BIGENEMY = "03_BigEnemy";
 
 const string NORMALBULLET = "10_NormalBullet";
 const string LASERBULLET = "11_LaserBullet";
+const string BOOM = "19_Boom";
 
 const string ENORMALBULLET = "20_ENormalBullet";
 const string ESPECIALBULLET = "21_ESpecialBullet";

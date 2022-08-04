@@ -16,8 +16,7 @@ public:
 		auto Target = ((EnemyBridge*)_Target->GetBridge());
 		auto Damage = ((BulletBridge*)_Current->GetBridge())->GetDamage();
 
-		Target->SetHp(
-			Target->GetHP() - Damage);
+		Target->SetHp(Target->GetHP() - Damage);
 
 		if (Target->GetDamageEfect() == 0)
 			Target->SetDamageEfect(3);

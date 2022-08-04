@@ -19,7 +19,7 @@ private:
 public:
 	~BulletManager();
 public:
-	void MakePlayerBullet(string _Key, Vector3 _Position, float _LimitY);
+	void MakePlayerBullet(string _Key, Vector3 _Position, float _LimitY = 0);
 	void MakeEnemyBullet(int _BulletType, Vector3 _Position);
 };
 

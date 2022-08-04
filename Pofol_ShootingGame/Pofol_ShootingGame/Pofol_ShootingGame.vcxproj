@@ -22,6 +22,7 @@
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BGIcon.cpp" />
     <ClCompile Include="BigEnemy.cpp" />
+    <ClCompile Include="Boom.cpp" />
     <ClCompile Include="Stage1_Boss_Arm_Left.cpp" />
     <ClCompile Include="Stage1_Boss_Arm_Right.cpp" />
     <ClCompile Include="Stage1_Boss_Head.cpp" />
@@ -62,6 +63,7 @@
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="BGIcon.h" />
     <ClInclude Include="BigEnemy.h" />
+    <ClInclude Include="Boom.h" />
     <ClInclude Include="Stage1_Boss_Arm_Left.h" />
     <ClInclude Include="Stage1_Boss_Arm_Right.h" />
     <ClInclude Include="Stage1_Boss_Head.h" />

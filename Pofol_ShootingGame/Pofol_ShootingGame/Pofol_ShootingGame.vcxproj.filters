@@ -175,6 +175,9 @@
     <Filter Include="소스 파일\02.Object\Enemy\EnemyBridge\11_Boss\Stage1\06.Shield_Right">
       <UniqueIdentifier>{c023da86-c43c-45ac-adda-d9661c22255d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\02.Object\Bullet\Boom">
+      <UniqueIdentifier>{39b695de-f2f4-4cd9-bd35-e9b5a504cd77}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -290,6 +293,9 @@
     </ClCompile>
     <ClCompile Include="Stage1_Boss_Shield_Right.cpp">
       <Filter>소스 파일\02.Object\Enemy\EnemyBridge\11_Boss\Stage1\06.Shield_Right</Filter>
+    </ClCompile>
+    <ClCompile Include="Boom.cpp">
+      <Filter>소스 파일\02.Object\Bullet\Boom</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -436,6 +442,9 @@
     </ClInclude>
     <ClInclude Include="Stage1_Boss_Shield_Right.h">
       <Filter>소스 파일\02.Object\Enemy\EnemyBridge\11_Boss\Stage1\06.Shield_Right</Filter>
+    </ClInclude>
+    <ClInclude Include="Boom.h">
+      <Filter>소스 파일\02.Object\Bullet\Boom</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

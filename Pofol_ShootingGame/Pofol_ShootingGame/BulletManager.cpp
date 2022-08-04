@@ -4,6 +4,8 @@
 
 #include "NormalBullet.h"
 #include "LaserBullet.h"
+#include "Boom.h"
+
 #include "ENormalBullet.h"
 
 BulletManager* BulletManager::Instance = nullptr;
@@ -85,8 +87,16 @@ void BulletManager::MakePlayerBullet(string _Key, Vector3 _Position, float _Limi
 				}
 			}
 		}
-
 	}
+	else if (_Key == BOOM)
+	{
+		Bridge* pBoom = new Boom;
+		ObjectManager::GetInstance()->AddBridge(
+			_Key, pBoom, Vector3(PosX, PosY - 2)
+		);
+	}
+
+	else {}
 }
 
 void BulletManager::MakeEnemyBullet(int _BulletType, Vector3 _Position)

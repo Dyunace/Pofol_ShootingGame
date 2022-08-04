@@ -6,7 +6,11 @@
 #include "LaserBullet.h"
 #include "BulletManager.h"
 
-Player::Player() : Buffer() {}
+Player::Player() : pBullet(), BoomDelayCount(0)
+{
+	for (int i = 0; i < 6; ++i)
+		Buffer[i] = nullptr;
+}
 Player::Player(Transform _Info) : Object(_Info), Buffer() {}
 Player::~Player(){}
 
@@ -46,13 +50,16 @@ int Player::Update()
 		TransInfo.Position.x += 1.5;
 
 	// 공격 (F버튼)
-	if (dwKey & KEY_F)
-		ShootBullet();
-	// 공격 (스페이스 바)
-	if (dwKey & KEY_SPACE)
+	if (dwKey & KEY_F || dwKey & KEY_SPACE)
 		ShootBullet();
 
-	--DelayCount;
+	if (dwKey & KEY_D)
+		ShootBoom();
+
+	if (DelayCount > 0)
+		--DelayCount;
+	if (BoomDelayCount > 0)
+		--BoomDelayCount;
 
 	return 0;
 }
@@ -73,7 +80,7 @@ void Player::Release()
 
 void Player::ShootBullet(float _LimitY)
 {
-	if (DelayCount < 0)
+	if (DelayCount == 0)
 	{
 		BulletManager::GetInstance()->MakePlayerBullet(pBullet, TransInfo.Position, _LimitY);
 
@@ -81,5 +88,15 @@ void Player::ShootBullet(float _LimitY)
 			DelayCount = 1;
 		else if (pBullet == LASERBULLET)
 			DelayCount = 0;
+	}
+}
+
+void Player::ShootBoom()
+{
+	if (BoomDelayCount == 0)
+	{
+		BulletManager::GetInstance()->MakePlayerBullet(BOOM, TransInfo.Position);
+
+		BoomDelayCount = 90;
 	}
 }

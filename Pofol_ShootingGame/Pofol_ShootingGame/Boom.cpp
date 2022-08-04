@@ -39,23 +39,15 @@ void Boom::Initialize()
 
 int Boom::Update()
 {
+	++Count;
+
 	if (Count < 30)
 	{
 		pObject->SetPosition(pObject->GetPosition().x, pObject->GetPosition().y - Speed);
 	}
-	else if (Count > 30)
-	{
-		// 데미지 함수
-		AttackAllEnemy();
-
-		// 총알 지우기
-		RemoveAllBullet();
-	}
 
 	else if (Count > 90)
 		return BUFFER_OVER;
-
-	++Count;
 
 	return 0;
 }
@@ -84,28 +76,5 @@ void Boom::Render()
 }
 
 void Boom::Release()
-{
-}
-
-void Boom::SetTarget(Vector3 _Target){}
-void Boom::SetTarget(float _x, float _y){}
-
-void Boom::AttackAllEnemy()
-{
-	for (int i = 0; i < 3; ++i)
-	{
-		if (EnemyList[i]->begin() != EnemyList[i]->end())
-		{
-			for (auto iter = EnemyList[i]->begin(); iter != EnemyList[i]->end(); ++i)
-			{
-				DamageManager::TakeDamage(pObject, (*iter));
-			}
-		}
-	}
-
-
-}
-
-void Boom::RemoveAllBullet()
 {
 }

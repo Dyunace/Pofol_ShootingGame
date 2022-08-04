@@ -5,7 +5,6 @@ class Stage1 : public Stage
 {
 protected:
 	list<Object*>* Stage1Boss[6];
-	list<Object*>* BossList;
 public:
 	Stage1();
 	virtual ~Stage1();
@@ -18,4 +17,7 @@ public:
 public:
 	void GetBossList();
 	void BossCollisionCheck();
+
+protected:
+	virtual void TakeBossDamage() override;
 };

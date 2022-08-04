@@ -13,6 +13,7 @@
 
 #include "NormalBullet.h"
 #include "LaserBullet.h"
+#include "Boom.h"
 #include "ENormalBullet.h"
 
 #include "Stage1_Boss_Core.h"
@@ -36,7 +37,7 @@ Stage::Stage() :
 {}
 Stage::~Stage(){}
 
-void Stage::GetObjectLists()
+void Stage::CatchObjectLists()
 {
 	pPlayer = ObjectManager::GetInstance()->GetObjectList(PLAYER)->front();
 
@@ -45,6 +46,7 @@ void Stage::GetObjectLists()
 	BigEnemyList = ObjectManager::GetInstance()->GetObjectList(BIGENEMY);
 
 	PlayerBulletList = ObjectManager::GetInstance()->GetObjectList(((Player*)pPlayer)->GetBullet());
+	PlayerBoomList = ObjectManager::GetInstance()->GetObjectList(BOOM);
 	ENormalBulletList = ObjectManager::GetInstance()->GetObjectList(ENORMALBULLET);
 }
 
@@ -55,54 +57,68 @@ void Stage::CollisionCheck()
 	{
 		for (int i = 0; i < 3; ++i)
 		{
-			list<Object*>* CurrentEnemyList = nullptr;
-
-			switch (i)
-			{
-			case 0:
+			if (i == 0)
 				CurrentEnemyList = NormalEnemyList;
-				break;
-			case 1:
+			else if (i == 1)
 				CurrentEnemyList = SmallEnemyList;
-				break;
-			case 2:
+			else if (i == 2)
 				CurrentEnemyList = BigEnemyList;
-				break;
-			default:
-				break;
-			}
 
 			DamageCheck(CurrentEnemyList);
 		}
 	}
 
-	// 적 총알 & 플레이어 충돌 검사
-	if (pPlayer)
+	// 플레이어 폭탄 검사
+	if (PlayerBoomList)
 	{
-		if (ENormalBulletList)
+		if (PlayerBoomList->begin() != PlayerBoomList->end())
 		{
-			for (auto ENormalBulletIter = ENormalBulletList->begin();
-				ENormalBulletIter != ENormalBulletList->end();)
-			{
-				if (CollisionManager::CircleCollision(*ENormalBulletIter, pPlayer))
+			int Count = ((Boom*)PlayerBoomList->front()->GetBridge())->GetCount();
+
+			if (Count > 30)
+				for (int i = 0; i < 3; ++i)
 				{
-					// 충돌 검사 디버그
-					CursorManager::GetInstance()->WriteBuffer(
-						pPlayer->GetPosition().x,
-						pPlayer->GetPosition().y - 2,
-						(char*)"Hit!"
-					);
+					if (i == 0)
+						CurrentEnemyList = NormalEnemyList;
+					else if (i == 1)
+						CurrentEnemyList = SmallEnemyList;
+					else if (i == 2)
+						CurrentEnemyList = BigEnemyList;
 
-					// Bullet Bridge 삭제
-					::Safe_Delete((*ENormalBulletIter)->GetBridge());
+					BoomDamage(CurrentEnemyList);
 
-					// DisableList에 보관
-					ENormalBulletIter = ObjectManager::GetInstance()->
-						ThrowObject(ENormalBulletIter, (*ENormalBulletIter));
+					if (BossPhase != 0 && BossPhase != 99)
+						TakeBossDamage();
 				}
-				else
-					++ENormalBulletIter;
+			else
+				CursorManager::GetInstance()->WriteBuffer(0, 40, Count);
+		}
+	}
+
+	// 적 총알 & 플레이어 충돌 검사
+	if (pPlayer && ENormalBulletList)
+	{
+		for (auto ENormalBulletIter = ENormalBulletList->begin();
+			ENormalBulletIter != ENormalBulletList->end();)
+		{
+			if (CollisionManager::CircleCollision(*ENormalBulletIter, pPlayer))
+			{
+				// 충돌 검사 디버그
+				CursorManager::GetInstance()->WriteBuffer(
+					pPlayer->GetPosition().x,
+					pPlayer->GetPosition().y - 2,
+					(char*)"Hit!"
+				);
+
+				// Bullet Bridge 삭제
+				::Safe_Delete((*ENormalBulletIter)->GetBridge());
+
+				// DisableList에 보관
+				ENormalBulletIter = ObjectManager::GetInstance()->
+					ThrowObject(ENormalBulletIter, (*ENormalBulletIter));
 			}
+			else
+				++ENormalBulletIter;
 		}
 	}
 }
@@ -147,34 +163,23 @@ void Stage::DamageCheck(list<Object*>* _CurrentList)
 	}
 }
 
+void Stage::BoomDamage(list<Object*>* _CurrentList)
+{
+	if (_CurrentList)
+	{
+		for (auto CurrentEnemyIter = _CurrentList->begin();
+			CurrentEnemyIter != _CurrentList->end();)
+		{
+			DamageManager::TakeDamage((PlayerBoomList->front()), (*CurrentEnemyIter));
+			DamageManager::DeathCheck(CurrentEnemyIter, (*CurrentEnemyIter));
+		}
+	}
+}
+
 void Stage::GetUserInstance()
 {
 	// Player의 Bullet 세팅
 	((Player*)pPlayer)->SetBullet(UserInstance::GetInstance()->GetBullet());
-}
-
-void Stage::MakeEnemy(string _EnemyType, Vector3 _Position, int _MoveType)
-{
-	if (_EnemyType == NORMALENEMY)
-	{
-		Bridge* sEnemy = new NormalEnemy;
-		ObjectManager::GetInstance()->AddBridge(NORMALENEMY, sEnemy, _Position);
-		((EnemyBridge*)sEnemy)->SetMovement(_MoveType);
-	}
-	else if (_EnemyType == SMALLENEMY)
-	{
-		Bridge* sEnemy = new SmallEnemy;
-		ObjectManager::GetInstance()->AddBridge(SMALLENEMY, sEnemy, _Position);
-		((EnemyBridge*)sEnemy)->SetMovement(_MoveType);
-	}
-	else if (_EnemyType == BIGENEMY)
-	{
-		Bridge* sEnemy = new BigEnemy;
-		ObjectManager::GetInstance()->AddBridge(BIGENEMY, sEnemy, _Position);
-		((EnemyBridge*)sEnemy)->SetMovement(_MoveType);
-	}
-
-	else {	}
 }
 
 void Stage::MakeEnemy(string _EnemyType, float _x, float _y, int _MoveType)
@@ -191,7 +196,7 @@ void Stage::MakeEnemy(string _EnemyType, float _x, float _y, int _MoveType)
 		ObjectManager::GetInstance()->AddBridge(SMALLENEMY, eSmall, Vector3(_x, _y));
 		((EnemyBridge*)eSmall)->SetMovement(_MoveType);
 	}
-	else if (_EnemyType == BIGENEMY)     
+	else if (_EnemyType == BIGENEMY)
 	{
 		Bridge* eBig = new BigEnemy;
 		ObjectManager::GetInstance()->AddBridge(BIGENEMY, eBig, Vector3(_x, _y));
@@ -209,8 +214,7 @@ void Stage::MakeEnemy(string _EnemyType, float _x, float _y, int _MoveType)
 		ObjectManager::GetInstance()->AddBridge(STAGE1_BOSS_HEAD, b1Head, Vector3(_x, _y - 4));
 
 		Bridge* b1ArmL = new Stage1_Boss_Arm_Left;
-		ObjectManager::GetInstance()->AddBridge
-		(STAGE1_BOSS_ARM_LEFT, b1ArmL, Vector3(_x + 8, _y - 3));
+		ObjectManager::GetInstance()->AddBridge(STAGE1_BOSS_ARM_LEFT, b1ArmL, Vector3(_x + 8, _y - 3));
 
 		Bridge* b1ArmR = new Stage1_Boss_Arm_Right;
 		ObjectManager::GetInstance()->AddBridge

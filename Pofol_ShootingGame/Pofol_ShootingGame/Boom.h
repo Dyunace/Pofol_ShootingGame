@@ -20,11 +20,10 @@ public:
 	virtual void Release()override;
 
 public:
-	virtual void SetTarget(Vector3 _Target = Vector3(0, 1))override;
-	virtual void SetTarget(float _x, float _y = 1.0f)override;
+	virtual void SetTarget(Vector3 _Target = Vector3(0, 1))override {};
+	virtual void SetTarget(float _x, float _y = 1.0f)override {};
 
-private:
-	void AttackAllEnemy();
-	void RemoveAllBullet();
+public:
+	int GetCount() { return Count; }
 };
 

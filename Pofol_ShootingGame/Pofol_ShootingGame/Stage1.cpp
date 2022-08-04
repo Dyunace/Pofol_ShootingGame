@@ -29,7 +29,7 @@ void Stage1::Initialize()
 		isLaser = true;
 
 	// 오브젝트 정보 가져오기
-	GetObjectLists();
+	CatchObjectLists();
 
 	CurStage = 1;
 	StageWave = 1;
@@ -84,13 +84,17 @@ void Stage1::Update()
 		// 임시 보스 스테이지
 		if (StageCount == 30)
 		{
+			BossPhase = 1;
+			PhaseCount = 0;
+
 			MakeEnemy(STAGE1_BOSS_CORE, 40, 0, 20);
 
 			GetBossList();
 		}
-
-		if (StageCount > 30 && (Stage1Boss[0]->begin() != Stage1Boss[0]->end()))
+		if (StageCount > 30)
+		{
 			BossCollisionCheck();
+		}
 	}
 
 	++StageCount;
@@ -113,61 +117,59 @@ void Stage1::GetBossList()
 	Stage1Boss[3] = ObjectManager::GetInstance()->GetObjectList(STAGE1_BOSS_ARM_RIGHT);
 	Stage1Boss[4] = ObjectManager::GetInstance()->GetObjectList(STAGE1_BOSS_SHIELD_LEFT);
 	Stage1Boss[5] = ObjectManager::GetInstance()->GetObjectList(STAGE1_BOSS_SHIELD_RIGHT);
-
-	BossList->push_back(ObjectManager::GetInstance()->GetObjectList(STAGE1_BOSS_HEAD)->front());
-	BossList->push_back(ObjectManager::GetInstance()->GetObjectList(STAGE1_BOSS_ARM_LEFT)->front());
-	BossList->push_back(ObjectManager::GetInstance()->GetObjectList(STAGE1_BOSS_ARM_RIGHT)->front());
-	BossList->push_back(ObjectManager::GetInstance()->GetObjectList(STAGE1_BOSS_SHIELD_LEFT)->front());
-	BossList->push_back(ObjectManager::GetInstance()->GetObjectList(STAGE1_BOSS_SHIELD_RIGHT)->front());
 }
 
 void Stage1::BossCollisionCheck()
 {
 	// ** 각 스테이지 별로 보스 페이즈가 다르기 때문에 스테이지에서 개별로 관리
-	//if (PlayerBulletList)
-	//{
-	//	auto Core = Stage1Boss[0]->front()->GetBridge();
-	//	list<Object*>* CurrentList = Stage1Boss[0];
-	//
-	//	if (((Stage1_Boss*)Core)->GetBossPhase() == 0)
-	//	{
-	//		int PhaseCount = 0;
-	//
-	//		for (int i = 0; i < 5; ++i)
-	//		{
-	//			switch (i)
-	//			{
-	//			case 0:
-	//				CurrentList = Stage1Boss[1];
-	//				break;
-	//			case 1:
-	//				CurrentList = Stage1Boss[2];
-	//				break;
-	//			case 2:
-	//				CurrentList = Stage1Boss[3];
-	//				break;
-	//			case 3:
-	//				CurrentList = Stage1Boss[4];
-	//				break;
-	//			case 4:
-	//				CurrentList = Stage1Boss[5];
-	//				break;
-	//			default:
-	//				break;
-	//			}
-	//
-	//			if (CurrentList->begin() != CurrentList->end())
-	//				DamageCheck(CurrentList);
-	//			else
-	//				++PhaseCount;
-	//
-	//			if (PhaseCount == 5)
-	//				((Stage1_Boss*)Core)->SetBossPhase(1);
-	//		}
-	//	}
-	//	else
-	//		DamageCheck(CurrentList);
-	//
-	//	CursorManager::GetInstance()->WriteBuffer(80, 0, (char*)"BossCheck");
-	//}
+	PhaseCount = 0;
+
+	list<Object*>* CurrentList = Stage1Boss[0];
+	
+	if (BossPhase == 1)
+	{
+		for (int i = 0; i < 5; ++i)
+		{
+			CurrentList = Stage1Boss[i + 1];
+
+			if (CurrentList->begin() != CurrentList->end())
+			{
+				if (PlayerBulletList)
+					DamageCheck(CurrentList);
+			}
+			else
+				++PhaseCount;
+
+			if (PhaseCount == 5)
+				BossPhase = 2;
+		}
+	}
+	else if (BossPhase == 2)
+	{
+		DamageCheck(CurrentList);
+
+		if (CurrentList->begin() == CurrentList->end())
+			BossPhase == 99;
+	}
+}
+
+void Stage1::TakeBossDamage()
+{
+	list<Object*>* CurrentList = Stage1Boss[0];
+
+	if (BossPhase == 1)
+	{
+		for (int i = 0; i < 5; ++i)
+		{
+			CurrentList = Stage1Boss[i + 1];
+
+			if (CurrentList->begin() != CurrentList->end())
+				DamageManager::TakeDamage(PlayerBoomList->front(), CurrentList->front());
+		}
+	}
+	else if (BossPhase == 2)
+	{
+		if (CurrentList->begin() != CurrentList->end())
+			DamageManager::TakeDamage(PlayerBoomList->front(), CurrentList->front());
+	}
 }

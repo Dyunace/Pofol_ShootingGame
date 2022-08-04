@@ -95,4 +95,9 @@ void ObjectPool::DedugRender()
 	CursorManager::GetInstance()->WriteBuffer(20.0f, 15.0f, (int)DisableList[ENORMALBULLET].size());
 	CursorManager::GetInstance()->WriteBuffer(0.0f, 16.0f, (char*)"EnEnemyBullet : ");
 	CursorManager::GetInstance()->WriteBuffer(20.0f, 16.0f, (int)EnableList[ENORMALBULLET].size());
+
+	CursorManager::GetInstance()->WriteBuffer(0.0f, 18.0f, (char*)"DisBoom : ");
+	CursorManager::GetInstance()->WriteBuffer(20.0f, 18.0f, (int)DisableList[BOOM].size());
+	CursorManager::GetInstance()->WriteBuffer(0.0f, 19.0f, (char*)"EnBoom : ");
+	CursorManager::GetInstance()->WriteBuffer(20.0f, 19.0f, (int)EnableList[BOOM].size());
 }

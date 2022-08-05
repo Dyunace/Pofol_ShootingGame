@@ -1,8 +1,6 @@
 #pragma once
 #include "Headers.h"
 
-class Player;
-class Bullet;
 class UserInstance
 {
 private:

@@ -28,6 +28,7 @@ void Stage1::Initialize()
 	if (((Player*)pPlayer)->GetBullet() == LASERBULLET)
 		isLaser = true;
 
+
 	// 오브젝트 정보 가져오기
 	CatchObjectLists();
 
@@ -39,29 +40,37 @@ void Stage1::Update()
 {
 	ObjectManager::GetInstance()->Update();
 
+	RenderUserInterface();
+
+	CatchObjectLists();
+
 	CollisionCheck();
 
-	if (StageWave == 1)
+	if (StageWave == 2)
 	{
 		// 이동 경로는 EnemyBridge.cpp 참조
 
 		if (StageCount == 10)
-			MakeEnemy(NORMALENEMY, 55, -1, 10);	// 0 = 정지
+			MakeEnemy(NORMALENEMY, 55, -1, 11);	// 0 = 정지
 
 		else if (StageCount == 20)
-			MakeEnemy(SMALLENEMY, 40, -1, 10);	// 1 = 아래로 이동, 밖으로 나가기
+			MakeEnemy(SMALLENEMY, 40, -1, 11);	// 1 = 아래로 이동, 밖으로 나가기
 			
 		else if (StageCount == 30)
-			MakeEnemy(BIGENEMY, 70, -1, 10);		// 11 = 아래로 이동 후 정지
+			MakeEnemy(BIGENEMY, 70, 0, 11);		// 11 = 아래로 이동 후 정지
 
-		else if (StageCount > 30 && WaveCheck())
+		if (StageCount > 35)
 		{
-			++StageWave;
-			StageCount = 0;
+
+			if (WaveCheck())
+			{
+				++StageWave;
+				StageCount = 0;
+			}
 		}
 	}
 
-	else if (StageWave == 3)
+	else if (StageWave == 1)
 	{
 		if (StageCount == 30)
 			MakeEnemy(BIGENEMY, 40, 5, 11);
@@ -72,14 +81,17 @@ void Stage1::Update()
 		else if (StageCount == 90)
 			MakeEnemy(BIGENEMY, 60, 5, 11);
 
-		else if (StageCount > 90 && WaveCheck())
+		else if (StageCount > 90)
 		{
-			++StageWave;
-			StageCount = 0;
+			if (WaveCheck())
+			{
+				++StageWave;
+				StageCount = 0;
+			}
 		}
 	}
 
-	else if (StageWave == 2)
+	else if (StageWave == 3)
 	{
 		// 임시 보스 스테이지
 		if (StageCount == 30)
@@ -149,7 +161,7 @@ void Stage1::BossCollisionCheck()
 		DamageCheck(CurrentList);
 
 		if (CurrentList->begin() == CurrentList->end())
-			BossPhase == 99;
+			BossPhase = 99;
 	}
 }
 

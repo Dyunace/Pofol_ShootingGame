@@ -25,16 +25,27 @@ void Stage1_Boss_Head::Initialize()
 	Buffer[7] = (char*)"¢Ì";
 	Buffer[8] = (char*)"¢×";
 
-	Hp = 350;
+	Hp = HeadHp;
+	BulletType = 3;
 
 	if (pObject)
+	{
 		pObject->SetScale(6.0f, 3.0f);
+	}
 
 	Core = ObjectManager::GetInstance()->GetObjectList(STAGE1_BOSS_CORE)->front();
 }
 
 int Stage1_Boss_Head::Update()
 {
+	if (ShootDelay < 0)
+	{
+		ShootBullet(Vector3(pObject->GetPosition().x, pObject->GetPosition().y + 2));
+		ShootDelay = 25;
+	}
+
+	--ShootDelay;
+
 	pObject->SetPosition(Core->GetPosition().x, Core->GetPosition().y - 4);
 
 	return 0;
@@ -42,35 +53,37 @@ int Stage1_Boss_Head::Update()
 
 void Stage1_Boss_Head::Render()
 {
-	if (pObject->GetPosition().y >= -1)
-		for (int i = 0; i < 3; ++i)
-			CursorManager::GetInstance()->WriteBuffer(
-				pObject->GetPosition().x - pObject->GetScale().x * 0.5f + (i * 2),
-				pObject->GetPosition().y + 1,
-				Buffer[i + 6]
-			);
+	if (DamageEfect != 3)
+	{
+		if (pObject->GetPosition().y >= -1)
+			for (int i = 0; i < 3; ++i)
+				CursorManager::GetInstance()->WriteBuffer(
+					pObject->GetPosition().x - pObject->GetScale().x * 0.5f + (i * 2),
+					pObject->GetPosition().y + 1,
+					Buffer[i + 6]
+				);
 
-	if (pObject->GetPosition().y >= 0)
-		for (int i = 0; i < 3; ++i)
-			CursorManager::GetInstance()->WriteBuffer(
-				pObject->GetPosition().x - pObject->GetScale().x * 0.5f + (i * 2),
-				pObject->GetPosition().y,
-				Buffer[i + 3]
-			);
+		if (pObject->GetPosition().y >= 0)
+			for (int i = 0; i < 3; ++i)
+				CursorManager::GetInstance()->WriteBuffer(
+					pObject->GetPosition().x - pObject->GetScale().x * 0.5f + (i * 2),
+					pObject->GetPosition().y,
+					Buffer[i + 3]
+				);
 
-	if (pObject->GetPosition().y >= 1)
-		for (int i = 0; i < 3; ++i)
-			CursorManager::GetInstance()->WriteBuffer(
-				pObject->GetPosition().x - pObject->GetScale().x * 0.5f + (i * 2),
-				pObject->GetPosition().y - 1,
-				Buffer[i]
-			);
+		if (pObject->GetPosition().y >= 1)
+			for (int i = 0; i < 3; ++i)
+				CursorManager::GetInstance()->WriteBuffer(
+					pObject->GetPosition().x - pObject->GetScale().x * 0.5f + (i * 2),
+					pObject->GetPosition().y - 1,
+					Buffer[i]
+				);
+	}
+
+	if (DamageEfect != 0)
+		--DamageEfect;
 }
 
 void Stage1_Boss_Head::Release()
-{
-}
-
-void Stage1_Boss_Head::ShootBullet()
 {
 }

@@ -64,15 +64,25 @@ void Stage1_Boss_Core::Initialize()
 		Buffer[34] = (char*)"¢Ö";
 	}
 
-	Hp = 350;
-	MoveSpeed = 0.35f;
+	Hp = CoreHp;
+	MoveSpeed = 0.25f;
 
 	if (pObject)
+	{
 		pObject->SetScale(6.0f, 3.0f);
+	}
 }
 
 int Stage1_Boss_Core::Update()
 {
+	if (ShootDelay < 0)
+	{
+		ShootBullet(Vector3(pObject->GetPosition().x, pObject->GetPosition().y + 1));
+		ShootDelay = 35;
+	}
+
+	--ShootDelay;
+
 	Movement(Vector3(15, 10));
 
 	return 0;
@@ -80,82 +90,83 @@ int Stage1_Boss_Core::Update()
 
 void Stage1_Boss_Core::Render()
 {
-	if (pObject->GetPosition().y >= -3)
+	if (DamageEfect != 3)
 	{
-		for (int i = 0; i < 5; ++i)
-			CursorManager::GetInstance()->WriteBuffer(
-				pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) - 2 + (i * 2),
-				pObject->GetPosition().y + 3,
-				Buffer[i + 30]
-			);
+		if (pObject->GetPosition().y >= -3)
+		{
+			for (int i = 0; i < 5; ++i)
+				CursorManager::GetInstance()->WriteBuffer(
+					pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) - 2 + (i * 2),
+					pObject->GetPosition().y + 3,
+					Buffer[i + 30]
+				);
+		}
+
+		if (pObject->GetPosition().y >= -2)
+		{
+			for (int i = 0; i < 5; ++i)
+				CursorManager::GetInstance()->WriteBuffer(
+					pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) - 2 + (i * 2),
+					pObject->GetPosition().y + 2,
+					Buffer[i + 25]
+				);
+		}
+
+		if (pObject->GetPosition().y >= -1)
+		{
+			for (int i = 0; i < 5; ++i)
+				CursorManager::GetInstance()->WriteBuffer(
+					pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) - 2 + (i * 2),
+					pObject->GetPosition().y + 1,
+					Buffer[i + 20]
+				);
+		}
+
+		if (pObject->GetPosition().y >= 0)
+		{
+			for (int i = 0; i < 5; ++i)
+				CursorManager::GetInstance()->WriteBuffer(
+					pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) - 2 + (i * 2),
+					pObject->GetPosition().y,
+					Buffer[i + 15]
+				);
+		}
+
+		if (pObject->GetPosition().y >= 1)
+		{
+			for (int i = 0; i < 5; ++i)
+				CursorManager::GetInstance()->WriteBuffer(
+					pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) - 2 + (i * 2),
+					pObject->GetPosition().y - 1,
+					Buffer[i + 10]
+				);
+		}
+
+		if (pObject->GetPosition().y >= 2)
+		{
+			for (int i = 0; i < 5; ++i)
+				CursorManager::GetInstance()->WriteBuffer(
+					pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) - 2 + (i * 2),
+					pObject->GetPosition().y - 2,
+					Buffer[i + 5]
+				);
+		}
+
+		if (pObject->GetPosition().y >= 3)
+		{
+			for (int i = 0; i < 5; ++i)
+				CursorManager::GetInstance()->WriteBuffer(
+					pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) - 2 + (i * 2),
+					pObject->GetPosition().y - 3,
+					Buffer[i]
+				);
+		}
 	}
 
-	if (pObject->GetPosition().y >= -2)
-	{
-		for (int i = 0; i < 5; ++i)
-			CursorManager::GetInstance()->WriteBuffer(
-				pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) - 2 + (i * 2),
-				pObject->GetPosition().y + 2,
-				Buffer[i + 25]
-			);
-	}
-
-	if (pObject->GetPosition().y >= -1)
-	{
-		for (int i = 0; i < 5; ++i)
-			CursorManager::GetInstance()->WriteBuffer(
-				pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) - 2 + (i * 2),
-				pObject->GetPosition().y + 1,
-				Buffer[i + 20]
-			);
-	}
-
-	if (pObject->GetPosition().y >= 0)
-	{
-		for (int i = 0; i < 5; ++i)
-			CursorManager::GetInstance()->WriteBuffer(
-				pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) - 2 + (i * 2),
-				pObject->GetPosition().y,
-				Buffer[i + 15]
-			);
-	}
-
-	if (pObject->GetPosition().y >= 1)
-	{
-		for (int i = 0; i < 5; ++i)
-			CursorManager::GetInstance()->WriteBuffer(
-				pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) - 2 + (i * 2),
-				pObject->GetPosition().y - 1,
-				Buffer[i + 10]
-			);
-	}
-
-	if (pObject->GetPosition().y >= 2)
-	{
-		for (int i = 0; i < 5; ++i)
-			CursorManager::GetInstance()->WriteBuffer(
-				pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) - 2 + (i * 2),
-				pObject->GetPosition().y - 2,
-				Buffer[i + 5]
-			);
-	}
-
-	if (pObject->GetPosition().y >= 3)
-	{
-		for (int i = 0; i < 5; ++i)
-			CursorManager::GetInstance()->WriteBuffer(
-				pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) - 2 + (i * 2),
-				pObject->GetPosition().y - 3,
-				Buffer[i]
-			);
-	}
+	if (DamageEfect != 0)
+		--DamageEfect;
 }
 
 void Stage1_Boss_Core::Release()
 {
-}
-
-void Stage1_Boss_Core::ShootBullet()
-{
-
 }

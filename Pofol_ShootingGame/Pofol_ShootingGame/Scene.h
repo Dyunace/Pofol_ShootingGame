@@ -1,6 +1,7 @@
 #pragma once
 #include "Headers.h"
 
+class Object;
 class Scene
 {
 public:
@@ -14,4 +15,6 @@ public:
 
 protected:
 	bool SelectionAccept();
+
+	void RemoveBullet(list<Object*>* _BulletList);
 };

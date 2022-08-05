@@ -12,9 +12,11 @@ protected:
 	int BulletType;
 
 	int DamageEfect;
+
+	Vector3 BulletPort;
 public:
 	EnemyBridge() : 
-		ShootDelay(0), Hp(0), MoveSpeed(0.0f), MoveType(0), MoveCount(0), BulletType(0), DamageEfect(false) {};
+		ShootDelay(0), Hp(0), MoveSpeed(0.0f), MoveType(0), MoveCount(0), BulletType(0), DamageEfect(false), BulletPort(0, 0) {};
 	virtual ~EnemyBridge() {};
 
 public:
@@ -22,8 +24,11 @@ public:
 	virtual int Update() PURE;
 	virtual void Render() PURE;
 	virtual void Release() PURE;
-public:
-	virtual void ShootBullet() PURE;
+
+
+protected:
+	void ShootBullet(Vector3 _Position);
+
 public:
 	int GetHP() const { return Hp; }
 	void SetHp(int _Damage) { Hp = _Damage; }

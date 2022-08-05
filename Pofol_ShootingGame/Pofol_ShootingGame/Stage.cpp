@@ -25,7 +25,9 @@
 
 Stage::Stage() : 
 	pPlayer(nullptr), 
+	CurrentEnemyList(nullptr),
 	PlayerBulletList(nullptr),
+	PlayerBoomList(nullptr),
 	ENormalBulletList(nullptr),
 	NormalEnemyList(nullptr),
 	SmallEnemyList(nullptr),
@@ -33,7 +35,9 @@ Stage::Stage() :
 	isLaser(false),
 	CurStage(0),
 	StageWave(0),
-	StageCount(0)
+	StageCount(0),
+	BossPhase(0),
+	PhaseCount(0)
 {}
 Stage::~Stage(){}
 
@@ -47,6 +51,7 @@ void Stage::CatchObjectLists()
 
 	PlayerBulletList = ObjectManager::GetInstance()->GetObjectList(((Player*)pPlayer)->GetBullet());
 	PlayerBoomList = ObjectManager::GetInstance()->GetObjectList(BOOM);
+
 	ENormalBulletList = ObjectManager::GetInstance()->GetObjectList(ENORMALBULLET);
 }
 
@@ -78,6 +83,7 @@ void Stage::CollisionCheck()
 			if (Count > 30)
 				for (int i = 0; i < 3; ++i)
 				{
+					// 화면 내 모든 적에게 데미지 가하기
 					if (i == 0)
 						CurrentEnemyList = NormalEnemyList;
 					else if (i == 1)
@@ -89,9 +95,11 @@ void Stage::CollisionCheck()
 
 					if (BossPhase != 0 && BossPhase != 99)
 						TakeBossDamage();
+
+
+					// 화면 낸 모든 적 총알 제거하기
+					BoomRemoveBullet();
 				}
-			else
-				CursorManager::GetInstance()->WriteBuffer(0, 40, Count);
 		}
 	}
 
@@ -145,6 +153,10 @@ void Stage::DamageCheck(list<Object*>* _CurrentList)
 
 						if (isLaser)
 							canDamage = false;
+
+						CursorManager::GetInstance()->WriteBuffer(
+							(*CurrentEnemyIter)->GetPosition(), (char*)"Hit"
+						);
 					}
 
 					// 총알 정보 삭제
@@ -176,10 +188,63 @@ void Stage::BoomDamage(list<Object*>* _CurrentList)
 	}
 }
 
+void Stage::BoomRemoveBullet()
+{
+	for (int i = 0; i < 2; ++i)
+	{
+		list<Object*>* CurrentBullet = nullptr;
+
+		if (i == 0)
+			CurrentBullet = ENormalBulletList;
+
+		if (CurrentBullet)
+		{
+			RemoveBullet(CurrentBullet);
+		}
+	}
+}
+
 void Stage::GetUserInstance()
 {
 	// Player의 Bullet 세팅
 	((Player*)pPlayer)->SetBullet(UserInstance::GetInstance()->GetBullet());
+}
+
+void Stage::RenderUserInterface()
+{
+	// UI 화면에 출력하기 (임시)
+	/*
+		화면에 출력할 목록
+
+		1. 생명
+		2. 현재 탄 + 레벨
+		3. 남은 폭탄 수
+		4. 현재 스테이지 (웨이브)
+		5. 현재 점수
+		6. 현재야 잘 지내니
+	*/
+	CursorManager::GetInstance()->WriteBuffer(0, 0, (char*)"Life : ");
+	for (float f = 0; f < UserInstance::GetInstance()->GetLife(); ++f)
+		CursorManager::GetInstance()->WriteBuffer(8.0f + (f * 2), 0, (char*)"♥");
+
+	CursorManager::GetInstance()->WriteBuffer(0, 2, (char*)"Boom : ");
+	for (float f = 0; f < UserInstance::GetInstance()->GetBoom(); ++f)
+		CursorManager::GetInstance()->WriteBuffer(8.0f + (f * 2), 2, (char*)"♠");
+	
+	char* BulletName = nullptr;
+
+	if (((Player*)pPlayer)->GetBullet() == NORMALBULLET)
+		BulletName = (char*)"Normal";
+	else if (((Player*)pPlayer)->GetBullet() == LASERBULLET)
+		BulletName = (char*)"Laser";
+
+	CursorManager::GetInstance()->WriteBuffer(0, 4, BulletName);
+	CursorManager::GetInstance()->WriteBuffer(8, 4, (char*)"Lv.");
+	CursorManager::GetInstance()->WriteBuffer(12, 4, UserInstance::GetInstance()->GetBulletLevel());
+
+	CursorManager::GetInstance()->WriteBuffer(0, 6, StageWave);
+	
+
 }
 
 void Stage::MakeEnemy(string _EnemyType, float _x, float _y, int _MoveType)
@@ -234,9 +299,31 @@ void Stage::MakeEnemy(string _EnemyType, float _x, float _y, int _MoveType)
 
 bool Stage::WaveCheck()
 {
-	if (NormalEnemyList->begin() == NormalEnemyList->end() &&
-		SmallEnemyList->begin() == SmallEnemyList->end() &&
-		BigEnemyList->begin() == BigEnemyList->end())
+	int WaveCount = 0;
+
+	if (NormalEnemyList)
+	{
+		if (NormalEnemyList->size() == 0)
+			++WaveCount;
+	}
+	else
+		++WaveCount;
+	if (SmallEnemyList)
+	{
+		if (SmallEnemyList->size() == 0)
+			++WaveCount;
+	}
+	else
+		++WaveCount;
+	if (BigEnemyList)
+	{
+		if (BigEnemyList->size() == 0)
+			++WaveCount;
+	}
+	else
+		++WaveCount;
+
+	if (WaveCount == 3)
 		return true;
 
 	return false;

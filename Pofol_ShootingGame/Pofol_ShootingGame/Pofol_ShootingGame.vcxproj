@@ -23,6 +23,7 @@
     <ClCompile Include="BGIcon.cpp" />
     <ClCompile Include="BigEnemy.cpp" />
     <ClCompile Include="Boom.cpp" />
+    <ClCompile Include="EnemyBridge.cpp" />
     <ClCompile Include="Stage1_Boss_Arm_Left.cpp" />
     <ClCompile Include="Stage1_Boss_Arm_Right.cpp" />
     <ClCompile Include="Stage1_Boss_Head.cpp" />
@@ -43,7 +44,6 @@
     <ClCompile Include="SmallEnemy.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Stage1.cpp" />
-    <ClCompile Include="Stage1_Boss.cpp" />
     <ClCompile Include="Stage1_Boss_Shield_Left.cpp" />
     <ClCompile Include="Stage1_Boss_Shield_Right.cpp" />
     <ClCompile Include="UserInstance.cpp" />
@@ -57,7 +57,6 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="WeaponSelect.cpp" />
-    <ClCompile Include="EnemyBridge.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGround.h" />

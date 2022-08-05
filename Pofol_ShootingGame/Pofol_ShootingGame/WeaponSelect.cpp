@@ -24,7 +24,7 @@ void WeaponSelect::Initialize()
 
 void WeaponSelect::Update()
 {
-	ObjectPool::GetInstance()->DedugRender();
+	//ObjectPool::GetInstance()->DedugRender();
 
 	MakePreview();
 
@@ -151,18 +151,6 @@ void WeaponSelect::ReleaseBullet()
 
 	if (BulletList)
 	{
-		for (auto iter = BulletList->begin(); iter != BulletList->end();)
-		{
-			if (*iter)
-			{
-				// Remove Bullet Data
-				::Safe_Delete((*iter)->GetBridge());
-
-				// Save in Disable List
-				iter = ObjectManager::GetInstance()->ThrowObject(iter, (*iter));
-			}
-			else
-				++iter;
-		}
+		RemoveBullet(BulletList);
 	}
 }

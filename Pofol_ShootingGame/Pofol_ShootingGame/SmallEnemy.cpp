@@ -11,12 +11,14 @@ void SmallEnemy::Initialize()
     Buffer[0] = (char*)"¥Ì";
     Buffer[1] = (char*)"¥×";
 
-	Hp = 10;
+	Hp = 20;
 	MoveSpeed = 0.5f;
 	BulletType = 1;
 
 	if (pObject)
+	{
 		pObject->SetScale(2.0f, 1.0f);
+	}
 }
 
 int SmallEnemy::Update()
@@ -24,7 +26,10 @@ int SmallEnemy::Update()
 	Movement();
 
 	if (ShootDelay < 0)
-		ShootBullet();
+	{
+		ShootBullet(Vector3(pObject->GetPosition().x, pObject->GetPosition().y + 2));
+		ShootDelay = 10;
+	}
 
 	--ShootDelay;
 
@@ -66,11 +71,4 @@ void SmallEnemy::Render()
 
 void SmallEnemy::Release()
 {
-}
-
-void SmallEnemy::ShootBullet()
-{
-	BulletManager::GetInstance()->MakeEnemyBullet(BulletType, pObject->GetPosition());
-
-	ShootDelay = 10;
 }

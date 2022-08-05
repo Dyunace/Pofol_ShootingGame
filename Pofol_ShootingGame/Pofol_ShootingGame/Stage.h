@@ -13,7 +13,6 @@ protected:
 	list<Object*>* NormalEnemyList;
 	list<Object*>* SmallEnemyList;
 	list<Object*>* BigEnemyList;
-	list<Object*>* BossList;
 	
 	list<Object*>* PlayerBulletList;
 	list<Object*>* PlayerBoomList;
@@ -40,9 +39,11 @@ protected:
 	void DamageCheck(list<Object*>* _CurrentList);
 
 	void BoomDamage(list<Object*>* _CurrentList);
+	void BoomRemoveBullet();
 	virtual void TakeBossDamage() PURE;
 
 	void GetUserInstance();
+	void RenderUserInterface();
 
 	void MakeEnemy(string _EnemyType, float _x, float _y, int _MoveType);
 

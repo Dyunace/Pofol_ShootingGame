@@ -25,7 +25,8 @@ void Stage1_Boss_Shield_Left::Initialize()
     Buffer[8] = (char*)"¢Ç";
     Buffer[9] = (char*)"¡Ã";
 
-    Hp = 550;
+    Hp = ShieldHp;
+    BulletType = 1;
 
     if (pObject)
         pObject->SetScale(12.0f, 2.0f);
@@ -35,6 +36,14 @@ void Stage1_Boss_Shield_Left::Initialize()
 
 int Stage1_Boss_Shield_Left::Update()
 {
+    if (ShootDelay < 0)
+    {
+        ShootBullet(Vector3(pObject->GetPosition().x, pObject->GetPosition().y + 2));
+        ShootDelay = 10;
+    }
+
+    --ShootDelay;
+
     pObject->SetPosition(Core->GetPosition().x - 5, Core->GetPosition().y + 4);
 
     return 0;
@@ -42,27 +51,29 @@ int Stage1_Boss_Shield_Left::Update()
 
 void Stage1_Boss_Shield_Left::Render()
 {
-    if (pObject->GetPosition().y >= -1)
-        for (int i = 0; i < 6; ++i)
-            CursorManager::GetInstance()->WriteBuffer(
-                pObject->GetPosition().x - pObject->GetScale().x * 0.5f - 2 + (i * 2),
-                pObject->GetPosition().y + 1,
-                Buffer[i + 4]
-            );
+    if (DamageEfect != 3)
+    {
+        if (pObject->GetPosition().y >= -1)
+            for (int i = 0; i < 6; ++i)
+                CursorManager::GetInstance()->WriteBuffer(
+                    pObject->GetPosition().x - pObject->GetScale().x * 0.5f - 2 + (i * 2),
+                    pObject->GetPosition().y + 1,
+                    Buffer[i + 4]
+                );
 
-    if (pObject->GetPosition().y >= 0)
-        for (int i = 0; i < 4; ++i)
-            CursorManager::GetInstance()->WriteBuffer(
-                pObject->GetPosition().x - pObject->GetScale().x * 0.5f + (i * 2),
-                pObject->GetPosition().y,
-                Buffer[i]
-            );
+        if (pObject->GetPosition().y >= 0)
+            for (int i = 0; i < 4; ++i)
+                CursorManager::GetInstance()->WriteBuffer(
+                    pObject->GetPosition().x - pObject->GetScale().x * 0.5f + (i * 2),
+                    pObject->GetPosition().y,
+                    Buffer[i]
+                );
+    }
+
+    if (DamageEfect != 0)
+        --DamageEfect;
 }
 
 void Stage1_Boss_Shield_Left::Release()
-{
-}
-
-void Stage1_Boss_Shield_Left::ShootBullet()
 {
 }

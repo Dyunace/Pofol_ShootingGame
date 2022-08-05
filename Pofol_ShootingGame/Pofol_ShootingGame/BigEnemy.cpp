@@ -23,7 +23,7 @@ void BigEnemy::Initialize()
 	// 3ÁÙ 5
 	Buffer[4] = (char*)"¢×";
 	Buffer[5] = (char*)"¡¡";
-	Buffer[6] = (char*)"¥Ø";
+	Buffer[6] = (char*)"¥è";
 	Buffer[7] = (char*)"¡¡";
 	Buffer[8] = (char*)"¢Ù";
 
@@ -36,12 +36,14 @@ void BigEnemy::Initialize()
 	Buffer[14] = (char*)"£ß";
 	Buffer[15] = (char*)"¡µ";
 
-	Hp = 50;
+	Hp = 150;
 	MoveSpeed = 0.25f;
 	BulletType = 3;
 
 	if (pObject)
-		pObject->SetScale(14.0f, 1.0f);
+	{
+		pObject->SetScale(14.0f, 4.0f);
+	}
 }
 
 int BigEnemy::Update()
@@ -49,7 +51,10 @@ int BigEnemy::Update()
 	Movement();
 
 	if (ShootDelay < 0)
-		ShootBullet();
+	{
+		ShootBullet(Vector3(pObject->GetPosition().x, pObject->GetPosition().y + 1));
+		ShootDelay = 30;
+	}
 
 	--ShootDelay;
 
@@ -63,8 +68,7 @@ void BigEnemy::Render()
 {
 	if (DamageEfect != 3)
 	{
-		if (pObject->GetPosition().y < 0) {}
-		else if (pObject->GetPosition().y == 0)
+		if (pObject->GetPosition().y > -1)
 		{
 			for (int x = 0; x < 7; ++x)
 				CursorManager::GetInstance()->WriteBuffer(
@@ -72,60 +76,27 @@ void BigEnemy::Render()
 					pObject->GetPosition().y,
 					Buffer[x + 9]);
 		}
-		else if (pObject->GetPosition().y == 1)
-		{
-			for (int x = 0; x < 7; ++x)
-				CursorManager::GetInstance()->WriteBuffer(
-					pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) + (x * 2),
-					pObject->GetPosition().y,
-					Buffer[x + 9]);
 
+		if (pObject->GetPosition().y > 0)
+		{
 			for (int x = 0; x < 5; ++x)
 				CursorManager::GetInstance()->WriteBuffer(
 					pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) + 2 + (x * 2),
 					pObject->GetPosition().y - 1,
 					Buffer[x + 4]);
 		}
-		else if (pObject->GetPosition().y == 2)
+
+		if (pObject->GetPosition().y > 1)
 		{
-			for (int x = 0; x < 7; ++x)
-				CursorManager::GetInstance()->WriteBuffer(
-					pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) + (x * 2),
-					pObject->GetPosition().y,
-					Buffer[x + 9]);
-
-			for (int x = 0; x < 5; ++x)
-				CursorManager::GetInstance()->WriteBuffer(
-					pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) + 2 + (x * 2),
-					pObject->GetPosition().y - 1,
-					Buffer[x + 4]);
-
 			for (int x = 0; x < 3; ++x)
 				CursorManager::GetInstance()->WriteBuffer(
 					pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) + 4 + (x * 2),
 					pObject->GetPosition().y - 2,
 					Buffer[x + 1]);
 		}
-		else if (pObject->GetPosition().y > 2)
+
+		if (pObject->GetPosition().y > 2)
 		{
-			for (int x = 0; x < 7; ++x)
-				CursorManager::GetInstance()->WriteBuffer(
-					pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) + (x * 2),
-					pObject->GetPosition().y,
-					Buffer[x + 9]);
-
-			for (int x = 0; x < 5; ++x)
-				CursorManager::GetInstance()->WriteBuffer(
-					pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) + 2 + (x * 2),
-					pObject->GetPosition().y - 1,
-					Buffer[x + 4]);
-
-			for (int x = 0; x < 3; ++x)
-				CursorManager::GetInstance()->WriteBuffer(
-					pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) + 4 + (x * 2),
-					pObject->GetPosition().y - 2,
-					Buffer[x + 1]);
-
 			CursorManager::GetInstance()->WriteBuffer(
 				pObject->GetPosition().x - (pObject->GetScale().x * 0.5f) + 6,
 				pObject->GetPosition().y - 3,
@@ -141,11 +112,4 @@ void BigEnemy::Render()
 
 void BigEnemy::Release()
 {
-}
-
-void BigEnemy::ShootBullet()
-{
-	BulletManager::GetInstance()->MakeEnemyBullet(BulletType, pObject->GetPosition());
-
-	ShootDelay = 30;
 }

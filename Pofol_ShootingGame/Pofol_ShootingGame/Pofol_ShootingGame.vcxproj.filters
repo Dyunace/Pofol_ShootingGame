@@ -267,9 +267,6 @@
     <ClCompile Include="SmallEnemy.cpp">
       <Filter>소스 파일\02.Object\Enemy\EnemyBridge\02_SmallEnemy</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyBridge.cpp">
-      <Filter>소스 파일\02.Object\Enemy\EnemyBridge</Filter>
-    </ClCompile>
     <ClCompile Include="BigEnemy.cpp">
       <Filter>소스 파일\02.Object\Enemy\EnemyBridge\03_BigEnemy</Filter>
     </ClCompile>
@@ -278,9 +275,6 @@
     </ClCompile>
     <ClCompile Include="Stage1_Boss_Head.cpp">
       <Filter>소스 파일\02.Object\Enemy\EnemyBridge\11_Boss\Stage1\02.Head</Filter>
-    </ClCompile>
-    <ClCompile Include="Stage1_Boss.cpp">
-      <Filter>소스 파일\02.Object\Enemy\EnemyBridge\11_Boss\Stage1</Filter>
     </ClCompile>
     <ClCompile Include="Stage1_Boss_Arm_Left.cpp">
       <Filter>소스 파일\02.Object\Enemy\EnemyBridge\11_Boss\Stage1\03.Arm_Left</Filter>
@@ -296,6 +290,9 @@
     </ClCompile>
     <ClCompile Include="Boom.cpp">
       <Filter>소스 파일\02.Object\Bullet\Boom</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBridge.cpp">
+      <Filter>소스 파일\02.Object\Enemy\EnemyBridge</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,7 @@
 #pragma once
 #include "Headers.h"
 #include "ObjectManager.h"
+#include "UserInstance.h"
 
 #include "Object.h"
 #include "EnemyBridge.h"
@@ -14,7 +15,8 @@ public:
 	static int TakeDamage(Object* _Current, Object* _Target)
 	{
 		auto Target = ((EnemyBridge*)_Target->GetBridge());
-		auto Damage = ((BulletBridge*)_Current->GetBridge())->GetDamage();
+		auto Damage = 
+			((BulletBridge*)_Current->GetBridge())->GetDamage();
 
 		Target->SetHp(Target->GetHP() - Damage);
 

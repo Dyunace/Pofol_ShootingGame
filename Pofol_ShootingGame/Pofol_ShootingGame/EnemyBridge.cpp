@@ -3,14 +3,20 @@
 #include "MathManager.h"
 #include "ObjectManager.h"
 #include "CursorManager.h"
+#include "BulletManager.h"
 
 #include "Object.h"
+
+void EnemyBridge::ShootBullet(Vector3 _Position)
+{
+	BulletManager::GetInstance()->MakeEnemyBullet(BulletType, _Position);
+}
 
 bool EnemyBridge::BufferCheck()
 {
 	if (pObject->GetPosition().y + 1 >= ConsoleHeightSize - 1 ||
 		pObject->GetPosition().x + pObject->GetScale().x * 0.5f >= ConsoleWidthSize ||
-		pObject->GetPosition().x - pObject->GetScale().x * 0.5f <= 0 )
+		pObject->GetPosition().x - pObject->GetScale().x * 0.5f <= 0)
 		return true;
 
 	return false;
@@ -77,13 +83,13 @@ void EnemyBridge::Movement(Vector3 _MoveLimit)
 		break;
 	case 22:
 		// ÁÂ¿ì ÀÌµ¿ (¿ì ¹æÇâ)
-			pObject->SetPosition(PosX + MoveSpeed, PosY);
+		pObject->SetPosition(PosX + MoveSpeed, PosY);
 		if (pObject->GetPosition().x + _MoveLimit.x > ConsoleWidthSize)
 			this->SetMovement(23);
 		break;
 	case 23:
 		// ÁÂ¿ì ÀÌµ¿ (ÁÂ ¹æÇâ)
-			pObject->SetPosition(PosX - MoveSpeed, PosY);
+		pObject->SetPosition(PosX - MoveSpeed, PosY);
 		if (pObject->GetPosition().x - _MoveLimit.x < 0)
 			this->SetMovement(22);
 		break;

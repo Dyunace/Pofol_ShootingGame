@@ -16,9 +16,6 @@ void BulletManager::MakePlayerBullet(string _Key, Vector3 _Position, float _Limi
 {
 	int BulletLevel = UserInstance::GetInstance()->GetBulletLevel();
 
-	// µð¹ö±×
-	BulletLevel = 3;
-
 	float PosX = _Position.x;
 	float PosY = ((_Position.y * 100) / 100) - 2;
 
@@ -128,7 +125,7 @@ void BulletManager::MakeEnemyBullet(int _BulletType, Vector3 _Position)
 			);
 
 			((BulletBridge*)pBullet)->SetTarget(
-				player->GetPosition().x - 4 + (i * 8),
+				player->GetPosition().x - 6 + (i * 12),
 				player->GetPosition().y
 			);
 		}
@@ -146,7 +143,7 @@ void BulletManager::MakeEnemyBullet(int _BulletType, Vector3 _Position)
 			);
 
 			((BulletBridge*)pBullet)->SetTarget(
-				player->GetPosition().x - 6 + (i * 6),
+				player->GetPosition().x - 8 + (i * 8),
 				player->GetPosition().y
 			);
 		}

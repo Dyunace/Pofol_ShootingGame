@@ -22,12 +22,11 @@ void Stage1::Initialize()
 	pPlayer = ObjectManager::GetInstance()->GetObjectList(PLAYER)->front();
 	pPlayer->SetPosition(40, 40);
 
-	GetUserInstance();
 
-	// Laser Bullet 중복 방지
+	// 플레이어 총알 정보 가져오기
+	GetPlayerBullet();
 	if (((Player*)pPlayer)->GetBullet() == LASERBULLET)
 		isLaser = true;
-
 
 	// 오브젝트 정보 가져오기
 	CatchObjectLists();

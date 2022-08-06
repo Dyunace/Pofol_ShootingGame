@@ -2,7 +2,7 @@
 #include "Bridge.h"
 
 Enemy::Enemy() {}
-Enemy::Enemy(Transform _Info){}
+Enemy::Enemy(Transform _Info) : Object(_Info) {}
 Enemy::~Enemy(){}
 
 Object* Enemy::Initialize(string _Key)

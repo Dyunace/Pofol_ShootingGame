@@ -35,15 +35,18 @@ const string NORMALBULLET = "10_NormalBullet";
 const string LASERBULLET = "11_LaserBullet";
 const string BOOM = "19_Boom";
 
-const string ENORMALBULLET = "20_ENormalBullet";
-const string ESPECIALBULLET = "21_ESpecialBullet";
-
 const string STAGE1_BOSS_CORE = "30_Stage1_Boss_Core";
 const string STAGE1_BOSS_HEAD = "30_Stage1_Boss_Head";
 const string STAGE1_BOSS_ARM_LEFT = "30_Stage1_Boss_Arm_Left";
 const string STAGE1_BOSS_ARM_RIGHT = "30_Stage1_Boss_Arm_Right";
 const string STAGE1_BOSS_SHIELD_LEFT = "30_Stage1_Boss_Shield_Left";
 const string STAGE1_BOSS_SHIELD_RIGHT = "30_Stage1_Boss_Shield_Right";
+
+const string BOOMITEM = "80_BoomItem";
+const string WEAPONITEM = "81_WeaponItem";
+
+const string ENORMALBULLET = "100_ENormalBullet";
+const string ESPECIALBULLET = "101_ESpecialBullet";
 
 // ETC
 const int EnemyBulletTargetY = 50;

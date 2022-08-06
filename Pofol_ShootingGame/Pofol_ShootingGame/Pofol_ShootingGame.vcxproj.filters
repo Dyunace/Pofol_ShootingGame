@@ -70,12 +70,6 @@
     <Filter Include="소스 파일\02.Object\Bullet\BulletBridge\PlayerBullet">
       <UniqueIdentifier>{0c52529a-f860-47f0-a2f2-0c6b147a8a58}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\02.Object\Bullet\BulletBridge\PlayerBullet\LaserBullet">
-      <UniqueIdentifier>{42563bed-ae89-4070-a5b8-b7331eb777b1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\02.Object\Bullet\BulletBridge\PlayerBullet\NomalBullet">
-      <UniqueIdentifier>{2e3c421b-a8a9-443d-bc1b-3bad2db419de}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\02.Object\Bullet\BulletBridge\EnemyBullet\ENormalBullet">
       <UniqueIdentifier>{0e5b67cf-b475-4e31-9e00-a4da67877e1f}</UniqueIdentifier>
     </Filter>
@@ -178,6 +172,24 @@
     <Filter Include="소스 파일\02.Object\Bullet\Boom">
       <UniqueIdentifier>{39b695de-f2f4-4cd9-bd35-e9b5a504cd77}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\02.Object\Item">
+      <UniqueIdentifier>{ad344403-da6d-48d4-a6c9-60ad8aa6cc5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Item\ItemBridge">
+      <UniqueIdentifier>{5d358d1b-6da6-4784-b715-318c8c358305}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Item\ItemBridge\WeaponItem">
+      <UniqueIdentifier>{5d69ecc1-e12b-45bd-bc8b-127dbbdc47eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Item\ItemBridge\BoomItem">
+      <UniqueIdentifier>{1dbe780c-afd8-4cb0-85d4-b576113b921f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Bullet\BulletBridge\PlayerBullet\01.NomalBullet">
+      <UniqueIdentifier>{2e3c421b-a8a9-443d-bc1b-3bad2db419de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Object\Bullet\BulletBridge\PlayerBullet\02.LaserBullet">
+      <UniqueIdentifier>{42563bed-ae89-4070-a5b8-b7331eb777b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -232,7 +244,7 @@
       <Filter>소스 파일\98.Pattern\Proto</Filter>
     </ClCompile>
     <ClCompile Include="NormalBullet.cpp">
-      <Filter>소스 파일\02.Object\Bullet\BulletBridge\PlayerBullet\NomalBullet</Filter>
+      <Filter>소스 파일\02.Object\Bullet\BulletBridge\PlayerBullet\01.NomalBullet</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>소스 파일\02.Object\Enemy</Filter>
@@ -253,7 +265,7 @@
       <Filter>소스 파일\02.Object\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="LaserBullet.cpp">
-      <Filter>소스 파일\02.Object\Bullet\BulletBridge\PlayerBullet\LaserBullet</Filter>
+      <Filter>소스 파일\02.Object\Bullet\BulletBridge\PlayerBullet\02.LaserBullet</Filter>
     </ClCompile>
     <ClCompile Include="BulletManager.cpp">
       <Filter>소스 파일\99.Manager\Object\BulletManager</Filter>
@@ -293,6 +305,15 @@
     </ClCompile>
     <ClCompile Include="EnemyBridge.cpp">
       <Filter>소스 파일\02.Object\Enemy\EnemyBridge</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>소스 파일\02.Object\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomItem.cpp">
+      <Filter>소스 파일\02.Object\Item\ItemBridge\BoomItem</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponItem.cpp">
+      <Filter>소스 파일\02.Object\Item\ItemBridge\WeaponItem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -357,7 +378,7 @@
       <Filter>소스 파일\98.Pattern\Proto</Filter>
     </ClInclude>
     <ClInclude Include="NormalBullet.h">
-      <Filter>소스 파일\02.Object\Bullet\BulletBridge\PlayerBullet\NomalBullet</Filter>
+      <Filter>소스 파일\02.Object\Bullet\BulletBridge\PlayerBullet\01.NomalBullet</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>소스 파일\02.Object\Enemy</Filter>
@@ -387,7 +408,7 @@
       <Filter>소스 파일\99.Manager\Math\CollisionManager</Filter>
     </ClInclude>
     <ClInclude Include="LaserBullet.h">
-      <Filter>소스 파일\02.Object\Bullet\BulletBridge\PlayerBullet\LaserBullet</Filter>
+      <Filter>소스 파일\02.Object\Bullet\BulletBridge\PlayerBullet\02.LaserBullet</Filter>
     </ClInclude>
     <ClInclude Include="Bridge.h">
       <Filter>소스 파일\98.Pattern\Bridge</Filter>
@@ -442,6 +463,18 @@
     </ClInclude>
     <ClInclude Include="Boom.h">
       <Filter>소스 파일\02.Object\Bullet\Boom</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>소스 파일\02.Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemBridge.h">
+      <Filter>소스 파일\02.Object\Item\ItemBridge</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomItem.h">
+      <Filter>소스 파일\02.Object\Item\ItemBridge\BoomItem</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponItem.h">
+      <Filter>소스 파일\02.Object\Item\ItemBridge\WeaponItem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

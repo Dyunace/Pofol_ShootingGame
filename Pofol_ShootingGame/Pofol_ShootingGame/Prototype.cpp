@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Bullet.h"
+#include "Item.h"
 
 Prototype* Prototype::Instance = nullptr;
 Prototype::Prototype(){}
@@ -50,6 +51,12 @@ void Prototype::Initialize()
 	ProtoTypeList[Key] = (new Enemy(Info))->Initialize(Key);
 	Key = STAGE1_BOSS_SHIELD_RIGHT;
 	ProtoTypeList[Key] = (new Enemy(Info))->Initialize(Key);
+
+	// ¾ÆÀÌÅÛ
+	Key = BOOMITEM;
+	ProtoTypeList[Key] = (new Item(Info))->Initialize(Key);
+	Key = WEAPONITEM;
+	ProtoTypeList[Key] = (new Item(Info))->Initialize(Key);
 }
 
 Object* Prototype::ProtoTypeObject(string _Key)

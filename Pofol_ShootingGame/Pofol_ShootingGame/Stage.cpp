@@ -23,6 +23,9 @@
 #include "Stage1_Boss_Shield_Left.h"
 #include "Stage1_Boss_Shield_Right.h"
 
+#include "BoomItem.h"
+#include "WeaponItem.h"
+
 Stage::Stage() : 
 	pPlayer(nullptr), 
 	CurrentEnemyList(nullptr),
@@ -32,12 +35,16 @@ Stage::Stage() :
 	NormalEnemyList(nullptr),
 	SmallEnemyList(nullptr),
 	BigEnemyList(nullptr),
+	BoomItemList(nullptr),
+	WeaponItemList(nullptr),
 	isLaser(false),
 	CurStage(0),
 	StageWave(0),
 	StageCount(0),
 	BossPhase(0),
-	PhaseCount(0)
+	PhaseCount(0),
+	isBoomItemDrop(false),
+	isWeaponItemDrop(false)
 {}
 Stage::~Stage(){}
 
@@ -53,54 +60,59 @@ void Stage::CatchObjectLists()
 	PlayerBoomList = ObjectManager::GetInstance()->GetObjectList(BOOM);
 
 	ENormalBulletList = ObjectManager::GetInstance()->GetObjectList(ENORMALBULLET);
+
+	BoomItemList = ObjectManager::GetInstance()->GetObjectList(BOOMITEM);
+	WeaponItemList = ObjectManager::GetInstance()->GetObjectList(WEAPONITEM);
 }
 
 void Stage::CollisionCheck()
 {
-	// 플레이어 총알 & 적 충돌 검사
-	if (PlayerBulletList)
+	for (int i = 0; i < 3; ++i)
 	{
-		for (int i = 0; i < 3; ++i)
+		if (i == 0)
+			CurrentEnemyList = NormalEnemyList;
+		else if (i == 1)
+			CurrentEnemyList = SmallEnemyList;
+		else if (i == 2)
+			CurrentEnemyList = BigEnemyList;
+
+		if (CurrentEnemyList)
 		{
-			if (i == 0)
-				CurrentEnemyList = NormalEnemyList;
-			else if (i == 1)
-				CurrentEnemyList = SmallEnemyList;
-			else if (i == 2)
-				CurrentEnemyList = BigEnemyList;
+			// 플레이어 총알 & 적 충돌 검사
+			if (PlayerBulletList)
+				DamageCheck(CurrentEnemyList);
 
-			DamageCheck(CurrentEnemyList);
-		}
-	}
-
-	// 플레이어 폭탄 검사
-	if (PlayerBoomList)
-	{
-		if (PlayerBoomList->begin() != PlayerBoomList->end())
-		{
-			int Count = ((Boom*)PlayerBoomList->front()->GetBridge())->GetCount();
-
-			if (Count > 30)
-				for (int i = 0; i < 3; ++i)
+			// 플레이어 폭탄 검사
+			if (PlayerBoomList)
+			{
+				if (PlayerBoomList->begin() != PlayerBoomList->end())
 				{
-					// 화면 내 모든 적에게 데미지 가하기
-					if (i == 0)
-						CurrentEnemyList = NormalEnemyList;
-					else if (i == 1)
-						CurrentEnemyList = SmallEnemyList;
-					else if (i == 2)
-						CurrentEnemyList = BigEnemyList;
+					if (((Boom*)PlayerBoomList->front()->GetBridge())->GetCount() > 30)
+						for (int i = 0; i < 3; ++i)
+						{
+							BoomDamage(CurrentEnemyList);
 
-					BoomDamage(CurrentEnemyList);
+							if (BossPhase != 0 && BossPhase != 99)
+								TakeBossDamage();
 
-					if (BossPhase != 0 && BossPhase != 99)
-						TakeBossDamage();
-
-
-					// 화면 낸 모든 적 총알 제거하기
-					BoomRemoveBullet();
+							// 화면 낸 모든 적 총알 제거하기
+							BoomRemoveBullet();
+						}
 				}
+			}
+
+			// 적 처치 검사
+			for (auto iter = CurrentEnemyList->begin(); iter != CurrentEnemyList->end();)
+			{
+				// 아이템 드랍 검사
+				if (CurrentEnemyList == BigEnemyList)
+					ItemDropCheck(iter);
+				else
+					// 일반 검사
+					DamageManager::DeathCheck(iter, (*iter));
+			}
 		}
+	
 	}
 
 	// 적 총알 & 플레이어 충돌 검사
@@ -118,15 +130,43 @@ void Stage::CollisionCheck()
 					(char*)"Hit!"
 				);
 
-				// Bullet Bridge 삭제
-				::Safe_Delete((*ENormalBulletIter)->GetBridge());
-
-				// DisableList에 보관
-				ENormalBulletIter = ObjectManager::GetInstance()->
-					ThrowObject(ENormalBulletIter, (*ENormalBulletIter));
+				RemoveObject(ENormalBulletIter);
 			}
 			else
 				++ENormalBulletIter;
+		}
+	}
+
+	// 아이템 & 플레이어 충돌 검사
+	for (int i = 0; i < 2; ++i)
+	{
+		list<Object*>* CurrentList = nullptr;
+
+		if (i == 0)
+			CurrentList = BoomItemList;
+		if (i == 1)
+			CurrentList = WeaponItemList;
+
+		if (CurrentList)
+		{
+			for (auto iter = CurrentList->begin(); iter != CurrentList->end();)
+			{
+				if (CollisionManager::RectCollision(pPlayer, (*iter)))
+				{
+					// 폭탄 추가
+					if (CurrentList == BoomItemList)
+						UserInstance::GetInstance()->AddBoom();
+
+					// 무기 변경 or 레벨 업
+					if (CurrentList == WeaponItemList)
+						ItemWeaponUpgrade(iter);
+
+					// 아이템 삭제
+					RemoveObject(iter);
+				}
+				else
+					++iter;
+			}
 		}
 	}
 }
@@ -136,7 +176,7 @@ void Stage::DamageCheck(list<Object*>* _CurrentList)
 	if (_CurrentList)
 	{
 		for (auto CurrentEnemyIter = _CurrentList->begin();
-			CurrentEnemyIter != _CurrentList->end();)
+			CurrentEnemyIter != _CurrentList->end(); ++CurrentEnemyIter)
 		{
 			bool canDamage = true;
 
@@ -153,24 +193,13 @@ void Stage::DamageCheck(list<Object*>* _CurrentList)
 
 						if (isLaser)
 							canDamage = false;
-
-						CursorManager::GetInstance()->WriteBuffer(
-							(*CurrentEnemyIter)->GetPosition(), (char*)"Hit"
-						);
 					}
 
-					// 총알 정보 삭제
-					::Safe_Delete((*PlayerBulletIter)->GetBridge());
-
-					// DisableList에 보관
-					PlayerBulletIter = ObjectManager::GetInstance()->
-						ThrowObject(PlayerBulletIter, (*PlayerBulletIter));
+					RemoveObject(PlayerBulletIter);
 				}
 				else
 					++PlayerBulletIter;
 			}
-
-			DamageManager::DeathCheck(CurrentEnemyIter, (*CurrentEnemyIter));
 		}
 	}
 }
@@ -180,10 +209,9 @@ void Stage::BoomDamage(list<Object*>* _CurrentList)
 	if (_CurrentList)
 	{
 		for (auto CurrentEnemyIter = _CurrentList->begin();
-			CurrentEnemyIter != _CurrentList->end();)
+			CurrentEnemyIter != _CurrentList->end(); ++CurrentEnemyIter)
 		{
 			DamageManager::TakeDamage((PlayerBoomList->front()), (*CurrentEnemyIter));
-			DamageManager::DeathCheck(CurrentEnemyIter, (*CurrentEnemyIter));
 		}
 	}
 }
@@ -204,9 +232,8 @@ void Stage::BoomRemoveBullet()
 	}
 }
 
-void Stage::GetUserInstance()
+void Stage::GetPlayerBullet()
 {
-	// Player의 Bullet 세팅
 	((Player*)pPlayer)->SetBullet(UserInstance::GetInstance()->GetBullet());
 }
 
@@ -297,6 +324,87 @@ void Stage::MakeEnemy(string _EnemyType, float _x, float _y, int _MoveType)
 	else {}
 }
 
+void Stage::MakeItem(int _ItemType, Vector3 _Positioln)
+{
+	if (_ItemType == 0)
+	{
+		Bridge* iBoom = new BoomItem;
+		ObjectManager::GetInstance()->AddBridge(BOOMITEM, iBoom, _Positioln);
+
+		isBoomItemDrop = true;
+	}
+	else if (_ItemType == 1)
+	{
+		Bridge* iWeapon = new WeaponItem;
+		ObjectManager::GetInstance()->AddBridge(WEAPONITEM, iWeapon, _Positioln);
+
+		isWeaponItemDrop = true;
+	}
+}
+
+void Stage::ItemDropCheck(list<Object*>::iterator& _iter)
+{
+	Vector3 Pos = (*_iter)->GetPosition();
+
+	if (DamageManager::DeathCheck(_iter, (*_iter)))
+	{
+		srand(DWORD(GetTickCount64()));
+
+		int val = rand() % 100;
+
+		if (isBoomItemDrop == false && isWeaponItemDrop == false)
+		{
+			if (val < 70)
+				MakeItem(0, Pos);
+			else
+				MakeItem(1, Pos);
+		}
+		else if (isBoomItemDrop == false)
+			MakeItem(0, Pos);
+		else if (isWeaponItemDrop == false)
+			MakeItem(1, Pos);
+	}
+}
+
+void Stage::ItemWeaponUpgrade(list<Object*>::iterator& _iter)
+{
+	int ItemType = ((WeaponItem*)(*_iter)->GetBridge())->GetItemType();
+
+	string BulletType = UserInstance::GetInstance()->GetBullet();
+
+	if (ItemType == 0)
+	{
+		if (BulletType == NORMALBULLET)
+		{
+			// 무기 레벨 업
+			if (UserInstance::GetInstance()->GetBulletLevel() != 3)
+				UserInstance::GetInstance()->AddBulletLevel();
+			// 중복 아이템 획득 시 점수 획득 (임시 디버그)
+			else
+				CursorManager::GetInstance()->WriteBuffer
+				(0, 20, (char*)"NormalBullet Level Up");
+		}
+		else
+		{
+			UserInstance::GetInstance()->SetBullet(NORMALBULLET);
+			UserInstance::GetInstance()->ResetBulletLevel();
+		}
+	}
+	else if (ItemType == 1)
+	{
+		if (BulletType == LASERBULLET)
+		{
+			if (UserInstance::GetInstance()->GetBulletLevel() != 3)
+				UserInstance::GetInstance()->AddBulletLevel();
+		}
+		else
+		{
+			UserInstance::GetInstance()->SetBullet(LASERBULLET);
+			UserInstance::GetInstance()->ResetBulletLevel();
+		}
+	}
+}
+
 bool Stage::WaveCheck()
 {
 	int WaveCount = 0;
@@ -324,7 +432,23 @@ bool Stage::WaveCheck()
 		++WaveCount;
 
 	if (WaveCount == 3)
+	{
+		isBoomItemDrop = false;
+		isWeaponItemDrop = false;
+
 		return true;
+	}
 
 	return false;
+}
+
+list<Object*>::iterator Stage::RemoveObject(list<Object*>::iterator& _iter)
+{
+	// 총알 정보 삭제
+	::Safe_Delete((*_iter)->GetBridge());
+
+	// DisableList에 보관
+	_iter = ObjectManager::GetInstance()->ThrowObject(_iter, (*_iter));
+
+	return _iter;
 }

@@ -5,13 +5,14 @@
 #include "NormalBullet.h"
 #include "LaserBullet.h"
 #include "BulletManager.h"
+#include "UserInstance.h"
 
 Player::Player() : pBullet(), BoomDelayCount(0)
 {
 	for (int i = 0; i < 6; ++i)
 		Buffer[i] = nullptr;
 }
-Player::Player(Transform _Info) : Object(_Info), Buffer() {}
+Player::Player(Transform _Info) : Object(_Info), Buffer(), BoomDelayCount(0) {}
 Player::~Player(){}
 
 Object* Player::Initialize(string _Key)
@@ -53,7 +54,7 @@ int Player::Update()
 	if (dwKey & KEY_F || dwKey & KEY_SPACE)
 		ShootBullet();
 
-	if (dwKey & KEY_D)
+	if ((dwKey & KEY_D))
 		ShootBoom();
 
 	if (DelayCount > 0)
@@ -95,8 +96,13 @@ void Player::ShootBoom()
 {
 	if (BoomDelayCount == 0)
 	{
-		BulletManager::GetInstance()->MakePlayerBullet(BOOM, TransInfo.Position);
+		if (UserInstance::GetInstance()->GetBoom() > 0)
+		{
+			BulletManager::GetInstance()->MakePlayerBullet(BOOM, TransInfo.Position);
 
-		BoomDelayCount = 90;
+			BoomDelayCount = 90;
+
+			UserInstance::GetInstance()->AddBoom(-1);
+		}
 	}
 }

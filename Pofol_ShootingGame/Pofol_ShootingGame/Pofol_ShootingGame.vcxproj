@@ -23,7 +23,9 @@
     <ClCompile Include="BGIcon.cpp" />
     <ClCompile Include="BigEnemy.cpp" />
     <ClCompile Include="Boom.cpp" />
+    <ClCompile Include="BoomItem.cpp" />
     <ClCompile Include="EnemyBridge.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="Stage1_Boss_Arm_Left.cpp" />
     <ClCompile Include="Stage1_Boss_Arm_Right.cpp" />
     <ClCompile Include="Stage1_Boss_Head.cpp" />
@@ -56,6 +58,7 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="WeaponItem.cpp" />
     <ClCompile Include="WeaponSelect.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -63,6 +66,9 @@
     <ClInclude Include="BGIcon.h" />
     <ClInclude Include="BigEnemy.h" />
     <ClInclude Include="Boom.h" />
+    <ClInclude Include="BoomItem.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemBridge.h" />
     <ClInclude Include="Stage1_Boss_Arm_Left.h" />
     <ClInclude Include="Stage1_Boss_Arm_Right.h" />
     <ClInclude Include="Stage1_Boss_Head.h" />
@@ -107,6 +113,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Struct.h" />
+    <ClInclude Include="WeaponItem.h" />
     <ClInclude Include="WeaponSelect.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

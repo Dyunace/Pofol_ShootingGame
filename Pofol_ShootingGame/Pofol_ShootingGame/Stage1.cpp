@@ -22,10 +22,8 @@ void Stage1::Initialize()
 	pPlayer = ObjectManager::GetInstance()->GetObjectList(PLAYER)->front();
 	pPlayer->SetPosition(40, 40);
 
-
 	// 플레이어 총알 정보 가져오기
-	GetPlayerBullet();
-	if (((Player*)pPlayer)->GetBullet() == LASERBULLET)
+	if (UserInstance::GetInstance()->GetBullet() == LASERBULLET)
 		isLaser = true;
 
 	// 오브젝트 정보 가져오기
@@ -147,17 +145,25 @@ void Stage1::BossCollisionCheck()
 			{
 				if (PlayerBulletList)
 					DamageCheck(CurrentList);
+
+				auto iter = CurrentList->begin();
+				DamageManager::DeathCheck(iter, (*iter));
 			}
 			else
 				++PhaseCount;
 
 			if (PhaseCount == 5)
+			{
+				((Stage1_Boss*)(Stage1Boss[0]->front()->GetBridge()))->SetBossPhase(2);
 				BossPhase = 2;
+			}
 		}
 	}
 	else if (BossPhase == 2)
 	{
 		DamageCheck(CurrentList);
+		auto iter = CurrentList->begin();
+		DamageManager::DeathCheck(iter, (*iter));
 
 		if (CurrentList->begin() == CurrentList->end())
 			BossPhase = 99;

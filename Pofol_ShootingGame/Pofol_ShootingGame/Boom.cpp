@@ -34,7 +34,7 @@ void Boom::Initialize()
 	
 	Count = 0;
 	Speed = 0.35f;
-	Damage = 10;
+	Damage = 2;
 }
 
 int Boom::Update()

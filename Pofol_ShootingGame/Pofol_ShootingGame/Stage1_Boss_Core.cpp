@@ -1,5 +1,6 @@
 #include "Stage1_Boss_Core.h"
 #include "CursorManager.h"
+#include "BulletManager.h"
 
 #include "Object.h"
 
@@ -67,6 +68,8 @@ void Stage1_Boss_Core::Initialize()
 	Hp = CoreHp;
 	MoveSpeed = 0.25f;
 
+	BulletType = 0;
+
 	if (pObject)
 	{
 		pObject->SetScale(6.0f, 3.0f);
@@ -75,13 +78,21 @@ void Stage1_Boss_Core::Initialize()
 
 int Stage1_Boss_Core::Update()
 {
-	if (ShootDelay < 0)
+	if (BossPhase == 2)
 	{
-		ShootBullet(Vector3(pObject->GetPosition().x, pObject->GetPosition().y + 1));
-		ShootDelay = 35;
-	}
+		if (ShootDelay < 0)
+		{
+			ShootCoreBullet(BulletType);
+			ShootDelay = CoreShootDelay;
 
-	--ShootDelay;
+			++BulletType;
+
+			if (BulletType == 3)
+				BulletType = 0;
+		}
+
+		--ShootDelay;
+	}
 
 	Movement(Vector3(15, 10));
 
@@ -166,7 +177,9 @@ void Stage1_Boss_Core::Render()
 	if (DamageEfect != 0)
 		--DamageEfect;
 }
+void Stage1_Boss_Core::Release(){}
 
-void Stage1_Boss_Core::Release()
+void Stage1_Boss_Core::ShootCoreBullet(int _Type)
 {
+	BulletManager::GetInstance()->MakeBossBullet(_Type, pObject->GetPosition());
 }

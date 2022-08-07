@@ -2,7 +2,7 @@
 #include "Object.h"
 #include "UserInstance.h"
 
-WeaponItem::WeaponItem() : ItemCount(0), ItemType(0)
+WeaponItem::WeaponItem() : ItemCount(0), ItemType()
 {
 	for (int i = 0; i < 5; ++i)
 		Buffer[i] = nullptr;
@@ -19,12 +19,12 @@ void WeaponItem::Initialize()
 	if (UserInstance::GetInstance()->GetBullet() == NORMALBULLET)
 	{
 		Buffer[4] = (char*)"⊙";
-		ItemType = 0;
+		ItemType = NORMALBULLET;
 	}
 	else if (UserInstance::GetInstance()->GetBullet() == LASERBULLET)
 	{
 		Buffer[4] = (char*)"Ⅱ";
-		ItemType = 1;
+		ItemType = LASERBULLET;
 	}
 
 	SetMoveVector();
@@ -40,20 +40,21 @@ int WeaponItem::Update()
 		pObject->GetPosition().y + MoveVector.y
 	);
 
-
 	// 아이템 변경
 	++ItemCount;
+
 	if (ItemCount == 60)
 	{
-		++ItemType;
-
-		if (ItemType == 2)
-			ItemType = 0;
-
-		if (ItemType == 0)
+		if (ItemType == NORMALBULLET)
+		{
 			Buffer[4] = (char*)"Ⅱ";
-		else if (ItemType == 1)
+			ItemType = LASERBULLET;
+		}
+		else if (ItemType == LASERBULLET)
+		{
 			Buffer[4] = (char*)"⊙";
+			ItemType = NORMALBULLET;
+		}
 	}
 
 

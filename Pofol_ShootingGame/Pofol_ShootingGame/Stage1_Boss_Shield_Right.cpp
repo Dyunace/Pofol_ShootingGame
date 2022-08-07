@@ -39,7 +39,7 @@ int Stage1_Boss_Shield_Right::Update()
     if (ShootDelay < 0)
     {
         ShootBullet(Vector3(pObject->GetPosition().x, pObject->GetPosition().y + 2));
-        ShootDelay = 10;
+        ShootDelay = ShielShootDelay;
     }
 
     --ShootDelay;
@@ -72,6 +72,12 @@ void Stage1_Boss_Shield_Right::Render()
 
     if (DamageEfect != 0)
         --DamageEfect;
+
+    CursorManager::GetInstance()->WriteBuffer(
+        pObject->GetPosition().x,
+        pObject->GetPosition().y,
+        Hp
+    );
 }
 
 void Stage1_Boss_Shield_Right::Release()

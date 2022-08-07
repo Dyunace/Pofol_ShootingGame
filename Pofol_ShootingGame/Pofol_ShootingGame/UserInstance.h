@@ -37,6 +37,7 @@ public:
 	void SetBullet(string _str) { BulletName = _str; }
 
 	int GetBulletLevel() { return BulletLevel; }
+	void SetBulletLevel(int _val) { BulletLevel = _val; }
 	void ResetBulletLevel() { BulletLevel = 1; }
 	void AddBulletLevel(int _Num = 1) { BulletLevel += _Num; }
 };

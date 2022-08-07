@@ -73,9 +73,6 @@
     <Filter Include="소스 파일\02.Object\Bullet\BulletBridge\EnemyBullet\ENormalBullet">
       <UniqueIdentifier>{0e5b67cf-b475-4e31-9e00-a4da67877e1f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\02.Object\Bullet\BulletBridge\EnemyBullet\ESpecialBullet">
-      <UniqueIdentifier>{90b8f879-925b-4ef0-9474-4a6a6cba60e5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\02.Object\Enemy\EnemyBridge\01_NormalEnemy">
       <UniqueIdentifier>{48606c89-323c-41d7-8223-23ebf5e809b6}</UniqueIdentifier>
     </Filter>

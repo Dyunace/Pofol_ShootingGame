@@ -151,3 +151,169 @@ void BulletManager::MakeEnemyBullet(int _BulletType, Vector3 _Position)
 	else { }
 }
 
+void BulletManager::MakeBossBullet(int _BulletType, Vector3 _Position)
+{
+	// 8방향 발사 ( 1~3 소용돌이 패턴)
+	if (_BulletType == 0)
+	{
+		// 상하
+		for (int i = 0; i < 2; ++i)
+		{
+			Bridge* pBullet = new ENormalBullet;
+			ObjectManager::GetInstance()->AddBridge(
+				ENORMALBULLET,	pBullet,
+				Vector3(_Position.x, _Position.y));
+
+			((BulletBridge*)pBullet)->SetTarget(
+				_Position.x,
+				_Position.y - 2 + (i * 4));
+		}
+		// 좌우
+		for (int i = 0; i < 2; ++i)
+		{
+			Bridge* pBullet = new ENormalBullet;
+			ObjectManager::GetInstance()->AddBridge(
+				ENORMALBULLET, pBullet,
+				Vector3(_Position.x, _Position.y));
+
+			((BulletBridge*)pBullet)->SetTarget(
+				_Position.x - 2 + (i * 4),
+				_Position.y);
+		}
+		// 좌상 우하
+		for (int i = 0; i < 2; ++i)
+		{
+			Bridge* pBullet = new ENormalBullet;
+			ObjectManager::GetInstance()->AddBridge(
+				ENORMALBULLET, pBullet,
+				Vector3(_Position.x, _Position.y));
+
+			((BulletBridge*)pBullet)->SetTarget(
+				_Position.x - 2 + (i * 4),
+				_Position.y - 2 + (i * 4));
+		}
+		// 우상 좌하
+		for (int i = 0; i < 2; ++i)
+		{
+			Bridge* pBullet = new ENormalBullet;
+			ObjectManager::GetInstance()->AddBridge(
+				ENORMALBULLET, pBullet,
+				Vector3(_Position.x, _Position.y));
+
+			((BulletBridge*)pBullet)->SetTarget(
+				_Position.x + 2 - (i * 4),
+				_Position.y - 2 + (i * 4));
+		}
+	}
+	if (_BulletType == 1)
+	{
+		// 상하
+		for (int i = 0; i < 2; ++i)
+		{
+			Bridge* pBullet = new ENormalBullet;
+			ObjectManager::GetInstance()->AddBridge(
+				ENORMALBULLET, pBullet,
+				Vector3(_Position.x, _Position.y));
+
+			((BulletBridge*)pBullet)->SetTarget(
+				_Position.x - 0.66f + (i * 1.32f),
+				_Position.y - 2 + (i * 4)
+			);
+		}
+		// 좌우
+		for (int i = 0; i < 2; ++i)
+		{
+			Bridge* pBullet = new ENormalBullet;
+			ObjectManager::GetInstance()->AddBridge(
+				ENORMALBULLET, pBullet,
+				Vector3(_Position.x, _Position.y));
+
+			((BulletBridge*)pBullet)->SetTarget(
+				_Position.x - 2 + (i * 4),
+				_Position.y + 0.33f - (i * 0.66f)
+			);
+		}
+		// 좌상 좌하
+		for (int i = 0; i < 2; ++i)
+		{
+			Bridge* pBullet = new ENormalBullet;
+			ObjectManager::GetInstance()->AddBridge(
+				ENORMALBULLET, pBullet,
+				Vector3(_Position.x, _Position.y));
+
+			((BulletBridge*)pBullet)->SetTarget(
+				_Position.x - 2 + (i * 4),
+				_Position.y - 2 + (i * 4) + 0.66f - (i * 1.32f)
+			);
+		}
+		// 우상 좌하
+		for (int i = 0; i < 2; ++i)
+		{
+			Bridge* pBullet = new ENormalBullet;
+			ObjectManager::GetInstance()->AddBridge(
+				ENORMALBULLET, pBullet,
+				Vector3(_Position.x, _Position.y));
+
+			((BulletBridge*)pBullet)->SetTarget(
+				_Position.x + 2 - (i * 4) - 0.66f + (i * 1.32f),
+				_Position.y - 2 + (i * 4)
+			);
+		}
+	}
+	if (_BulletType == 2)
+	{
+		// 상하
+		for (int i = 0; i < 2; ++i)
+		{
+			Bridge* pBullet = new ENormalBullet;
+			ObjectManager::GetInstance()->AddBridge(
+				ENORMALBULLET, pBullet,
+				Vector3(_Position.x, _Position.y));
+
+			((BulletBridge*)pBullet)->SetTarget(
+				_Position.x - 1.32f + (i * 2.64f),
+				_Position.y - 2 + (i * 4)
+			);
+		}
+		// 좌우
+		for (int i = 0; i < 2; ++i)
+		{
+			Bridge* pBullet = new ENormalBullet;
+			ObjectManager::GetInstance()->AddBridge(
+				ENORMALBULLET, pBullet,
+				Vector3(_Position.x, _Position.y));
+
+			((BulletBridge*)pBullet)->SetTarget(
+				_Position.x - 2 + (i * 4),
+				_Position.y + 0.66f - (i * 1.32f)
+			);
+		}
+		// 좌상 우하
+		for (int i = 0; i < 2; ++i)
+		{
+			Bridge* pBullet = new ENormalBullet;
+			ObjectManager::GetInstance()->AddBridge(
+				ENORMALBULLET, pBullet,
+				Vector3(_Position.x, _Position.y));
+
+			((BulletBridge*)pBullet)->SetTarget(
+				_Position.x - 2 + (i * 4),
+				_Position.y - 2 + (i * 4) + 1.32f - (i * 2.64f)
+			);
+		}
+		// 우상 좌하
+		for (int i = 0; i < 2; ++i)
+		{
+			Bridge* pBullet = new ENormalBullet;
+			ObjectManager::GetInstance()->AddBridge(
+				ENORMALBULLET, pBullet,
+				Vector3(_Position.x, _Position.y));
+
+			((BulletBridge*)pBullet)->SetTarget(
+				_Position.x + 2 - (i * 4) - 1.32f + (i * 2.64f),
+				_Position.y - 2 + (i * 4)
+			);
+		}
+	}
+}
+

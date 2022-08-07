@@ -49,7 +49,6 @@ protected:
 	void BoomRemoveBullet();
 	virtual void TakeBossDamage() PURE;
 
-	void GetPlayerBullet();
 	void RenderUserInterface();
 
 	void MakeEnemy(string _EnemyType, float _x, float _y, int _MoveType);

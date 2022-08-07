@@ -56,7 +56,8 @@ void Stage::CatchObjectLists()
 	SmallEnemyList = ObjectManager::GetInstance()->GetObjectList(SMALLENEMY);
 	BigEnemyList = ObjectManager::GetInstance()->GetObjectList(BIGENEMY);
 
-	PlayerBulletList = ObjectManager::GetInstance()->GetObjectList(((Player*)pPlayer)->GetBullet());
+	PlayerBulletList = ObjectManager::GetInstance()->GetObjectList (
+		UserInstance::GetInstance()->GetBullet());
 	PlayerBoomList = ObjectManager::GetInstance()->GetObjectList(BOOM);
 
 	ENormalBulletList = ObjectManager::GetInstance()->GetObjectList(ENORMALBULLET);
@@ -92,9 +93,6 @@ void Stage::CollisionCheck()
 						{
 							BoomDamage(CurrentEnemyList);
 
-							if (BossPhase != 0 && BossPhase != 99)
-								TakeBossDamage();
-
 							// 화면 낸 모든 적 총알 제거하기
 							BoomRemoveBullet();
 						}
@@ -112,8 +110,14 @@ void Stage::CollisionCheck()
 					DamageManager::DeathCheck(iter, (*iter));
 			}
 		}
-	
 	}
+
+	// 폭탄 보스 데미지 검사
+	if (BossPhase != 0 && BossPhase != 99)
+		if (PlayerBoomList)
+			if (PlayerBoomList->begin() != PlayerBoomList->end())
+				if (((Boom*)PlayerBoomList->front()->GetBridge())->GetCount() > 30)
+					TakeBossDamage();
 
 	// 적 총알 & 플레이어 충돌 검사
 	if (pPlayer && ENormalBulletList)
@@ -232,11 +236,6 @@ void Stage::BoomRemoveBullet()
 	}
 }
 
-void Stage::GetPlayerBullet()
-{
-	((Player*)pPlayer)->SetBullet(UserInstance::GetInstance()->GetBullet());
-}
-
 void Stage::RenderUserInterface()
 {
 	// UI 화면에 출력하기 (임시)
@@ -260,9 +259,9 @@ void Stage::RenderUserInterface()
 	
 	char* BulletName = nullptr;
 
-	if (((Player*)pPlayer)->GetBullet() == NORMALBULLET)
+	if (UserInstance::GetInstance()->GetBullet() == NORMALBULLET)
 		BulletName = (char*)"Normal";
-	else if (((Player*)pPlayer)->GetBullet() == LASERBULLET)
+	else if (UserInstance::GetInstance()->GetBullet() == LASERBULLET)
 		BulletName = (char*)"Laser";
 
 	CursorManager::GetInstance()->WriteBuffer(0, 4, BulletName);
@@ -368,40 +367,17 @@ void Stage::ItemDropCheck(list<Object*>::iterator& _iter)
 
 void Stage::ItemWeaponUpgrade(list<Object*>::iterator& _iter)
 {
-	int ItemType = ((WeaponItem*)(*_iter)->GetBridge())->GetItemType();
-
+	string ItemType = ((WeaponItem*)(*_iter)->GetBridge())->GetItemType();
 	string BulletType = UserInstance::GetInstance()->GetBullet();
 
-	if (ItemType == 0)
+	if (ItemType == BulletType)
 	{
-		if (BulletType == NORMALBULLET)
-		{
-			// 무기 레벨 업
-			if (UserInstance::GetInstance()->GetBulletLevel() != 3)
-				UserInstance::GetInstance()->AddBulletLevel();
-			// 중복 아이템 획득 시 점수 획득 (임시 디버그)
-			else
-				CursorManager::GetInstance()->WriteBuffer
-				(0, 20, (char*)"NormalBullet Level Up");
-		}
-		else
-		{
-			UserInstance::GetInstance()->SetBullet(NORMALBULLET);
-			UserInstance::GetInstance()->ResetBulletLevel();
-		}
+		UserInstance::GetInstance()->AddBulletLevel();
 	}
-	else if (ItemType == 1)
+	else
 	{
-		if (BulletType == LASERBULLET)
-		{
-			if (UserInstance::GetInstance()->GetBulletLevel() != 3)
-				UserInstance::GetInstance()->AddBulletLevel();
-		}
-		else
-		{
-			UserInstance::GetInstance()->SetBullet(LASERBULLET);
-			UserInstance::GetInstance()->ResetBulletLevel();
-		}
+		UserInstance::GetInstance()->SetBullet(ItemType);
+		UserInstance::GetInstance()->ResetBulletLevel();
 	}
 }
 

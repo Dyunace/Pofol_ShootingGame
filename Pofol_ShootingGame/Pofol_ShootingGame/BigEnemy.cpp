@@ -36,7 +36,7 @@ void BigEnemy::Initialize()
 	Buffer[14] = (char*)"£ß";
 	Buffer[15] = (char*)"¡µ";
 
-	Hp = 150;
+	Hp = 50;
 	MoveSpeed = 0.25f;
 	BulletType = 3;
 

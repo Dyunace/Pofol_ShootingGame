@@ -7,7 +7,7 @@ private:
 	char* Buffer[5];
 
 	int ItemCount;
-	int ItemType;
+	string ItemType;
 
 public:
 	WeaponItem();
@@ -19,6 +19,6 @@ public:
 	virtual void Release() override;
 
 public:
-	int GetItemType() { return ItemType; }
+	string GetItemType() { return ItemType; }
 };
 

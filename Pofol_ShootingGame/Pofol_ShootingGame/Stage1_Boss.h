@@ -6,18 +6,29 @@ class Stage1_Boss : public EnemyBridge
 {
 protected:
 	Object* Core;
+	int BossPhase;
 
+	int CoreHp = 850;
+	int CoreShootDelay = 2;
 
-	int CoreHp = 400;
-	int HeadHp = 550;
-	int ArmHp = 700;
-	int ShieldHp = 850;
+	int HeadHp = 175;
+	int HeadShootDelay = 40;
+
+	int ArmHp = 200;
+	int ArmShootDelay = 30;
+
+	int ShieldHp = 250;
+	int ShielShootDelay = 20;
+
 public:
-	Stage1_Boss() : Core(nullptr) {}
+	Stage1_Boss() : Core(nullptr), BossPhase(0) {}
 	virtual ~Stage1_Boss() {}
 public:
 	virtual void Initialize() PURE;
 	virtual int Update() PURE;
 	virtual void Render() PURE;
-	virtual void Release() PURE;};
+	virtual void Release() PURE;
 
+public:
+	void SetBossPhase(int _Phase) { BossPhase = _Phase; }
+};

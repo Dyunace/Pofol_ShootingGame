@@ -13,7 +13,7 @@ void NormalEnemy::Initialize()
 	Buffer[2] = (char*)"¥µ";
 	Buffer[3] = (char*)"¥³";
 
-	Hp = 50;
+	Hp = 20;
 	MoveSpeed = 0.25f;
 	BulletType = 2;
 

@@ -14,5 +14,10 @@ public:
 public:
 	virtual void SetTarget(Vector3 _Target = Vector3(0, 1))override;
 	virtual void SetTarget(float _x, float _y = 1.0f)override;
+
+public:
+	void SetColor(int _Color) { Color = _Color; }
+	
+	void SetIcon(char* _icon) { Buffer[0] = _icon; }
 };
 

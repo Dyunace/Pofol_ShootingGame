@@ -11,7 +11,7 @@ void SmallEnemy::Initialize()
     Buffer[0] = (char*)"¥Ì";
     Buffer[1] = (char*)"¥×";
 
-	Hp = 20;
+	Hp = 10;
 	MoveSpeed = 0.5f;
 	BulletType = 1;
 

@@ -7,7 +7,7 @@
 #include "BulletManager.h"
 #include "UserInstance.h"
 
-Player::Player() : pBullet(), BoomDelayCount(0)
+Player::Player() : BoomDelayCount(0)
 {
 	for (int i = 0; i < 6; ++i)
 		Buffer[i] = nullptr;
@@ -18,8 +18,6 @@ Player::~Player(){}
 Object* Player::Initialize(string _Key)
 {
 	str = _Key;
-
-	pBullet = NORMALBULLET;
 
 	// Buffer[4] 코어가 기준
 	Buffer[0] = (char*)"┏";
@@ -83,11 +81,13 @@ void Player::ShootBullet(float _LimitY)
 {
 	if (DelayCount == 0)
 	{
-		BulletManager::GetInstance()->MakePlayerBullet(pBullet, TransInfo.Position, _LimitY);
+		auto bullet = UserInstance::GetInstance()->GetBullet();
 
-		if (pBullet == NORMALBULLET)
+		BulletManager::GetInstance()->MakePlayerBullet(bullet, TransInfo.Position, _LimitY);
+
+		if (bullet == NORMALBULLET)
 			DelayCount = 1;
-		else if (pBullet == LASERBULLET)
+		else if (bullet == LASERBULLET)
 			DelayCount = 0;
 	}
 }

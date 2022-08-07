@@ -46,7 +46,7 @@ int Stage1_Boss_Arm_Left::Update()
 	if (ShootDelay < 0)
 	{
 		ShootBullet(Vector3(pObject->GetPosition().x - 9, pObject->GetPosition().y + 6));
-		ShootDelay = 20;
+		ShootDelay = ArmShootDelay;
 	}
 
 	--ShootDelay;

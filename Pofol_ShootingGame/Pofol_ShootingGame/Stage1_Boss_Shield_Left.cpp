@@ -39,7 +39,7 @@ int Stage1_Boss_Shield_Left::Update()
     if (ShootDelay < 0)
     {
         ShootBullet(Vector3(pObject->GetPosition().x, pObject->GetPosition().y + 2));
-        ShootDelay = 10;
+        ShootDelay = ShielShootDelay;
     }
 
     --ShootDelay;

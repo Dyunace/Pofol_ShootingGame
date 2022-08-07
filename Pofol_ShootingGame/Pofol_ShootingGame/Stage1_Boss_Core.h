@@ -13,5 +13,8 @@ public:
 	virtual int Update() override;
 	virtual void Render() override;
 	virtual void Release() override;
+
+private:
+	void ShootCoreBullet(int _Type);
 };
 

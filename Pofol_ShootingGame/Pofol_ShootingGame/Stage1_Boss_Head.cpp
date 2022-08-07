@@ -41,7 +41,7 @@ int Stage1_Boss_Head::Update()
 	if (ShootDelay < 0)
 	{
 		ShootBullet(Vector3(pObject->GetPosition().x, pObject->GetPosition().y + 2));
-		ShootDelay = 25;
+		ShootDelay = HeadShootDelay;
 	}
 
 	--ShootDelay;

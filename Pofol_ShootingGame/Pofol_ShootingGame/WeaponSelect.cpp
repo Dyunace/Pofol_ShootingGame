@@ -20,12 +20,13 @@ void WeaponSelect::Initialize()
 	pPlayer = ObjectManager::GetInstance()->GetObjectList(PLAYER)->front();
 	pPlayer->Initialize(PLAYER);
 	pPlayer->SetPosition(39, 20);
+
+	UserInstance::GetInstance()->SetBullet(NORMALBULLET);
+	UserInstance::GetInstance()->SetBulletLevel(3);
 }
 
 void WeaponSelect::Update()
 {
-	//ObjectPool::GetInstance()->DedugRender();
-
 	MakePreview();
 
 	if (InputManager::GetInstance()->GetKey() & KEY_RIGHT && Selection < 1)
@@ -41,7 +42,7 @@ void WeaponSelect::Update()
 
 	if (SelectionAccept())
 	{
-		UserInstance::GetInstance()->SetBullet(((Player*)pPlayer)->GetBullet());
+		UserInstance::GetInstance()->ResetBulletLevel();
 		SceneManager::GetInstance()->SetScene(STAGE1);
 	}
 
@@ -103,7 +104,9 @@ void WeaponSelect::MakePreview()
 	ObjectManager::GetInstance()->Update();
 	pPlayer->SetPosition(39, 20);
 
-	auto BulletList = ObjectManager::GetInstance()->GetObjectList(((Player*)pPlayer)->GetBullet());
+	auto BulletList = 
+		ObjectManager::GetInstance()->GetObjectList(
+			UserInstance::GetInstance()->GetBullet());
 
 	// Shoot Bullet
 	((Player*)pPlayer)->ShootBullet(7);
@@ -134,10 +137,10 @@ void WeaponSelect::SwitchBullet()
 	switch (Selection)
 	{
 	case 0:
-		((Player*)pPlayer)->SetBullet(NORMALBULLET);
+		UserInstance::GetInstance()->SetBullet(NORMALBULLET);
 		break;
 	case 1:
-		((Player*)pPlayer)->SetBullet(LASERBULLET);
+		UserInstance::GetInstance()->SetBullet(LASERBULLET);
 		break;
 	default:
 		break;
@@ -147,7 +150,9 @@ void WeaponSelect::SwitchBullet()
 void WeaponSelect::ReleaseBullet()
 {
 	// Remove All Bullets in Screen
-	auto BulletList = ObjectManager::GetInstance()->GetObjectList(((Player*)pPlayer)->GetBullet());
+	auto BulletList = 
+		ObjectManager::GetInstance()->GetObjectList(
+			UserInstance::GetInstance()->GetBullet());
 
 	if (BulletList)
 	{

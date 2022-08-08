@@ -7,6 +7,9 @@ private:
 	char* Buffer[6];
 
 	int BoomDelayCount;
+
+	bool canMove;
+	bool canShoot;
 public:
 	Player();
 	Player(Transform _Info);
@@ -22,5 +25,9 @@ public:
 public:
 	void ShootBullet(float _LimitY = 0);
 	void ShootBoom();
+
+public:
+	void SetCanMove(bool _b) { canMove = _b; };
+	void SetCanShoot(bool _b) { canShoot = _b; };
 };
 

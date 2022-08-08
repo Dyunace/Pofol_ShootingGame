@@ -40,6 +40,8 @@ void BigEnemy::Initialize()
 	MoveSpeed = 0.25f;
 	BulletType = 3;
 
+	Score = 100;
+
 	if (pObject)
 	{
 		pObject->SetScale(14.0f, 4.0f);

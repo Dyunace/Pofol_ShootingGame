@@ -33,6 +33,8 @@ void Stage1_Boss_Arm_Right::Initialize()
 	Hp = ArmHp;
 	BulletType = 2;
 
+	Score = 500;
+
 	if (pObject)
 		pObject->SetScale(9.0f, 6.0f);
 

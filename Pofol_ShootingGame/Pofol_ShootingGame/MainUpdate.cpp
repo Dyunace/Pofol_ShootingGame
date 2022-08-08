@@ -25,6 +25,9 @@ void MainUpdate::Update()
 	InputManager::GetInstance()->InputKey();
 	SceneManager::GetInstance()->Update();
 
+	if (InputManager::GetInstance()->GetInputDelay() != 0)
+		InputManager::GetInstance()->MinusInputDelay();
+
 	CursorManager::GetInstance()->FlipingBuffer();
 }
 

@@ -7,12 +7,12 @@
 #include "BulletManager.h"
 #include "UserInstance.h"
 
-Player::Player() : BoomDelayCount(0)
+Player::Player() : BoomDelayCount(0), canMove(false), canShoot(false)
 {
 	for (int i = 0; i < 6; ++i)
 		Buffer[i] = nullptr;
 }
-Player::Player(Transform _Info) : Object(_Info), Buffer(), BoomDelayCount(0) {}
+Player::Player(Transform _Info) : Object(_Info), Buffer(), BoomDelayCount(0), canMove(false), canShoot(false) {}
 Player::~Player(){}
 
 Object* Player::Initialize(string _Key)
@@ -31,6 +31,9 @@ Object* Player::Initialize(string _Key)
 	TransInfo.Rotation = Vector3(0, 0);
 	TransInfo.Scale = Vector3(2.0f, 1.0f); // 코어의 크기
 
+	canMove = true;
+	canShoot = true;
+
 	return this;
 }
 
@@ -39,21 +42,28 @@ int Player::Update()
 	DWORD dwKey = InputManager::GetInstance()->GetKey();
 
 	// 이동
-	if (dwKey & KEY_UP && TransInfo.Position.y - TransInfo.Scale.y > 0)
-		TransInfo.Position.y -= 1.0;	// 위로 이동 시 감속
-	if (dwKey & KEY_DOWN && TransInfo.Position.y + TransInfo.Scale.y < ConsoleHeightSize)
-		TransInfo.Position.y += 1.0;	// 아래로 이동 시 가속
-	if (dwKey & KEY_LEFT && TransInfo.Position.x - TransInfo.Scale.x > 0)
-		TransInfo.Position.x -= 1.5;
-	if (dwKey & KEY_RIGHT && TransInfo.Position.x + TransInfo.Scale.x * 2 < ConsoleWidthSize)
-		TransInfo.Position.x += 1.5;
+	if (canMove)
+	{
+		if (dwKey & KEY_UP && TransInfo.Position.y - TransInfo.Scale.y > 0)
+			TransInfo.Position.y -= 1.0;	// 위로 이동 시 감속
+		if (dwKey & KEY_DOWN && TransInfo.Position.y + TransInfo.Scale.y < ConsoleHeightSize)
+			TransInfo.Position.y += 1.0;	// 아래로 이동 시 가속
+		if (dwKey & KEY_LEFT && TransInfo.Position.x - TransInfo.Scale.x > 0)
+			TransInfo.Position.x -= 1.5;
+		if (dwKey & KEY_RIGHT && TransInfo.Position.x + TransInfo.Scale.x * 2 < ConsoleWidthSize)
+			TransInfo.Position.x += 1.5;
+	}
 
 	// 공격 (F버튼)
-	if (dwKey & KEY_F || dwKey & KEY_SPACE)
-		ShootBullet();
+	if (canShoot)
+	{
+		if (dwKey & KEY_F || dwKey & KEY_SPACE)
+			ShootBullet();
 
-	if ((dwKey & KEY_D))
-		ShootBoom();
+		if ((dwKey & KEY_D))
+			ShootBoom();
+	}
+	
 
 	if (DelayCount > 0)
 		--DelayCount;

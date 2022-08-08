@@ -3,6 +3,8 @@
 #include "CollisionManager.h"
 #include "DamageManager.h"
 #include "UserInstance.h"
+#include "InputManager.h"
+#include "SceneManager.h"
 
 #include "ObjectManager.h"
 #include "Player.h"
@@ -159,7 +161,12 @@ void Stage::CollisionCheck()
 				{
 					// 폭탄 추가
 					if (CurrentList == BoomItemList)
-						UserInstance::GetInstance()->AddBoom();
+					{
+						if (UserInstance::GetInstance()->GetBoom() != 5)
+							UserInstance::GetInstance()->AddBoom();
+						else
+							UserInstance::GetInstance()->AddScore(GetBoomScore);
+					}
 
 					// 무기 변경 or 레벨 업
 					if (CurrentList == WeaponItemList)
@@ -231,7 +238,7 @@ void Stage::BoomRemoveBullet()
 
 		if (CurrentBullet)
 		{
-			RemoveBullet(CurrentBullet);
+			RemoveObject(CurrentBullet);
 		}
 	}
 }
@@ -249,16 +256,21 @@ void Stage::RenderUserInterface()
 		5. 현재 점수
 		6. 현재야 잘 지내니
 	*/
+
+	// 생명
 	CursorManager::GetInstance()->WriteBuffer(0, 0, (char*)"Life : ");
 	for (float f = 0; f < UserInstance::GetInstance()->GetLife(); ++f)
 		CursorManager::GetInstance()->WriteBuffer(8.0f + (f * 2), 0, (char*)"♥");
 
+
+	// 폭탄
 	CursorManager::GetInstance()->WriteBuffer(0, 2, (char*)"Boom : ");
 	for (float f = 0; f < UserInstance::GetInstance()->GetBoom(); ++f)
 		CursorManager::GetInstance()->WriteBuffer(8.0f + (f * 2), 2, (char*)"♠");
 	
-	char* BulletName = nullptr;
 
+	// 총알 및 레벨
+	char* BulletName = nullptr;
 	if (UserInstance::GetInstance()->GetBullet() == NORMALBULLET)
 		BulletName = (char*)"Normal";
 	else if (UserInstance::GetInstance()->GetBullet() == LASERBULLET)
@@ -268,9 +280,24 @@ void Stage::RenderUserInterface()
 	CursorManager::GetInstance()->WriteBuffer(8, 4, (char*)"Lv.");
 	CursorManager::GetInstance()->WriteBuffer(12, 4, UserInstance::GetInstance()->GetBulletLevel());
 
-	CursorManager::GetInstance()->WriteBuffer(0, 6, StageWave);
-	
 
+	// 점수
+	int Score = UserInstance::GetInstance()->GetScore();
+	CursorManager::GetInstance()->WriteBuffer(0, 6, (char*)"Score : ");
+
+	CursorManager::GetInstance()->WriteBuffer(9, 6, Score / 10000);
+	Score = Score - ((Score / 10000) * 10000);
+
+	CursorManager::GetInstance()->WriteBuffer(10, 6, Score / 1000);
+	Score = Score - ((Score / 1000) * 1000);
+
+	CursorManager::GetInstance()->WriteBuffer(11, 6, Score / 100);
+	Score = Score - ((Score / 100) * 100);
+
+	CursorManager::GetInstance()->WriteBuffer(12, 6, Score / 10);
+	Score = Score - ((Score / 10) * 10);
+
+	CursorManager::GetInstance()->WriteBuffer(13, 6, Score);
 }
 
 void Stage::MakeEnemy(string _EnemyType, float _x, float _y, int _MoveType)
@@ -368,11 +395,13 @@ void Stage::ItemDropCheck(list<Object*>::iterator& _iter)
 void Stage::ItemWeaponUpgrade(list<Object*>::iterator& _iter)
 {
 	string ItemType = ((WeaponItem*)(*_iter)->GetBridge())->GetItemType();
-	string BulletType = UserInstance::GetInstance()->GetBullet();
 
-	if (ItemType == BulletType)
+	if (ItemType == UserInstance::GetInstance()->GetBullet())
 	{
-		UserInstance::GetInstance()->AddBulletLevel();
+		if (UserInstance::GetInstance()->GetBulletLevel() != 3)
+			UserInstance::GetInstance()->AddBulletLevel();
+		else
+			UserInstance::GetInstance()->AddScore(GetWeaponScore);
 	}
 	else
 	{
@@ -418,13 +447,68 @@ bool Stage::WaveCheck()
 	return false;
 }
 
-list<Object*>::iterator Stage::RemoveObject(list<Object*>::iterator& _iter)
+void Stage::StageClear()
 {
-	// 총알 정보 삭제
-	::Safe_Delete((*_iter)->GetBridge());
+	if (StageCount == 10)
+	{
+		list<Object*>* CurrentList = nullptr;
 
-	// DisableList에 보관
-	_iter = ObjectManager::GetInstance()->ThrowObject(_iter, (*_iter));
+		for (int i = 0; i < 2; ++i)
+		{
+			((Player*)pPlayer)->SetCanShoot(false);
 
-	return _iter;
+			if (i == 0)
+				CurrentList = PlayerBulletList;
+			if (i == 1)
+				CurrentList = ENormalBulletList;
+
+			if (CurrentEnemyList)
+				RemoveObject(CurrentList);
+		}
+	}
+
+	if (StageCount > 10)
+		CursorManager::GetInstance()->WriteBuffer(32, 10, (char*)"Stage 1 Clear!!");
+
+	int Life = UserInstance::GetInstance()->GetLife();
+	int Boom = UserInstance::GetInstance()->GetBoom();
+
+	if (StageCount == 30)
+	{
+		for (int i = 0; i < Life; ++i)
+			UserInstance::GetInstance()->AddScore(EndLifeScore);
+
+		for (int i = 0; i < Boom; ++i)
+			UserInstance::GetInstance()->AddScore(EndBoomScore);
+	}
+
+	if (StageCount > 30 && UserInstance::GetInstance()->GetGettingScore() != 0)
+	{
+		if (Life > 0)
+		{
+			CursorManager::GetInstance()->WriteBuffer(32, 12, (char*)"Life Bonus x");
+			CursorManager::GetInstance()->WriteBuffer(49, 12, Life);
+		}
+		
+		if (Boom > 0)
+		{
+			CursorManager::GetInstance()->WriteBuffer(32, 13, (char*)"Boom Bonus x");
+			CursorManager::GetInstance()->WriteBuffer(49, 13, Boom);
+		}
+
+		if ((InputManager::GetInstance()->GetKey() & KEY_F) || (InputManager::GetInstance()->GetKey() & KEY_SPACE))
+		{
+			UserInstance::GetInstance()->SkipCalcScore();
+		}
+	}
+	else if (StageCount > 30 && UserInstance::GetInstance()->GetGettingScore() == 0)
+	{
+		CursorManager::GetInstance()->WriteBuffer(24, 15, (char*)"Press \" F \" or \" Space \" to Menu");
+
+		if ((InputManager::GetInstance()->GetKey() & KEY_F) || (InputManager::GetInstance()->GetKey() & KEY_SPACE))
+		{
+			RemoveObject(ObjectManager::GetInstance()->GetObjectList(PLAYER));
+			SceneManager::GetInstance()->SetScene(MENU);
+		}
+	}
 }

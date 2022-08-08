@@ -4,19 +4,22 @@
 class EnemyBridge : public Bridge
 {
 protected:
-	int ShootDelay;
 	int Hp;
+	
 	float MoveSpeed;
 	int MoveType;
 	int MoveCount;
+	
 	int BulletType;
+	Vector3 BulletPort;
+	int ShootDelay;
 
 	int DamageEfect;
 
-	Vector3 BulletPort;
+	int Score;
 public:
 	EnemyBridge() : 
-		ShootDelay(0), Hp(0), MoveSpeed(0.0f), MoveType(0), MoveCount(0), BulletType(0), DamageEfect(false), BulletPort(0, 0) {};
+		ShootDelay(0), Hp(0), MoveSpeed(0.0f), MoveType(0), MoveCount(0), BulletType(0), DamageEfect(false), BulletPort(0, 0), Score(0) {};
 	virtual ~EnemyBridge() {};
 
 public:
@@ -40,6 +43,8 @@ public:
 
 	bool GetDamageEfect() { return DamageEfect; }
 	void SetDamageEfect(int _Count) { DamageEfect = _Count; }
+
+	int GetScore() { return Score; }
 protected:
 	bool BufferCheck();
 	void Movement(Vector3 _MoveLimit = Vector3(0, 0));

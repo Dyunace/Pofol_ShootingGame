@@ -67,8 +67,9 @@ void Stage1_Boss_Core::Initialize()
 
 	Hp = CoreHp;
 	MoveSpeed = 0.25f;
-
 	BulletType = 0;
+
+	Score = 1000;
 
 	if (pObject)
 	{
@@ -94,7 +95,7 @@ int Stage1_Boss_Core::Update()
 		--ShootDelay;
 	}
 
-	Movement(Vector3(15, 10));
+	Movement(Vector3(16, 10));
 
 	return 0;
 }

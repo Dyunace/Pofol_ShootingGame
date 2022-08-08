@@ -58,7 +58,6 @@ protected:
 	void ItemWeaponUpgrade(list<Object*>::iterator& _iter);
 
 	bool WaveCheck();
-
-	list<Object*>::iterator RemoveObject(list<Object*>::iterator& _iter);
+	void StageClear();
 };
 

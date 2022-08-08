@@ -106,6 +106,14 @@ void Stage1::Update()
 		}
 	}
 
+	// 스테이지 클리어
+	else if (StageWave == 99)
+	{
+		StageClear();
+	}
+
+
+	UserInstance::GetInstance()->Update();
 	++StageCount;
 }
 
@@ -166,7 +174,12 @@ void Stage1::BossCollisionCheck()
 		DamageManager::DeathCheck(iter, (*iter));
 
 		if (CurrentList->begin() == CurrentList->end())
+		{
+			// 스테이지 클리어
 			BossPhase = 99;
+			StageWave = 99;
+			StageCount = 0;
+		}
 	}
 }
 

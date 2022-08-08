@@ -33,18 +33,25 @@ void Menu::Update()
 
 		if (InputManager::GetInstance()->GetKey() & KEY_ENTER || InputManager::GetInstance()->GetKey() & KEY_F)
 		{
-
 			switch (Selection)
 			{
 			case 0:
-				SceneManager::GetInstance()->SetScene(WEAPON);
+				if (InputManager::GetInstance()->GetInputDelay() == 0)
+				{
+					InputManager::GetInstance()->SetInputDelay();
+					SceneManager::GetInstance()->SetScene(WEAPON);
+				}
 				break;
 			case 1:
 				SceneManager::GetInstance();
 				break;
 			case 2:
-				isWarning = true;
-				Warning::GetInstance()->SetWarning(WARNING::WEXIT);
+				if (InputManager::GetInstance()->GetInputDelay() == 0)
+				{
+					InputManager::GetInstance()->SetInputDelay();
+					isWarning = true;
+					Warning::GetInstance()->SetWarning(WARNING::WEXIT);
+				}
 				break;
 			default:
 				break;

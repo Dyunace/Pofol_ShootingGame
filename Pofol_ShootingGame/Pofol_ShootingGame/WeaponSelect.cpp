@@ -42,8 +42,11 @@ void WeaponSelect::Update()
 
 	if (SelectionAccept())
 	{
-		UserInstance::GetInstance()->ResetBulletLevel();
-		SceneManager::GetInstance()->SetScene(STAGE1);
+		if (InputManager::GetInstance()->GetInputDelay() == 0)
+		{
+			UserInstance::GetInstance()->ResetBulletLevel();
+			SceneManager::GetInstance()->SetScene(STAGE1);
+		}
 	}
 
 	// Go Back
@@ -93,7 +96,7 @@ void WeaponSelect::Render()
 void WeaponSelect::Release()
 {
 	// Remove Bullet
-	ReleaseBullet();
+	RemovePlayerBullet();
 
 	// Remove Player
 	ObjectManager::GetInstance()->ThrowObject(ObjectManager::GetInstance()->GetObjectList(PLAYER)->begin(), pPlayer);
@@ -104,9 +107,7 @@ void WeaponSelect::MakePreview()
 	ObjectManager::GetInstance()->Update();
 	pPlayer->SetPosition(39, 20);
 
-	auto BulletList = 
-		ObjectManager::GetInstance()->GetObjectList(
-			UserInstance::GetInstance()->GetBullet());
+	auto BulletList = ObjectManager::GetInstance()->GetObjectList(UserInstance::GetInstance()->GetBullet());
 
 	// Shoot Bullet
 	((Player*)pPlayer)->ShootBullet(7);
@@ -116,7 +117,7 @@ void WeaponSelect::MakePreview()
 	{
 		for (auto iter = BulletList->begin(); iter != BulletList->end(); ++iter)
 		{
-			int result = ((BulletBridge*)((*iter)->GetBridge()))->BulletPriview(17, 21, 8);
+			int result = ((BulletBridge*)((*iter)->GetBridge()))->BulletPriview(17, 21, 9);
 
 			if (result == BUFFER_OVER)
 			{
@@ -132,7 +133,7 @@ void WeaponSelect::MakePreview()
 
 void WeaponSelect::SwitchBullet()
 {
-	ReleaseBullet();
+	RemovePlayerBullet();
 
 	switch (Selection)
 	{
@@ -144,18 +145,5 @@ void WeaponSelect::SwitchBullet()
 		break;
 	default:
 		break;
-	}
-}
-
-void WeaponSelect::ReleaseBullet()
-{
-	// Remove All Bullets in Screen
-	auto BulletList = 
-		ObjectManager::GetInstance()->GetObjectList(
-			UserInstance::GetInstance()->GetBullet());
-
-	if (BulletList)
-	{
-		RemoveBullet(BulletList);
 	}
 }

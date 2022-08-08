@@ -19,6 +19,5 @@ public:
 private:
 	void MakePreview();
 	void SwitchBullet();
-	void ReleaseBullet();
 };
 

@@ -17,15 +17,21 @@ void Logo::Initialize()
 
 void Logo::Update()
 {
+	// 이미지 로딩
 	++Image_Count;
 
-	if ((InputManager::GetInstance()->GetKey() & KEY_ENTER || InputManager::GetInstance()->GetKey() & KEY_F) && (LogoEnd == true))
-		SceneManager::GetInstance()->SetScene(MENU);
-
+	// 로고 스킵
 	if ((InputManager::GetInstance()->GetKey() & KEY_ENTER || InputManager::GetInstance()->GetKey() & KEY_F) && (LogoEnd == false))
 	{
 		LogoEnd = true;
 		Image_Count = 48;
+	}
+
+	// 메뉴 넘어가기
+	if ((InputManager::GetInstance()->GetKey() & KEY_ENTER || InputManager::GetInstance()->GetKey() & KEY_F) && (LogoEnd == true))
+	{
+		InputManager::GetInstance()->SetInputDelay();
+		SceneManager::GetInstance()->SetScene(MENU);
 	}
 }
 

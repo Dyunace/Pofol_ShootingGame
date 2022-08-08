@@ -17,6 +17,8 @@ void NormalEnemy::Initialize()
 	MoveSpeed = 0.25f;
 	BulletType = 2;
 
+	Score = 30;
+
 	if (pObject)
 		pObject->SetScale(4.0f, 2.0f);
 }

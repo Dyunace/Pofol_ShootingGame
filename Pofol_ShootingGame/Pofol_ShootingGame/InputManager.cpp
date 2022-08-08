@@ -2,15 +2,8 @@
 
 InputManager* InputManager::Instance = nullptr;
 
-InputManager::InputManager() : Key(0)
-{
-
-}
-
-InputManager::~InputManager()
-{
-
-}
+InputManager::InputManager() : Key(0), InputDelay(0) {}
+InputManager::~InputManager() {}
 
 void InputManager::InputKey()
 {

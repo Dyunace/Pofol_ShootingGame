@@ -26,27 +26,34 @@ const SHORT ConsoleHeightSize = 55;
 
 
 // String
-const string PLAYER = "00_Player";
-const string NORMALENEMY = "01_NormalEnemy";
-const string SMALLENEMY = "02_SmallEnemy";
-const string BIGENEMY = "03_BigEnemy";
+const string PLAYER = "000_Player";
+const string NORMALENEMY = "001_NormalEnemy";
+const string SMALLENEMY = "002_SmallEnemy";
+const string BIGENEMY = "003_BigEnemy";
 
-const string NORMALBULLET = "10_NormalBullet";
-const string LASERBULLET = "11_LaserBullet";
-const string BOOM = "19_Boom";
+const string NORMALBULLET = "010_NormalBullet";
+const string LASERBULLET = "011_LaserBullet";
+const string BOOM = "019_Boom";
 
-const string STAGE1_BOSS_CORE = "30_Stage1_Boss_Core";
-const string STAGE1_BOSS_HEAD = "30_Stage1_Boss_Head";
-const string STAGE1_BOSS_ARM_LEFT = "30_Stage1_Boss_Arm_Left";
-const string STAGE1_BOSS_ARM_RIGHT = "30_Stage1_Boss_Arm_Right";
-const string STAGE1_BOSS_SHIELD_LEFT = "30_Stage1_Boss_Shield_Left";
-const string STAGE1_BOSS_SHIELD_RIGHT = "30_Stage1_Boss_Shield_Right";
+const string STAGE1_BOSS_CORE = "030_Stage1_Boss_Core";
+const string STAGE1_BOSS_HEAD = "030_Stage1_Boss_Head";
+const string STAGE1_BOSS_ARM_LEFT = "030_Stage1_Boss_Arm_Left";
+const string STAGE1_BOSS_ARM_RIGHT = "030_Stage1_Boss_Arm_Right";
+const string STAGE1_BOSS_SHIELD_LEFT = "030_Stage1_Boss_Shield_Left";
+const string STAGE1_BOSS_SHIELD_RIGHT = "030_Stage1_Boss_Shield_Right";
 
-const string BOOMITEM = "80_BoomItem";
-const string WEAPONITEM = "81_WeaponItem";
+const string BOOMITEM = "080_BoomItem";
+const string WEAPONITEM = "081_WeaponItem";
 
 const string ENORMALBULLET = "100_ENormalBullet";
 const string ESPECIALBULLET = "101_ESpecialBullet";
 
 // ETC
 const int EnemyBulletTargetY = 50;
+
+// Score
+const int GetBoomScore = 1000;
+const int GetWeaponScore = 1000;
+
+const int EndBoomScore = 2000;
+const int EndLifeScore = 2000;

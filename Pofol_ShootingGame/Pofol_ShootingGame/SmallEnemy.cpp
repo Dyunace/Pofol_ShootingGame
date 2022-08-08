@@ -15,6 +15,8 @@ void SmallEnemy::Initialize()
 	MoveSpeed = 0.5f;
 	BulletType = 1;
 
+	Score = 10;
+
 	if (pObject)
 	{
 		pObject->SetScale(2.0f, 1.0f);

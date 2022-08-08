@@ -23,6 +23,10 @@ private:
 	int Score;
 	string BulletName;
 	int BulletLevel;
+
+	int GettingScore;
+public:
+	void Update();
 public:
 	int GetLife() { return Life; }
 	void AddLife(int _Num = 1) { Life += _Num; }
@@ -31,7 +35,10 @@ public:
 	void AddBoom(int _Num = 1) { Boom += _Num; }
 
 	int GetScore() { return Score; }
-	void AddScore(int _Num) { Score += _Num; }
+	int GetGettingScore() { return GettingScore; }
+	void AddScore(int _Num) { GettingScore += _Num; }
+	void CalcScore();
+	void SkipCalcScore();
 
 	string GetBullet() { return BulletName; }
 	void SetBullet(string _str) { BulletName = _str; }

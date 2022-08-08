@@ -15,11 +15,15 @@ public:
 	static int TakeDamage(Object* _Current, Object* _Target)
 	{
 		auto Target = ((EnemyBridge*)_Target->GetBridge());
-		auto Damage = 
-			((BulletBridge*)_Current->GetBridge())->GetDamage();
+		auto Damage = ((BulletBridge*)_Current->GetBridge())->GetDamage();
 
+		// 데미지 계산
 		Target->SetHp(Target->GetHP() - Damage);
 
+		// 점수 계산
+		UserInstance::GetInstance()->AddScore(Damage);
+
+		// 데미지 이펙트
 		if (Target->GetDamageEfect() == 0)
 			Target->SetDamageEfect(3);
 
@@ -35,6 +39,9 @@ public:
 			++_iter;
 			return false;
 		}
+
+		// 점수 계산
+		UserInstance::GetInstance()->AddScore(Target->GetScore());
 
 		// 적 정보 삭제
 		::Safe_Delete(Target);

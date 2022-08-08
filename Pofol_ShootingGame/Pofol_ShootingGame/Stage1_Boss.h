@@ -8,7 +8,7 @@ protected:
 	Object* Core;
 	int BossPhase;
 
-	int CoreHp = 850;
+	int CoreHp = 150;
 	int CoreShootDelay = 2;
 
 	int HeadHp = 175;

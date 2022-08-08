@@ -1,6 +1,7 @@
 #include "Scene.h"
 #include "InputManager.h"
 #include "ObjectManager.h"
+#include "UserInstance.h"
 #include "Object.h"
 
 Scene::Scene() { }
@@ -15,9 +16,20 @@ bool Scene::SelectionAccept()
 	return false;
 }
 
-void Scene::RemoveBullet(list<Object*>* _BulletList)
+void Scene::RemovePlayerBullet()
 {
-	for (auto iter = _BulletList->begin(); iter != _BulletList->end();)
+	// Remove All Bullets in Screen
+	auto BulletList =
+		ObjectManager::GetInstance()->GetObjectList(
+			UserInstance::GetInstance()->GetBullet());
+
+	if (BulletList)
+		RemoveObject(BulletList);
+}
+
+void Scene::RemoveObject(list<Object*>* _TargetList)
+{
+	for (auto iter = _TargetList->begin(); iter != _TargetList->end();)
 	{
 		if (*iter)
 		{
@@ -30,4 +42,18 @@ void Scene::RemoveBullet(list<Object*>* _BulletList)
 		else
 			++iter;
 	}
+}
+
+void Scene::RemoveObject(list<Object*>::iterator& _TargetIter)
+{
+	if (*_TargetIter)
+	{
+		// Remove Bullet Data
+		::Safe_Delete((*_TargetIter)->GetBridge());
+
+		// Save in Disable List
+		_TargetIter = ObjectManager::GetInstance()->ThrowObject(_TargetIter, (*_TargetIter));
+	}
+	else
+		++_TargetIter;
 }

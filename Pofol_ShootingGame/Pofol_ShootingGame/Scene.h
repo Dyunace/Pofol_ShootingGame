@@ -16,5 +16,8 @@ public:
 protected:
 	bool SelectionAccept();
 
-	void RemoveBullet(list<Object*>* _BulletList);
+
+	void RemovePlayerBullet();
+	void RemoveObject(list<Object*>* _TargetList);
+	void RemoveObject(list<Object*>::iterator& _TargetIter);
 };

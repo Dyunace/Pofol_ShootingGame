@@ -47,10 +47,14 @@ int Warning::Update()
 		InputManager::GetInstance()->GetKey() & KEY_SPACE)
 	{
 		if (Selection == 0)
-			SceneManager::GetInstance()->SetScene(EXIT);
+		{
+			if (InputManager::GetInstance()->GetInputDelay() == 0)
+				SceneManager::GetInstance()->SetScene(EXIT);
+		}
 		else if (Selection == 1)
 		{
 			State = 0;
+			InputManager::GetInstance()->SetInputDelay();
 
 			return 1;
 		}
@@ -65,13 +69,15 @@ void Warning::Render()
 	{
 		MakeBorder();
 
+		// 경고 문구
 		if (State == 2)
 			CursorManager::GetInstance()->WriteBuffer(28, 27, (char*)"Do you want Exit Game?");
 
-
+		// 확인 버튼
 		CursorManager::GetInstance()->WriteBuffer(28, 29, (char*)"Yes");
 		CursorManager::GetInstance()->WriteBuffer(43, 29, (char*)"No");
 
+		// 현재 버튼
 		if (Selection == 0)
 			CursorManager::GetInstance()->WriteBuffer(33, 29, (char*)"<<");
 		else if (Selection == 1)

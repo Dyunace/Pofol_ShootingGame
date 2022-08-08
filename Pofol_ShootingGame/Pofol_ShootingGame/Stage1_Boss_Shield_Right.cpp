@@ -28,6 +28,8 @@ void Stage1_Boss_Shield_Right::Initialize()
     Hp = ShieldHp;
     BulletType = 1;
 
+    Score = 500;
+
     if (pObject)
         pObject->SetScale(12.0f, 2.0f);
 

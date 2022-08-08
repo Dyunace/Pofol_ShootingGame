@@ -28,6 +28,8 @@ void Stage1_Boss_Head::Initialize()
 	Hp = HeadHp;
 	BulletType = 3;
 
+	Score = 500;
+
 	if (pObject)
 	{
 		pObject->SetScale(6.0f, 3.0f);

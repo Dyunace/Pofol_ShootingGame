@@ -44,7 +44,7 @@ void WeaponSelect::Update()
 	{
 		if (InputManager::GetInstance()->GetInputDelay() == 0)
 		{
-			UserInstance::GetInstance()->ResetBulletLevel();
+			UserInstance::GetInstance()->SetBulletLevel();
 			SceneManager::GetInstance()->SetScene(STAGE1);
 		}
 	}

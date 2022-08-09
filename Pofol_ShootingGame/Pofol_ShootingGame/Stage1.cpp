@@ -14,7 +14,7 @@ Stage1::Stage1()
 	for (int i = 0; i < 6; ++i)
 		Stage1Boss[i] = nullptr;
 }
-Stage1::~Stage1(){}
+Stage1::~Stage1() { Release(); }
 
 void Stage1::Initialize()
 {
@@ -124,6 +124,7 @@ void Stage1::Render()
 
 void Stage1::Release()
 {
+	ReleaseAll();
 }
 
 void Stage1::GetBossList()

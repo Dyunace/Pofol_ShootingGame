@@ -13,6 +13,11 @@ protected:
 
 	// µô·¹ÀÌ Ä«¿îÆ®
 	int DelayCount;
+
+	bool isVisible;
+	bool canMove;
+	bool canShoot;
+	bool canRender;
 public:
 	Object();
 	Object(Transform _Info);
@@ -37,6 +42,9 @@ public:
 	Vector3 GetDirection() const { return TransInfo.Direction; }
 	void SetDirection(float _x, float _y) { TransInfo.Direction = Vector3(_x, _y); }
 	void SetDirection(Vector3 _Position) { TransInfo.Direction = _Position; }
+
+	bool GetVisible() { return isVisible; }
+	void SetVisible(bool _bool) { isVisible = _bool; }
 
 	// ÃÑ¾Ë ºê¸´Áö
 	Bridge* GetBridge() { return pBridge; }

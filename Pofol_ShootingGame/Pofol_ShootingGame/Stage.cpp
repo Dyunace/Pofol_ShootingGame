@@ -70,6 +70,7 @@ void Stage::CatchObjectLists()
 
 void Stage::CollisionCheck()
 {
+	// 적 충돌 검사
 	for (int i = 0; i < 3; ++i)
 	{
 		if (i == 0)
@@ -121,64 +122,93 @@ void Stage::CollisionCheck()
 				if (((Boom*)PlayerBoomList->front()->GetBridge())->GetCount() > 30)
 					TakeBossDamage();
 
-	// 적 총알 & 플레이어 충돌 검사
-	if (pPlayer && ENormalBulletList)
+	// 플레이어 충돌 검사
+	if (pPlayer)
 	{
-		for (auto ENormalBulletIter = ENormalBulletList->begin();
-			ENormalBulletIter != ENormalBulletList->end();)
+		// 리스폰 체크
+		if (((Player*)pPlayer)->GetRespawnCount() == 0)
 		{
-			if (CollisionManager::CircleCollision(*ENormalBulletIter, pPlayer))
-			{
-				// 충돌 검사 디버그
-				CursorManager::GetInstance()->WriteBuffer(
-					pPlayer->GetPosition().x,
-					pPlayer->GetPosition().y - 2,
-					(char*)"Hit!"
-				);
-
-				RemoveObject(ENormalBulletIter);
-			}
-			else
-				++ENormalBulletIter;
-		}
-	}
-
-	// 아이템 & 플레이어 충돌 검사
-	for (int i = 0; i < 2; ++i)
-	{
-		list<Object*>* CurrentList = nullptr;
-
-		if (i == 0)
-			CurrentList = BoomItemList;
-		if (i == 1)
-			CurrentList = WeaponItemList;
-
-		if (CurrentList)
-		{
-			for (auto iter = CurrentList->begin(); iter != CurrentList->end();)
-			{
-				if (CollisionManager::RectCollision(pPlayer, (*iter)))
+			// 적 총알 충돌 검사
+			if (ENormalBulletList)
+			{				
+				for (auto ENormalBulletIter = ENormalBulletList->begin();
+					ENormalBulletIter != ENormalBulletList->end();)
 				{
-					// 폭탄 추가
-					if (CurrentList == BoomItemList)
+					if (CollisionManager::CircleCollision(*ENormalBulletIter, pPlayer))
 					{
-						if (UserInstance::GetInstance()->GetBoom() != 5)
-							UserInstance::GetInstance()->AddBoom();
+						// 라이프가 남아있을 때
+						if (UserInstance::GetInstance()->GetLife() > 0)
+						{
+							// 라이프 차감
+							UserInstance::GetInstance()->AddLife(-1);
+
+							// 사망 시 아이템 드랍
+							MakeItem(0, pPlayer->GetPosition());		// 폭탄은 반드시 한 개 드랍
+							if (UserInstance::GetInstance()->GetBulletLevel() > 1)
+								MakeItem(1, pPlayer->GetPosition());	// 탄환은 2레벨 이상일 시 한 개 드랍
+							
+							// 폭탄과 총알 레벨 초기화
+							UserInstance::GetInstance()->SetBoom();
+							UserInstance::GetInstance()->SetBulletLevel();
+
+							// 적 총알 삭제
+							RemoveObject(ENormalBulletIter);
+
+							// 플레이어 사망 처리 실행
+							((Player*)pPlayer)->PlayerRespawn();
+						}
 						else
-							UserInstance::GetInstance()->AddScore(GetBoomScore);
+							//라이프가 없으면 게임 오버 출력
+							;
+						
 					}
-
-					// 무기 변경 or 레벨 업
-					if (CurrentList == WeaponItemList)
-						ItemWeaponUpgrade(iter);
-
-					// 아이템 삭제
-					RemoveObject(iter);
+					else
+						++ENormalBulletIter;
 				}
-				else
-					++iter;
+			}
+
+			// 아이템 & 플레이어 충돌 검사
+			for (int i = 0; i < 2; ++i)
+			{
+
+				list<Object*>* CurrentList = nullptr;
+
+				if (i == 0)
+					CurrentList = BoomItemList;
+				if (i == 1)
+					CurrentList = WeaponItemList;
+
+				if (CurrentList)
+				{
+					for (auto iter = CurrentList->begin(); iter != CurrentList->end();)
+					{
+						if (CollisionManager::RectCollision(pPlayer, (*iter)))
+						{
+							// 폭탄 추가
+							if (CurrentList == BoomItemList)
+							{
+								if (UserInstance::GetInstance()->GetBoom() != 5)
+									UserInstance::GetInstance()->AddBoom();
+								else
+									UserInstance::GetInstance()->AddScore(GetBoomScore);
+							}
+
+							// 무기 변경 or 레벨 업
+							if (CurrentList == WeaponItemList)
+								ItemWeaponUpgrade(iter);
+
+							// 아이템 삭제
+							RemoveObject(iter);
+						}
+						else
+							++iter;
+					}
+				}
 			}
 		}
+		else
+			// 리스폰 하는 동안 무적 판정
+			((Player*)pPlayer)->PlayerRespawn();
 	}
 }
 
@@ -406,7 +436,7 @@ void Stage::ItemWeaponUpgrade(list<Object*>::iterator& _iter)
 	else
 	{
 		UserInstance::GetInstance()->SetBullet(ItemType);
-		UserInstance::GetInstance()->ResetBulletLevel();
+		UserInstance::GetInstance()->SetBulletLevel();
 	}
 }
 
@@ -449,7 +479,8 @@ bool Stage::WaveCheck()
 
 void Stage::StageClear()
 {
-	if (StageCount == 10)
+	// 클리어 후 총알 삭제
+	if (StageCount == 1)
 	{
 		list<Object*>* CurrentList = nullptr;
 
@@ -467,13 +498,15 @@ void Stage::StageClear()
 		}
 	}
 
-	if (StageCount > 10)
+	// 클리어 문구 띄우기
+	if (StageCount > 30)
 		CursorManager::GetInstance()->WriteBuffer(32, 10, (char*)"Stage 1 Clear!!");
 
 	int Life = UserInstance::GetInstance()->GetLife();
 	int Boom = UserInstance::GetInstance()->GetBoom();
 
-	if (StageCount == 30)
+	// 점수 정산
+	if (StageCount == 60)
 	{
 		for (int i = 0; i < Life; ++i)
 			UserInstance::GetInstance()->AddScore(EndLifeScore);
@@ -482,33 +515,69 @@ void Stage::StageClear()
 			UserInstance::GetInstance()->AddScore(EndBoomScore);
 	}
 
-	if (StageCount > 30 && UserInstance::GetInstance()->GetGettingScore() != 0)
+	// 점수 정산 되는 동안 문구 띄우기
+	if (StageCount > 60 && UserInstance::GetInstance()->GetGettingScore() != 0)
 	{
 		if (Life > 0)
 		{
-			CursorManager::GetInstance()->WriteBuffer(32, 12, (char*)"Life Bonus x");
-			CursorManager::GetInstance()->WriteBuffer(49, 12, Life);
+			CursorManager::GetInstance()->WriteBuffer(32, 12, (char*)"Life Bonus x ");
+			CursorManager::GetInstance()->WriteBuffer(46, 12, Life);
 		}
 		
 		if (Boom > 0)
 		{
-			CursorManager::GetInstance()->WriteBuffer(32, 13, (char*)"Boom Bonus x");
-			CursorManager::GetInstance()->WriteBuffer(49, 13, Boom);
+			CursorManager::GetInstance()->WriteBuffer(32, 13, (char*)"Boom Bonus x ");
+			CursorManager::GetInstance()->WriteBuffer(46, 13, Boom);
 		}
 
+		// 스킵 키
 		if ((InputManager::GetInstance()->GetKey() & KEY_F) || (InputManager::GetInstance()->GetKey() & KEY_SPACE))
 		{
+			InputManager::GetInstance()->SetInputDelay();
 			UserInstance::GetInstance()->SkipCalcScore();
 		}
 	}
-	else if (StageCount > 30 && UserInstance::GetInstance()->GetGettingScore() == 0)
+	else if (StageCount > 60 && UserInstance::GetInstance()->GetGettingScore() == 0)
 	{
 		CursorManager::GetInstance()->WriteBuffer(24, 15, (char*)"Press \" F \" or \" Space \" to Menu");
 
 		if ((InputManager::GetInstance()->GetKey() & KEY_F) || (InputManager::GetInstance()->GetKey() & KEY_SPACE))
 		{
-			RemoveObject(ObjectManager::GetInstance()->GetObjectList(PLAYER));
-			SceneManager::GetInstance()->SetScene(MENU);
+			if (InputManager::GetInstance()->GetInputDelay() == 0)
+				SceneManager::GetInstance()->SetScene(MENU);
+		}
+	}
+}
+
+void Stage::ReleaseAll()
+{
+	auto iPlayer = ObjectManager::GetInstance()->GetObjectList(PLAYER)->begin();
+	ObjectManager::GetInstance()->ThrowObject(iPlayer, (*iPlayer));
+
+	for (int i = 0; i < 7; ++i)
+	{
+		list<Object*>* CurList = nullptr;
+
+		if (i == 0)
+			CurList = PlayerBulletList;
+		else if (i == 1)
+			CurList = ENormalBulletList;
+		else if (i == 2)
+			CurList = NormalEnemyList;
+		else if (i == 3)
+			CurList = SmallEnemyList;
+		else if (i == 4)
+			CurList = BigEnemyList;
+		else if (i == 5)
+			CurList = PlayerBoomList;
+		else if (i == 6)
+			CurList = BoomItemList;
+		else if (i == 7)
+			CurList = WeaponItemList;
+
+		if (CurList)
+		{
+			RemoveObject(CurList);
 		}
 	}
 }

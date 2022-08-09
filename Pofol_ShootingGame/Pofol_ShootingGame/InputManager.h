@@ -25,7 +25,7 @@ public:
 	DWORD GetKey() const { return Key; }
 
 	int GetInputDelay() const { return InputDelay; }
-	void SetInputDelay(int _Delay = 10) { InputDelay = _Delay; }
+	void SetInputDelay(int _Delay = 5) { InputDelay = _Delay; }
 	void MinusInputDelay() { --InputDelay; }
 
 	void InputKey();

@@ -43,8 +43,8 @@ public:
 protected:
 	void CatchObjectLists();
 	void CollisionCheck();
-	void DamageCheck(list<Object*>* _CurrentList);
 
+	void DamageCheck(list<Object*>* _CurrentList);
 	void BoomDamage(list<Object*>* _CurrentList);
 	void BoomRemoveBullet();
 	virtual void TakeBossDamage() PURE;
@@ -59,5 +59,7 @@ protected:
 
 	bool WaveCheck();
 	void StageClear();
+
+	void ReleaseAll();
 };
 

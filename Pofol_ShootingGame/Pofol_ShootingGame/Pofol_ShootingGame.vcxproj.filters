@@ -312,6 +312,9 @@
     <ClCompile Include="WeaponItem.cpp">
       <Filter>소스 파일\02.Object\Item\ItemBridge\WeaponItem</Filter>
     </ClCompile>
+    <ClCompile Include="UserInterface.cpp">
+      <Filter>소스 파일\99.Manager\Scene\UserInterface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enums.h">

@@ -14,6 +14,7 @@ public:
 	virtual void Render() override;
 	virtual void Release() override;
 
+	virtual void StageUpdate() override;
 public:
 	void GetBossList();
 	void BossCollisionCheck();

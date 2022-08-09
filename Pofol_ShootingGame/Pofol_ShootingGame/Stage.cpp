@@ -5,6 +5,7 @@
 #include "UserInstance.h"
 #include "InputManager.h"
 #include "SceneManager.h"
+#include "UserInterface.h"
 
 #include "ObjectManager.h"
 #include "Player.h"
@@ -273,63 +274,6 @@ void Stage::BoomRemoveBullet()
 	}
 }
 
-void Stage::RenderUserInterface()
-{
-	// UI 화면에 출력하기 (임시)
-	/*
-		화면에 출력할 목록
-
-		1. 생명
-		2. 현재 탄 + 레벨
-		3. 남은 폭탄 수
-		4. 현재 스테이지 (웨이브)
-		5. 현재 점수
-		6. 현재야 잘 지내니
-	*/
-
-	// 생명
-	CursorManager::GetInstance()->WriteBuffer(0, 0, (char*)"Life : ");
-	for (float f = 0; f < UserInstance::GetInstance()->GetLife(); ++f)
-		CursorManager::GetInstance()->WriteBuffer(8.0f + (f * 2), 0, (char*)"♥");
-
-
-	// 폭탄
-	CursorManager::GetInstance()->WriteBuffer(0, 2, (char*)"Boom : ");
-	for (float f = 0; f < UserInstance::GetInstance()->GetBoom(); ++f)
-		CursorManager::GetInstance()->WriteBuffer(8.0f + (f * 2), 2, (char*)"♠");
-	
-
-	// 총알 및 레벨
-	char* BulletName = nullptr;
-	if (UserInstance::GetInstance()->GetBullet() == NORMALBULLET)
-		BulletName = (char*)"Normal";
-	else if (UserInstance::GetInstance()->GetBullet() == LASERBULLET)
-		BulletName = (char*)"Laser";
-
-	CursorManager::GetInstance()->WriteBuffer(0, 4, BulletName);
-	CursorManager::GetInstance()->WriteBuffer(8, 4, (char*)"Lv.");
-	CursorManager::GetInstance()->WriteBuffer(12, 4, UserInstance::GetInstance()->GetBulletLevel());
-
-
-	// 점수
-	int Score = UserInstance::GetInstance()->GetScore();
-	CursorManager::GetInstance()->WriteBuffer(0, 6, (char*)"Score : ");
-
-	CursorManager::GetInstance()->WriteBuffer(9, 6, Score / 10000);
-	Score = Score - ((Score / 10000) * 10000);
-
-	CursorManager::GetInstance()->WriteBuffer(10, 6, Score / 1000);
-	Score = Score - ((Score / 1000) * 1000);
-
-	CursorManager::GetInstance()->WriteBuffer(11, 6, Score / 100);
-	Score = Score - ((Score / 100) * 100);
-
-	CursorManager::GetInstance()->WriteBuffer(12, 6, Score / 10);
-	Score = Score - ((Score / 10) * 10);
-
-	CursorManager::GetInstance()->WriteBuffer(13, 6, Score);
-}
-
 void Stage::MakeEnemy(string _EnemyType, float _x, float _y, int _MoveType)
 {
 	if (_EnemyType == NORMALENEMY)
@@ -545,6 +489,36 @@ void Stage::StageClear()
 		{
 			if (InputManager::GetInstance()->GetInputDelay() == 0)
 				SceneManager::GetInstance()->SetScene(MENU);
+		}
+	}
+}
+
+void Stage::PauseCheck()
+{
+	if (ObjectManager::GetInstance()->GetPuase() == true)
+		PauseMenu();
+	else if (InputManager::GetInstance()->GetKey() == KEY_ESC)
+	{
+		if (InputManager::GetInstance()->GetInputDelay() == 0)
+		{
+			InputManager::GetInstance()->SetInputDelay();
+			ObjectManager::GetInstance()->SetPause(true);
+		}
+	}
+}
+
+void Stage::PauseMenu()
+{
+	UserInterface::GetInstance()->MakeUI(30, 22, 10, 10);
+	
+	CursorManager::GetInstance()->WriteBuffer(33, 23, (char*)"Pause Menu");
+
+	if (InputManager::GetInstance()->GetKey() == KEY_ESC)
+	{
+		if (InputManager::GetInstance()->GetInputDelay() == 0)
+		{
+			InputManager::GetInstance()->SetInputDelay();
+			ObjectManager::GetInstance()->SetPause(false);
 		}
 	}
 }

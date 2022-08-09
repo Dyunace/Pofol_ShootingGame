@@ -63,7 +63,7 @@ void Menu::Update()
 void Menu::Render()
 {
 	LogoImage::GetInstance()->RenderLogoImage(46);
-	UserInterface::MakeUI(25, 24, 15, 13);
+	UserInterface::GetInstance()->MakeUI(25, 24, 15, 13);
 	CursorManager::GetInstance()->WriteBuffer(30, 27, (char*)"Start Game");
 	CursorManager::GetInstance()->WriteBuffer(30, 30, (char*)"Option");
 	CursorManager::GetInstance()->WriteBuffer(30, 33, (char*)"Exit Game");

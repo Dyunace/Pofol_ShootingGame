@@ -40,6 +40,8 @@ public:
 	virtual void Update() PURE;
 	virtual void Render() PURE;
 	virtual void Release() PURE;
+
+	virtual void StageUpdate() PURE;
 protected:
 	void CatchObjectLists();
 	void CollisionCheck();
@@ -48,8 +50,6 @@ protected:
 	void BoomDamage(list<Object*>* _CurrentList);
 	void BoomRemoveBullet();
 	virtual void TakeBossDamage() PURE;
-
-	void RenderUserInterface();
 
 	void MakeEnemy(string _EnemyType, float _x, float _y, int _MoveType);
 	void MakeItem(int _ItemType, Vector3 _Positioln);
@@ -60,6 +60,8 @@ protected:
 	bool WaveCheck();
 	void StageClear();
 
+	void PauseCheck();
+	void PauseMenu();
 	void ReleaseAll();
 };
 

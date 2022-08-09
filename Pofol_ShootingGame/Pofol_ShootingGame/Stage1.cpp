@@ -4,6 +4,8 @@
 #include "DamageManager.h"
 #include "ObjectManager.h"
 #include "CursorManager.h"
+#include "UserInterface.h"
+
 #include "Player.h"
 #include "Object.h"
 
@@ -36,13 +38,32 @@ void Stage1::Initialize()
 void Stage1::Update()
 {
 	ObjectManager::GetInstance()->Update();
-
-	RenderUserInterface();
-
+	
 	CatchObjectLists();
+	
+	UserInstance::GetInstance()->Update();
+	UserInterface::GetInstance()->Render();
+	
+	StageUpdate();
 
 	CollisionCheck();
 
+	PauseCheck();
+
+}
+
+void Stage1::Render()
+{
+	ObjectManager::GetInstance()->Render();
+}
+
+void Stage1::Release()
+{
+	ReleaseAll();
+}
+
+void Stage1::StageUpdate()
+{
 	if (StageWave == 2)
 	{
 		// 이동 경로는 EnemyBridge.cpp 참조
@@ -52,7 +73,7 @@ void Stage1::Update()
 
 		else if (StageCount == 20)
 			MakeEnemy(SMALLENEMY, 40, -1, 11);	// 1 = 아래로 이동, 밖으로 나가기
-			
+
 		else if (StageCount == 30)
 			MakeEnemy(BIGENEMY, 70, 0, 11);		// 11 = 아래로 이동 후 정지
 
@@ -112,19 +133,7 @@ void Stage1::Update()
 		StageClear();
 	}
 
-
-	UserInstance::GetInstance()->Update();
 	++StageCount;
-}
-
-void Stage1::Render()
-{
-	ObjectManager::GetInstance()->Render();
-}
-
-void Stage1::Release()
-{
-	ReleaseAll();
 }
 
 void Stage1::GetBossList()

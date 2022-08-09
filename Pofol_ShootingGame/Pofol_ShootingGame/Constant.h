@@ -21,6 +21,7 @@ const int MAX_SIZE = 2;
 
 
 // Console Window
+// Change with Main::Update() - system mode con
 const SHORT ConsoleWidthSize = 80;
 const SHORT ConsoleHeightSize = 55;
 

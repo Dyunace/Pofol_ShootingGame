@@ -55,6 +55,8 @@ int WeaponItem::Update()
 			Buffer[4] = (char*)"¢Á";
 			ItemType = NORMALBULLET;
 		}
+
+		ItemCount = 0;
 	}
 
 

@@ -49,6 +49,7 @@
     <ClCompile Include="Stage1_Boss_Shield_Left.cpp" />
     <ClCompile Include="Stage1_Boss_Shield_Right.cpp" />
     <ClCompile Include="UserInstance.cpp" />
+    <ClCompile Include="UserInterface.cpp" />
     <ClCompile Include="Warning.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Logo.cpp" />

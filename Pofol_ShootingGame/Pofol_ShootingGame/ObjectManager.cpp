@@ -9,6 +9,7 @@ ObjectManager* ObjectManager::Instance = nullptr;
 ObjectManager::ObjectManager()
 {
 	EnableList = ObjectPool::GetEnableList();
+	isPause = false;
 }
 ObjectManager::~ObjectManager(){}
 
@@ -83,7 +84,10 @@ list<Object*>::iterator ObjectManager::ThrowObject(list<Object*>::iterator _Wher
 
 void ObjectManager::Update()
 {
-	ObjectPool::GetInstance()->Update();
+	if (!isPause)
+	{
+		ObjectPool::GetInstance()->Update();
+	}
 }
 
 void ObjectManager::Render()

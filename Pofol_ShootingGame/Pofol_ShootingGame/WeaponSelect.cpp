@@ -57,20 +57,20 @@ void WeaponSelect::Update()
 void WeaponSelect::Render()
 {
 	// Side Border
-	UserInterface::MakeUI(10, 2, 30, 50);
+	UserInterface::GetInstance()->MakeUI(10, 2, 30, 50);
 
 	// Priview Border
 	CursorManager::GetInstance()->WriteBuffer(31, 4, (char*)"Priview Weapon Lv.3");
-	UserInterface::MakeUI(16, 7, 24, 15);
+	UserInterface::GetInstance()->MakeUI(16, 7, 24, 15);
 
 
 	// Weapon Select
 	CursorManager::GetInstance()->WriteBuffer(28, 25, (char*)"Select Weapon With Start");
 
-	UserInterface::MakeUI(24, 28, 5, 5);
+	UserInterface::GetInstance()->MakeUI(24, 28, 5, 5);
 	CursorManager::GetInstance()->WriteBuffer(28, 30, (char*)"¢Á");
 
-	UserInterface::MakeUI(46, 28, 5, 5);
+	UserInterface::GetInstance()->MakeUI(46, 28, 5, 5);
 	CursorManager::GetInstance()->WriteBuffer(50, 30, (char*)"¥±");
 
 	// Selection

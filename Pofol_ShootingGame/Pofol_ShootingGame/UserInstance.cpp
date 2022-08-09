@@ -13,17 +13,17 @@ void UserInstance::CalcScore()
 {
 	if (GettingScore != 0)
 	{
-		if (GettingScore > 10000)
+		if (GettingScore > 1000)
 		{
 			Score = Score + 1000;
 			GettingScore = GettingScore - 1000;
 		}
-		if (GettingScore > 1000)
+		if (GettingScore > 100)
 		{
 			Score = Score + 100;
 			GettingScore = GettingScore - 100;
 		}
-		if (GettingScore > 100)
+		if (GettingScore > 10)
 		{
 			Score = Score + 10;
 			GettingScore = GettingScore - 10;

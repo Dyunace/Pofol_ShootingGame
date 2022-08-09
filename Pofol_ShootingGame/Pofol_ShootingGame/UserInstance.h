@@ -47,6 +47,7 @@ public:
 	void AddScore(int _Num) { GettingScore += _Num; }
 
 public:
+	void RenderStageInterface();
 	void CalcScore();
 	void SkipCalcScore();
 };

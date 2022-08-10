@@ -41,3 +41,15 @@ void UserInstance::SkipCalcScore()
 	Score = Score + GettingScore;
 	GettingScore = 0;
 }
+
+void UserInstance::ResetInstance()
+{
+	Life = 2;
+	Boom = 1;
+
+	BulletName = "NormalBullet";
+	BulletLevel = 1;
+
+	Score = 0;
+	GettingScore = 0;
+}

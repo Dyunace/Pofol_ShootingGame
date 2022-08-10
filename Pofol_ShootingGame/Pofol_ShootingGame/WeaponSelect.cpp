@@ -23,7 +23,7 @@ void WeaponSelect::Initialize()
 	pPlayer->Initialize(PLAYER);
 	pPlayer->SetPosition(39, 20);
 
-	UserInstance::GetInstance()->SetBullet(NORMALBULLET);
+	UserInstance::GetInstance()->ResetInstance();
 	UserInstance::GetInstance()->SetBulletLevel(3);
 
 	BulletList = ObjectManager::GetInstance()->GetObjectList(UserInstance::GetInstance()->GetBullet());

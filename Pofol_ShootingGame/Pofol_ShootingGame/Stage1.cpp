@@ -40,25 +40,20 @@ void Stage1::Update()
 {
 	if (ObjectManager::GetInstance()->GetPuase() == false)
 	{
-		ObjectManager::GetInstance()->Update();
-
-		CatchObjectLists();
-
-		UserInstance::GetInstance()->Update();
-
 		StageUpdate();
 
-		CollisionCheck();
+		WaveUpdate();
 	}
 
-	UserInterface::GetInstance()->Render();
-
 	PauseCheck();
+
+	if (isGameOver)
+		GameOver();
 }
 
 void Stage1::Render()
 {
-	ObjectManager::GetInstance()->Render();
+	StageRender();
 }
 
 void Stage1::Release()
@@ -66,7 +61,7 @@ void Stage1::Release()
 	ReleaseAll();
 }
 
-void Stage1::StageUpdate()
+void Stage1::WaveUpdate()
 {
 	if (StageWave == 2)
 	{

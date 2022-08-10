@@ -1,26 +1,17 @@
-// Shooting v1.13.5 End Phase
+// Shooting v1.13.6 End Phase
 /*
 	주요 변경점:
-		UserInterface 변경
+		Pause Menu
+			메인 메뉴로 돌아가기, 계속하기 선택지 구현
 
-		게임 중 ESC로 Pause 사용 가능
+		Game Over
+			게임 오버 시 텍스트 띄우기
+			메인 메뉴로 나가기 기능 구현
 
-		WeaponSelect Privew 코드 변경
-			제대로 삭제되지 않던 버그 해결
-
-		Gameover 시 게임이 멈추던 버그 해결
-
-		PauseMenu 작성 중
+		UserInstance
+			WeaponSelect 진입 시 디폴트값으로 초기화 추가
 
 	다음 할 일 (우선 순위 순서) :
-		ESC 메뉴
-			퍼즈 메뉴는 게임 재개, 메인메뉴로 돌아가기를 선택 가능하다.
-		
-		게임 오버
-			캐릭터의 생명이 모두 소진한 상태에서 피격 당하면 실행
-			오브젝트 매니저에 퍼즈를 걸고 GameOver 문구를 띄운다.
-			키 입력 텍스트를 출력하고, 입력 시 메뉴 화면으로 이동한다.
-
 		스테이지 웨이브 늘리기
 			한 10웨이브 정도는 있어야 하지 않나?
 			다음 웨이브로 넘어갈 때까지 필요한 타이머 증가

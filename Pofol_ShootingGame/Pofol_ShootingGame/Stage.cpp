@@ -30,8 +30,8 @@
 #include "BoomItem.h"
 #include "WeaponItem.h"
 
-Stage::Stage() : 
-	pPlayer(nullptr), 
+Stage::Stage() :
+	pPlayer(nullptr),
 	CurrentEnemyList(nullptr),
 	PlayerBulletList(nullptr),
 	PlayerBoomList(nullptr),
@@ -42,6 +42,10 @@ Stage::Stage() :
 	BoomItemList(nullptr),
 	WeaponItemList(nullptr),
 	isLaser(false),
+
+	isPause(false),
+	isGameOver(false),
+
 	CurStage(0),
 	StageWave(0),
 	StageCount(0),
@@ -51,6 +55,27 @@ Stage::Stage() :
 	isWeaponItemDrop(false)
 {}
 Stage::~Stage(){}
+
+void Stage::StageUpdate()
+{
+	ObjectManager::GetInstance()->Update();
+
+	UserInstance::GetInstance()->Update();
+
+	CatchObjectLists();
+
+	CollisionCheck();
+}
+
+void Stage::StageRender()
+{
+	ObjectManager::GetInstance()->Render();
+
+	UserInterface::GetInstance()->Render();
+
+	if (isPause)
+		Warning::GetInstance()->Render();
+}
 
 void Stage::CatchObjectLists()
 {
@@ -94,6 +119,7 @@ void Stage::CollisionCheck()
 				if (PlayerBoomList->begin() != PlayerBoomList->end())
 				{
 					if (((Boom*)PlayerBoomList->front()->GetBridge())->GetCount() > 30)
+					{
 						for (int i = 0; i < 3; ++i)
 						{
 							BoomDamage(CurrentEnemyList);
@@ -101,6 +127,7 @@ void Stage::CollisionCheck()
 							// 화면 낸 모든 적 총알 제거하기
 							BoomRemoveBullet();
 						}
+					}
 				}
 			}
 
@@ -111,7 +138,6 @@ void Stage::CollisionCheck()
 				if (CurrentEnemyList == BigEnemyList)
 					ItemDropCheck(iter);
 				else
-					// 일반 검사
 					DamageManager::DeathCheck(iter, (*iter));
 			}
 		}
@@ -148,6 +174,7 @@ void Stage::CollisionCheck()
 
 							// 사망 시 아이템 드랍
 							MakeItem(0, pPlayer->GetPosition());		// 폭탄은 반드시 한 개 드랍
+
 							if (UserInstance::GetInstance()->GetBulletLevel() > 1)
 								MakeItem(1, pPlayer->GetPosition());	// 탄환은 2레벨 이상일 시 한 개 드랍
 
@@ -161,6 +188,12 @@ void Stage::CollisionCheck()
 						else
 						{
 							//라이프가 없으면 게임 오버 출력
+							ObjectManager::GetInstance()->SetPause(true);
+							pPlayer->SetVisible(false);
+							isGameOver = true;
+
+							// 게임 오버 되자마자 퇴장 방지
+							InputManager::GetInstance()->SetInputDelay(20);
 						}
 
 						// 적 총알 삭제
@@ -170,11 +203,17 @@ void Stage::CollisionCheck()
 						++ENormalBulletIter;
 				}
 			}
+		}
+		else
+			// 리스폰 하는 동안 무적 판정
+			((Player*)pPlayer)->PlayerRespawn();
 
-			// 아이템 & 플레이어 충돌 검사
+
+		// 아이템 & 플레이어 충돌 검사
+		if (((Player*)pPlayer)->GetDeathCount() == 0)
+		{
 			for (int i = 0; i < 2; ++i)
 			{
-
 				list<Object*>* CurrentList = nullptr;
 
 				if (i == 0)
@@ -209,10 +248,7 @@ void Stage::CollisionCheck()
 					}
 				}
 			}
-		}
-		else
-			// 리스폰 하는 동안 무적 판정
-			((Player*)pPlayer)->PlayerRespawn();
+		}			
 	}
 }
 
@@ -333,15 +369,11 @@ void Stage::MakeItem(int _ItemType, Vector3 _Positioln)
 	{
 		Bridge* iBoom = new BoomItem;
 		ObjectManager::GetInstance()->AddBridge(BOOMITEM, iBoom, _Positioln);
-
-		isBoomItemDrop = true;
 	}
 	else if (_ItemType == 1)
 	{
 		Bridge* iWeapon = new WeaponItem;
 		ObjectManager::GetInstance()->AddBridge(WEAPONITEM, iWeapon, _Positioln);
-
-		isWeaponItemDrop = true;
 	}
 }
 
@@ -351,22 +383,34 @@ void Stage::ItemDropCheck(list<Object*>::iterator& _iter)
 
 	if (DamageManager::DeathCheck(_iter, (*_iter)))
 	{
-		srand(DWORD(GetTickCount64()));
-
-		int val = rand() % 100;
-
 		if (isBoomItemDrop == false && isWeaponItemDrop == false)
 		{
+			srand(DWORD(GetTickCount64()));
+			int val = rand() % 100;
+
 			if (val < 70)
-				MakeItem(0, Pos);
+			{
+				isBoomItemDrop = true;
+					MakeItem(0, Pos);
+			}
 			else
+			{
+				isWeaponItemDrop = true;
 				MakeItem(1, Pos);
+			}
 		}
 		else if (isBoomItemDrop == false)
+		{
+			isBoomItemDrop = true;
 			MakeItem(0, Pos);
+		}
 		else if (isWeaponItemDrop == false)
+		{
+			isWeaponItemDrop = true;
 			MakeItem(1, Pos);
+		}
 	}
+	
 }
 
 void Stage::ItemWeaponUpgrade(list<Object*>::iterator& _iter)
@@ -391,27 +435,25 @@ bool Stage::WaveCheck()
 {
 	int WaveCount = 0;
 
-	if (NormalEnemyList)
+	for (int i = 0; i < 3; ++i)
 	{
-		if (NormalEnemyList->size() == 0)
+		list<Object*>* CurList = nullptr;
+
+		if (i == 0)
+			CurList = NormalEnemyList;
+		else if (i == 1)
+			CurList = SmallEnemyList;
+		else if (i == 2)
+			CurList = BigEnemyList;
+
+		if (CurList)
+		{
+			if (CurList->size() == 0)
+				++WaveCount;
+		}
+		else
 			++WaveCount;
 	}
-	else
-		++WaveCount;
-	if (SmallEnemyList)
-	{
-		if (SmallEnemyList->size() == 0)
-			++WaveCount;
-	}
-	else
-		++WaveCount;
-	if (BigEnemyList)
-	{
-		if (BigEnemyList->size() == 0)
-			++WaveCount;
-	}
-	else
-		++WaveCount;
 
 	if (WaveCount == 3)
 	{
@@ -478,7 +520,8 @@ void Stage::StageClear()
 		}
 
 		// 스킵 키
-		if ((InputManager::GetInstance()->GetKey() & KEY_F) || (InputManager::GetInstance()->GetKey() & KEY_SPACE))
+		if ((InputManager::GetInstance()->GetKey() & KEY_F) ||
+			(InputManager::GetInstance()->GetKey() & KEY_SPACE))
 		{
 			InputManager::GetInstance()->SetInputDelay();
 			UserInstance::GetInstance()->SkipCalcScore();
@@ -486,48 +529,89 @@ void Stage::StageClear()
 	}
 	else if (StageCount > 60 && UserInstance::GetInstance()->GetGettingScore() == 0)
 	{
-		CursorManager::GetInstance()->WriteBuffer(24, 15, (char*)"Press \" F \" or \" Space \" to Menu");
+		CursorManager::GetInstance()->WriteBuffer(24, 15, 
+			(char*)"Press \"F\" or \"Space Bar\" for Menu");
 
-		if ((InputManager::GetInstance()->GetKey() & KEY_F) || (InputManager::GetInstance()->GetKey() & KEY_SPACE))
+		if ((InputManager::GetInstance()->GetKey() & KEY_F) ||
+			(InputManager::GetInstance()->GetKey() & KEY_SPACE))
 		{
 			if (InputManager::GetInstance()->GetInputDelay() == 0)
+			{
+				InputManager::GetInstance()->SetInputDelay();
 				SceneManager::GetInstance()->SetScene(MENU);
+			}
 		}
 	}
 }
 
 void Stage::PauseCheck()
 {
-	if (ObjectManager::GetInstance()->GetPuase() == true)
-		PauseMenu();
-	else if (InputManager::GetInstance()->GetKey() == KEY_ESC)
+	// esc 누르면 퍼즈 메뉴 열기
+	if (isPause == false)
 	{
-		if (InputManager::GetInstance()->GetInputDelay() == 0)
+		if (InputManager::GetInstance()->GetKey() == KEY_ESC)
 		{
-			InputManager::GetInstance()->SetInputDelay();
-			ObjectManager::GetInstance()->SetPause(true);
+			if (InputManager::GetInstance()->GetInputDelay() == 0)
+			{
+				InputManager::GetInstance()->SetInputDelay();
+				ObjectManager::GetInstance()->SetPause(true);
 
-			Warning::GetInstance()->SetWarning(WPAUSE);
+				Warning::GetInstance()->SetWarning(WPAUSE);
+
+				isPause = true;
+			}
 		}
 	}
+	else
+		PauseMenu();
 }
 
 void Stage::PauseMenu()
 {
 	// 선택지
 	int ans = Warning::GetInstance()->Update();
-	Warning::GetInstance()->Render();
 
-	if (InputManager::GetInstance()->GetInputDelay() == 0)
+	if (InputManager::GetInstance()->GetKey() == KEY_F || InputManager::GetInstance()->GetKey() == KEY_SPACE)
 	{
-		if (ans == 0 || InputManager::GetInstance()->GetKey() == KEY_ESC)
+		ObjectManager::GetInstance()->SetPause(false);
+
+		if (ans == 0)
+			SceneManager::GetInstance()->SetScene(MENU);
+		else if (ans == 1)
 		{
 			// 메뉴 종료
 			InputManager::GetInstance()->SetInputDelay();
-			ObjectManager::GetInstance()->SetPause(false);
+			isPause = false;
 		}
-		else if (ans == 1)
+	}
+	else if (InputManager::GetInstance()->GetKey() == KEY_ESC)
+	{
+		// 메뉴 종료
+		InputManager::GetInstance()->SetInputDelay();
+		ObjectManager::GetInstance()->SetPause(false);
+		isPause = false;
+	}
+}
+
+void Stage::GameOver()
+{
+	CursorManager::GetInstance()->WriteBuffer(35, 25, 
+		(char*)"Game Over", 12);
+
+	CursorManager::GetInstance()->WriteBuffer(24, 28, 
+		(char*)"Press \"F\" or \"Space Bar\" for Menu");
+
+	if (InputManager::GetInstance()->GetInputDelay() == 0)
+	{
+		if (InputManager::GetInstance()->GetKey() == KEY_F ||
+			InputManager::GetInstance()->GetKey() == KEY_SPACE)
+		{
+			ObjectManager::GetInstance()->SetPause(false);
+			pPlayer->SetVisible(true);
+			
+			InputManager::GetInstance()->SetInputDelay();
 			SceneManager::GetInstance()->SetScene(MENU);
+		}
 	}
 }
 

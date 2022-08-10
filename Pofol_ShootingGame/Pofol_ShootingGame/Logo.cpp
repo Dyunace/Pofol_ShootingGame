@@ -20,19 +20,24 @@ void Logo::Update()
 	// 이미지 로딩
 	++Image_Count;
 
-	// 로고 스킵
-	if ((InputManager::GetInstance()->GetKey() & KEY_ENTER || InputManager::GetInstance()->GetKey() & KEY_F) && (LogoEnd == false))
+	if (InputManager::GetInstance()->GetInputDelay() == 0)
 	{
-		LogoEnd = true;
-		Image_Count = 48;
-	}
+		// 로고 스킵
+		if ((InputManager::GetInstance()->GetKey() & KEY_SPACE || InputManager::GetInstance()->GetKey() & KEY_F) && (LogoEnd == false))
+		{
+			LogoEnd = true;
+			Image_Count = 48;
+			InputManager::GetInstance()->SetInputDelay();
+		}
 
-	// 메뉴 넘어가기
-	if ((InputManager::GetInstance()->GetKey() & KEY_ENTER || InputManager::GetInstance()->GetKey() & KEY_F) && (LogoEnd == true))
-	{
-		InputManager::GetInstance()->SetInputDelay();
-		SceneManager::GetInstance()->SetScene(MENU);
+		// 메뉴 넘어가기
+		if ((InputManager::GetInstance()->GetKey() & KEY_SPACE || InputManager::GetInstance()->GetKey() & KEY_F) && (LogoEnd == true))
+		{
+			InputManager::GetInstance()->SetInputDelay();
+			SceneManager::GetInstance()->SetScene(MENU);
+		}
 	}
+	
 }
 
 void Logo::Render()

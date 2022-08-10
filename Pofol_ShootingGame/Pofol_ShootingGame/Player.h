@@ -9,6 +9,7 @@ private:
 	int BoomDelayCount;
 
 	int RespawnCount;
+	int DeathCount;
 public:
 	Player();
 	Player(Transform _Info);
@@ -33,6 +34,7 @@ public:
 	void SetCanMove(bool _b) { canMove = _b; };
 	void SetCanShoot(bool _b) { canShoot = _b; };
 
+	int GetDeathCount() { return DeathCount; }
 	int GetRespawnCount() { return RespawnCount; }
 
 public:

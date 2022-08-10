@@ -19,6 +19,8 @@ public:
 public:
 	void Update();
 	void Render();
+
 	void StageInterface();
+
 	void MakeUI(float _x, float _y, float _Width, float _Height);
 };

@@ -23,7 +23,7 @@ public:
 		float x = 0;
 		float y = 0;
 
-		//srand(DWORD(GetTickCount64()));
+		srand(DWORD(GetTickCount64()));
 
 		x = (float)(rand() % val) - (val / 2);
 		y = sqrt((val * val) - (x * x)) * (((rand() % 2) * 2 - 1) * (-1));

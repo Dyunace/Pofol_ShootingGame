@@ -72,6 +72,8 @@ int Player::Update()
 		--DelayCount;
 	if (BoomDelayCount > 0)
 		--BoomDelayCount;
+	if (DeathCount > 0)
+		--DeathCount;
 	if (RespawnCount > 0)
 		--RespawnCount;
 
@@ -131,10 +133,13 @@ void Player::ShootBoom()
 void Player::PlayerRespawn()
 {
 	// 피격 시
-	if (isVisible == true && RespawnCount == 0)
+	if (DeathCount == 0 && RespawnCount == 0)
 	{
-		// 다음 시간까지 카운트
-		RespawnCount = 30;
+		// 데스 카운트 이후 리스폰
+		DeathCount = 30;
+
+		// 리스폰 카운트 동안 무적 판정
+		RespawnCount = 60;
 
 		// 화면에 안보임 + 행동 불능
 		isVisible = false;
@@ -142,15 +147,12 @@ void Player::PlayerRespawn()
 		// 위치 미리 이동
 		TransInfo.Position = Vector3(40, 40);
 	}
-	else if (isVisible == false && RespawnCount == 1)
+	else if (isVisible == false && DeathCount == 0 && RespawnCount != 0)
 	{
-		// 다음 시간까지 무적 판정
-		RespawnCount = 30;
-
 		// 화면에 보임 + 행동 가능
 		isVisible = true;
 	}
-	else if (isVisible == true && RespawnCount != 0)
+	else if (isVisible == true && DeathCount == 0 && RespawnCount != 0)
 	{
 		// 무적 시간 동안 화면에 깜빡임
 		if (RespawnCount % 3 == 0)

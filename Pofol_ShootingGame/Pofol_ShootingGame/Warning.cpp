@@ -52,15 +52,17 @@ int Warning::Update()
 		if (InputManager::GetInstance()->GetKey() & KEY_F ||
 			InputManager::GetInstance()->GetKey() & KEY_SPACE)
 		{
+			InputManager::GetInstance()->SetInputDelay();
+
 			if (Selection == 0)
 			{
-				if (InputManager::GetInstance()->GetInputDelay() == 0)
-					return 0;
+				State = 99;
+
+				return 0;
 			}
 			else if (Selection == 1)
 			{
-				State = 0;
-				InputManager::GetInstance()->SetInputDelay();
+				State = 99;
 
 				return 1;
 			}
@@ -98,8 +100,8 @@ void Warning::Render()
 			CursorManager::GetInstance()->WriteBuffer(33, 23, (char*)"- Pause Menu -");
 
 			// 메뉴 선택지
-			CursorManager::GetInstance()->WriteBuffer(30, 28, (char*)"Back to Menu");
-			CursorManager::GetInstance()->WriteBuffer(30, 26, (char*)"Continue Game");
+			CursorManager::GetInstance()->WriteBuffer(30, 26, (char*)"Back to Menu");
+			CursorManager::GetInstance()->WriteBuffer(30, 28, (char*)"Continue Game");
 
 			// 현재 선택지
 			if (Selection == 0)

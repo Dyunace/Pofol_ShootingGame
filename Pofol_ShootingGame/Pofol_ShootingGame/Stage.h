@@ -32,6 +32,9 @@ protected:
 
 	bool isBoomItemDrop;
 	bool isWeaponItemDrop;
+
+	bool isPause;
+	bool isGameOver;
 public:
 	Stage();
 	virtual ~Stage();
@@ -41,8 +44,11 @@ public:
 	virtual void Render() PURE;
 	virtual void Release() PURE;
 
-	virtual void StageUpdate() PURE;
+	virtual void WaveUpdate() PURE;
 protected:
+	void StageUpdate();
+	void StageRender();
+
 	void CatchObjectLists();
 	void CollisionCheck();
 
@@ -62,6 +68,9 @@ protected:
 
 	void PauseCheck();
 	void PauseMenu();
+
+	void GameOver();
+
 	void ReleaseAll();
 };
 

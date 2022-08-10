@@ -23,6 +23,8 @@ int NormalBullet::Update()
 	// BufferOver üũ
 	if (BufferCheck())
 		return BUFFER_OVER;
+	else if (pObject->GetPosition().y < LimitY)
+		return BUFFER_OVER;
 
 	return 0;
 }

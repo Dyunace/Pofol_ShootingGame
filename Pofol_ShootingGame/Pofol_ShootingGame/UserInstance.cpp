@@ -1,7 +1,7 @@
 #include "UserInstance.h"
 
 UserInstance* UserInstance::Instance = nullptr;
-UserInstance::UserInstance() : Life(3), Boom(1), Score(0), BulletName("NormalBullet"), BulletLevel(2), GettingScore(0) {};
+UserInstance::UserInstance() : Life(2), Boom(1), Score(0), BulletName("NormalBullet"), BulletLevel(2), GettingScore(0) {};
 UserInstance::~UserInstance() {};
 
 void UserInstance::Update()

@@ -1,17 +1,19 @@
 #include "WeaponSelect.h"
-#include "InputManager.h"
 #include "SceneManager.h"
+#include "InputManager.h"
+
+#include "ObjectManager.h"
 #include "CursorManager.h"
+
 #include "Player.h"
-#include "NormalEnemy.h"
+
 #include "NormalBullet.h"
 #include "LaserBullet.h"
-#include "ObjectManager.h"
-#include "ObjectPool.h"
+
 #include "UserInstance.h"
 #include "UserInterface.h"
 
-WeaponSelect::WeaponSelect() : pPlayer(nullptr), Selection(0) {}
+WeaponSelect::WeaponSelect() : pPlayer(nullptr), Selection(0), BulletList(nullptr) {}
 WeaponSelect::~WeaponSelect() { Release(); }
 
 void WeaponSelect::Initialize()
@@ -23,12 +25,16 @@ void WeaponSelect::Initialize()
 
 	UserInstance::GetInstance()->SetBullet(NORMALBULLET);
 	UserInstance::GetInstance()->SetBulletLevel(3);
+
+	BulletList = ObjectManager::GetInstance()->GetObjectList(UserInstance::GetInstance()->GetBullet());
 }
 
 void WeaponSelect::Update()
 {
+	// 프리뷰 생성
 	MakePreview();
 
+	// 조작 키 입력
 	if (InputManager::GetInstance()->GetKey() & KEY_RIGHT && Selection < 1)
 	{
 		++Selection;
@@ -40,6 +46,7 @@ void WeaponSelect::Update()
 		SwitchBullet();
 	}
 
+	// 선택
 	if (SelectionAccept())
 	{
 		if (InputManager::GetInstance()->GetInputDelay() == 0)
@@ -52,6 +59,9 @@ void WeaponSelect::Update()
 	// Go Back
 	if (InputManager::GetInstance()->GetKey() & KEY_ESC)
 		SceneManager::GetInstance()->SetScene(MENU);
+
+	if (!BulletList)
+		SwitchBullet();
 }
 
 void WeaponSelect::Render()
@@ -67,6 +77,7 @@ void WeaponSelect::Render()
 	// Weapon Select
 	CursorManager::GetInstance()->WriteBuffer(28, 25, (char*)"Select Weapon With Start");
 
+	// show bullet
 	UserInterface::GetInstance()->MakeUI(24, 28, 5, 5);
 	CursorManager::GetInstance()->WriteBuffer(28, 30, (char*)"⊙");
 
@@ -90,6 +101,7 @@ void WeaponSelect::Render()
 		break;
 	}
 
+	// 오브젝트 렌더
 	ObjectManager::GetInstance()->Render();
 }
 
@@ -104,29 +116,24 @@ void WeaponSelect::Release()
 
 void WeaponSelect::MakePreview()
 {
+	// 오브젝트 업데이트 및 플레이어 위치 고정
 	ObjectManager::GetInstance()->Update();
 	pPlayer->SetPosition(39, 20);
 
-	auto BulletList = ObjectManager::GetInstance()->GetObjectList(UserInstance::GetInstance()->GetBullet());
-
 	// Shoot Bullet
-	((Player*)pPlayer)->ShootBullet(7);
+	((Player*)pPlayer)->ShootBullet(8);
 
 	// Priview Buffer Over Check
 	if (BulletList)
 	{
 		for (auto iter = BulletList->begin(); iter != BulletList->end(); ++iter)
 		{
-			int result = ((BulletBridge*)((*iter)->GetBridge()))->BulletPriview(17, 21, 9);
+			auto target = (*iter);
+
+			int result = ((BulletBridge*)target->GetBridge())->PriviewCheck(16, 64, 7);
 
 			if (result == BUFFER_OVER)
-			{
-				// Remove Bullet Data
-				::Safe_Delete((*iter)->GetBridge());
-
-				// Save in Disable List
-				iter = ObjectManager::GetInstance()->ThrowObject(iter, (*iter));
-			}
+				RemoveObject(iter);
 		}
 	}
 }
@@ -146,4 +153,6 @@ void WeaponSelect::SwitchBullet()
 	default:
 		break;
 	}
+
+	BulletList = ObjectManager::GetInstance()->GetObjectList(UserInstance::GetInstance()->GetBullet());
 }

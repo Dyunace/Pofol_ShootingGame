@@ -7,6 +7,7 @@ class WeaponSelect : public Scene
 private:
 	Object* pPlayer;
 	int Selection;
+	list<Object*>* BulletList;
 public:
 	WeaponSelect();
 	virtual ~WeaponSelect();

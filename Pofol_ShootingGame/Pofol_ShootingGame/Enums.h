@@ -13,5 +13,5 @@ enum WARNING
 {
 	WOPTION,
 	WEXIT,
-	WCLOSE,
+	WPAUSE,
 };

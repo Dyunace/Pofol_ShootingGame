@@ -6,6 +6,7 @@
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "UserInterface.h"
+#include "Warning.h"
 
 #include "ObjectManager.h"
 #include "Player.h"
@@ -118,10 +119,12 @@ void Stage::CollisionCheck()
 
 	// 폭탄 보스 데미지 검사
 	if (BossPhase != 0 && BossPhase != 99)
+	{
 		if (PlayerBoomList)
 			if (PlayerBoomList->begin() != PlayerBoomList->end())
 				if (((Boom*)PlayerBoomList->front()->GetBridge())->GetCount() > 30)
 					TakeBossDamage();
+	}	
 
 	// 플레이어 충돌 검사
 	if (pPlayer)
@@ -131,7 +134,7 @@ void Stage::CollisionCheck()
 		{
 			// 적 총알 충돌 검사
 			if (ENormalBulletList)
-			{				
+			{
 				for (auto ENormalBulletIter = ENormalBulletList->begin();
 					ENormalBulletIter != ENormalBulletList->end();)
 				{
@@ -147,21 +150,21 @@ void Stage::CollisionCheck()
 							MakeItem(0, pPlayer->GetPosition());		// 폭탄은 반드시 한 개 드랍
 							if (UserInstance::GetInstance()->GetBulletLevel() > 1)
 								MakeItem(1, pPlayer->GetPosition());	// 탄환은 2레벨 이상일 시 한 개 드랍
-							
+
 							// 폭탄과 총알 레벨 초기화
 							UserInstance::GetInstance()->SetBoom();
 							UserInstance::GetInstance()->SetBulletLevel();
-
-							// 적 총알 삭제
-							RemoveObject(ENormalBulletIter);
 
 							// 플레이어 사망 처리 실행
 							((Player*)pPlayer)->PlayerRespawn();
 						}
 						else
+						{
 							//라이프가 없으면 게임 오버 출력
-							;
-						
+						}
+
+						// 적 총알 삭제
+						RemoveObject(ENormalBulletIter);
 					}
 					else
 						++ENormalBulletIter;
@@ -503,23 +506,28 @@ void Stage::PauseCheck()
 		{
 			InputManager::GetInstance()->SetInputDelay();
 			ObjectManager::GetInstance()->SetPause(true);
+
+			Warning::GetInstance()->SetWarning(WPAUSE);
 		}
 	}
 }
 
 void Stage::PauseMenu()
 {
-	UserInterface::GetInstance()->MakeUI(30, 22, 10, 10);
-	
-	CursorManager::GetInstance()->WriteBuffer(33, 23, (char*)"Pause Menu");
+	// 선택지
+	int ans = Warning::GetInstance()->Update();
+	Warning::GetInstance()->Render();
 
-	if (InputManager::GetInstance()->GetKey() == KEY_ESC)
+	if (InputManager::GetInstance()->GetInputDelay() == 0)
 	{
-		if (InputManager::GetInstance()->GetInputDelay() == 0)
+		if (ans == 0 || InputManager::GetInstance()->GetKey() == KEY_ESC)
 		{
+			// 메뉴 종료
 			InputManager::GetInstance()->SetInputDelay();
 			ObjectManager::GetInstance()->SetPause(false);
 		}
+		else if (ans == 1)
+			SceneManager::GetInstance()->SetScene(MENU);
 	}
 }
 

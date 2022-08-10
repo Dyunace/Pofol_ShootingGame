@@ -11,8 +11,9 @@ protected:
 	float Speed;
 
 	int Damage;
+	float LimitY;
 public:
-	BulletBridge() : Speed(0), Color(0), Damage(0), Buffer() {};
+	BulletBridge() : Speed(0), Color(0), Damage(0), Buffer(), LimitY(0.0f) {};
 	virtual ~BulletBridge() {};
 public:
 	virtual void Initialize()PURE;
@@ -24,11 +25,14 @@ public:
 	virtual void SetTarget(float _x, float _y = 1.0f)PURE;
 
 public:
-	int BulletPriview(float _left, float _Width, float _up)
+	void SetLimitY(float _Y) { LimitY = _Y; }
+
+public:
+	int PriviewCheck(float _left, float _right, float _up)
 	{
-		if (pObject->GetPosition().x <= _left + Speed ||
-			pObject->GetPosition().x >= _left + (_Width * 2) - Speed ||
-			pObject->GetPosition().y < _up + Speed)
+		if (pObject->GetPosition().x <= _left ||
+			pObject->GetPosition().x >= _right  ||
+			pObject->GetPosition().y <= _up)
 			return BUFFER_OVER;
 		else
 			return 0;

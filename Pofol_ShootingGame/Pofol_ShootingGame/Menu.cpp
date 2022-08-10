@@ -20,22 +20,27 @@ void Menu::Update()
 	if (isWarning)
 	{
 		int warning = Warning::GetInstance()->Update();
-		if (warning == 1)
+		if (warning == 0)
+			SceneManager::GetInstance()->SetScene(EXIT);
+		else if (warning == 1)
 			isWarning = false;
 	}
 	else
 	{
+		// 메뉴 이동 키 입력
 		if (InputManager::GetInstance()->GetKey() & KEY_UP && Selection > 0)
 			Selection -= 1;
 
 		if (InputManager::GetInstance()->GetKey() & KEY_DOWN && Selection < 2)
 			Selection += 1;
 
+		// 선택 키 입력
 		if (InputManager::GetInstance()->GetKey() & KEY_ENTER || InputManager::GetInstance()->GetKey() & KEY_F)
 		{
 			switch (Selection)
 			{
 			case 0:
+				// 무기 선택 화면
 				if (InputManager::GetInstance()->GetInputDelay() == 0)
 				{
 					InputManager::GetInstance()->SetInputDelay();
@@ -43,9 +48,11 @@ void Menu::Update()
 				}
 				break;
 			case 1:
+				// 옵션 (공사 중)
 				SceneManager::GetInstance();
 				break;
 			case 2:
+				// 게임 종료
 				if (InputManager::GetInstance()->GetInputDelay() == 0)
 				{
 					InputManager::GetInstance()->SetInputDelay();

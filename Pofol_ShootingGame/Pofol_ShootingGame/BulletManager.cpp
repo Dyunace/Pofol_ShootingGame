@@ -29,6 +29,8 @@ void BulletManager::MakePlayerBullet(string _Key, Vector3 _Position, float _Limi
 				Bridge* pBullet = new NormalBullet;
 				ObjectManager::GetInstance()->AddBridge(_Key, pBullet, Vector3(PosX, PosY));
 				((BulletBridge*)pBullet)->SetTarget(-1.0f + (f * 2), 1.0f);
+
+				((BulletBridge*)pBullet)->SetLimitY(_LimitY);
 			}
 		}
 
@@ -40,6 +42,8 @@ void BulletManager::MakePlayerBullet(string _Key, Vector3 _Position, float _Limi
 				Bridge* pBullet = new NormalBullet;
 				ObjectManager::GetInstance()->AddBridge(_Key, pBullet, Vector3(PosX, PosY));
 				((BulletBridge*)pBullet)->SetTarget(-2.0f + (f * 4), 1.0f);
+
+				((BulletBridge*)pBullet)->SetLimitY(_LimitY);
 			}
 		}
 
@@ -47,6 +51,8 @@ void BulletManager::MakePlayerBullet(string _Key, Vector3 _Position, float _Limi
 		Bridge* pBullet = new NormalBullet;
 		ObjectManager::GetInstance()->AddBridge(_Key, pBullet, Vector3(PosX, PosY));
 		((BulletBridge*)pBullet)->SetTarget(0.0f, 1.0f);
+
+		((BulletBridge*)pBullet)->SetLimitY(_LimitY);
 	}
 	else if (_Key == LASERBULLET)
 	{

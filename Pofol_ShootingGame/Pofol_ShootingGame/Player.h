@@ -22,6 +22,10 @@ public:
 	virtual void Release() override;
 
 public:
+	/// <summary>
+	/// 히히 총알 발사
+	/// </summary>
+	/// <param name="_LimitY">레이저 생성 한계값</param>
 	void ShootBullet(float _LimitY = 0);
 	void ShootBoom();
 

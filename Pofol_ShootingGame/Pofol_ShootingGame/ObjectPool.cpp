@@ -79,7 +79,7 @@ void ObjectPool::DedugRender()
 	//CursorManager::GetInstance()->WriteBuffer(0.0f, 6.0f, (char*)"DisNormalEnemy : ");
 	//CursorManager::GetInstance()->WriteBuffer(20.0f, 6.0f, (int)DisableList[NORMALENEMY].size());
 	//CursorManager::GetInstance()->WriteBuffer(0.0f, 7.0f, (char*)"EnNormalEnemy : ");
-	CursorManager::GetInstance()->WriteBuffer(20.0f, 7.0f, (int)EnableList[NORMALENEMY].size());
+	//CursorManager::GetInstance()->WriteBuffer(20.0f, 7.0f, (int)EnableList[NORMALENEMY].size());
 	//CursorManager::GetInstance()->WriteBuffer(20.0f, 7.0f, (int)0);
 	
 	//CursorManager::GetInstance()->WriteBuffer(0.0f, 9.0f, (char*)"DisSmallEnemy : ");

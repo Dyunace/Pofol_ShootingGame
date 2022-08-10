@@ -2,6 +2,7 @@
 #include "InputManager.h"
 #include "CursorManager.h"
 #include "SceneManager.h"
+#include "UserInterface.h"
 #include "Menu.h"
 
 Warning* Warning::Instance = nullptr;
@@ -21,67 +22,91 @@ void Warning::SetWarning(WARNING _State)
 	switch (_State)
 	{
 	case WARNING::WOPTION:
-		State = 1;
+		State = 0;
 		break;
 	case WARNING::WEXIT:
+		State = 1;
+		break;
+	case WARNING::WPAUSE:
 		State = 2;
 		break;
-	case WARNING::WCLOSE:
-		break;
 	default:
-		State = 0;
+		State = 99;
 		break;
 	}
 }
 
 int Warning::Update()
 {
-	if (InputManager::GetInstance()->GetKey() & KEY_LEFT)
-		Selection = 0;
-
-	if (InputManager::GetInstance()->GetKey() & KEY_RIGHT)
-		Selection = 1;
-
-	if (InputManager::GetInstance()->GetKey() & KEY_ENTER || 
-		InputManager::GetInstance()->GetKey() & KEY_F ||
-		InputManager::GetInstance()->GetKey() & KEY_SPACE)
+	if (State == 1 || State == 2)
 	{
-		if (Selection == 0)
-		{
-			if (InputManager::GetInstance()->GetInputDelay() == 0)
-				SceneManager::GetInstance()->SetScene(EXIT);
-		}
-		else if (Selection == 1)
-		{
-			State = 0;
-			InputManager::GetInstance()->SetInputDelay();
+		if (InputManager::GetInstance()->GetKey() & KEY_DOWN && Selection != 1)
+			++Selection;
 
-			return 1;
+		if (InputManager::GetInstance()->GetKey() & KEY_UP && Selection != 0)
+			--Selection;
+	}
+
+	if (InputManager::GetInstance()->GetInputDelay() == 0)
+	{
+		if (InputManager::GetInstance()->GetKey() & KEY_F ||
+			InputManager::GetInstance()->GetKey() & KEY_SPACE)
+		{
+			if (Selection == 0)
+			{
+				if (InputManager::GetInstance()->GetInputDelay() == 0)
+					return 0;
+			}
+			else if (Selection == 1)
+			{
+				State = 0;
+				InputManager::GetInstance()->SetInputDelay();
+
+				return 1;
+			}
 		}
 	}
 
-	return 0;
+	return 99;
 }
 
 void Warning::Render()
 {
-	if (State != 0)
+	if (State != 99)
 	{
 		MakeBorder();
 
 		// 경고 문구
-		if (State == 2)
-			CursorManager::GetInstance()->WriteBuffer(28, 27, (char*)"Do you want Exit Game?");
+		if (State == 1)
+		{
+			// 메뉴 텍스트
+			CursorManager::GetInstance()->WriteBuffer(35, 26, (char*)"Exit Game?");
 
-		// 확인 버튼
-		CursorManager::GetInstance()->WriteBuffer(28, 29, (char*)"Yes");
-		CursorManager::GetInstance()->WriteBuffer(43, 29, (char*)"No");
+			// 메뉴 선택지
+			CursorManager::GetInstance()->WriteBuffer(36, 29, (char*)"Yes");
+			CursorManager::GetInstance()->WriteBuffer(36, 31, (char*)"No");
 
-		// 현재 버튼
-		if (Selection == 0)
-			CursorManager::GetInstance()->WriteBuffer(33, 29, (char*)"<<");
-		else if (Selection == 1)
-			CursorManager::GetInstance()->WriteBuffer(48, 29, (char*)"<<");
+			// 현재 선택지
+			if (Selection == 0)
+				CursorManager::GetInstance()->WriteBuffer(42, 29, (char*)"<<");
+			else if (Selection == 1)
+				CursorManager::GetInstance()->WriteBuffer(42, 31, (char*)"<<");
+		}
+		else if (State == 2)
+		{
+			// 메뉴 텍스트
+			CursorManager::GetInstance()->WriteBuffer(33, 23, (char*)"- Pause Menu -");
+
+			// 메뉴 선택지
+			CursorManager::GetInstance()->WriteBuffer(30, 28, (char*)"Back to Menu");
+			CursorManager::GetInstance()->WriteBuffer(30, 26, (char*)"Continue Game");
+
+			// 현재 선택지
+			if (Selection == 0)
+				CursorManager::GetInstance()->WriteBuffer(47, 26, (char*)"<<");
+			else if (Selection == 1)
+				CursorManager::GetInstance()->WriteBuffer(47, 28, (char*)"<<");
+		}
 	}
 }
 
@@ -91,8 +116,9 @@ void Warning::Release()
 
 void Warning::MakeBorder()
 {
-	for (int i = 0; i < 2; ++i)
-		CursorManager::GetInstance()->WriteBuffer(23, (float)(25 + i * 6), (char*)"##################################");
-	for (int i = 0; i < 5; ++i)
-		CursorManager::GetInstance()->WriteBuffer(23, (float)(26 + i), (char*)"##                              ##");
+	if (State == 1)
+		UserInterface::GetInstance()->MakeUI(30, 25, 10, 8);
+
+	else if (State == 2)
+		UserInterface::GetInstance()->MakeUI(28, 22, 12, 10);
 }

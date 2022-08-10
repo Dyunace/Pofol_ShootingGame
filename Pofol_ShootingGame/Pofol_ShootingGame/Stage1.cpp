@@ -5,6 +5,7 @@
 #include "ObjectManager.h"
 #include "CursorManager.h"
 #include "UserInterface.h"
+#include "InputManager.h"
 
 #include "Player.h"
 #include "Object.h"
@@ -37,19 +38,22 @@ void Stage1::Initialize()
 
 void Stage1::Update()
 {
-	ObjectManager::GetInstance()->Update();
-	
-	CatchObjectLists();
-	
-	UserInstance::GetInstance()->Update();
-	UserInterface::GetInstance()->Render();
-	
-	StageUpdate();
+	if (ObjectManager::GetInstance()->GetPuase() == false)
+	{
+		ObjectManager::GetInstance()->Update();
 
-	CollisionCheck();
+		CatchObjectLists();
+
+		UserInstance::GetInstance()->Update();
+
+		StageUpdate();
+
+		CollisionCheck();
+	}
+
+	UserInterface::GetInstance()->Render();
 
 	PauseCheck();
-
 }
 
 void Stage1::Render()

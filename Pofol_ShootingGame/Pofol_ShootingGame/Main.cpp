@@ -1,11 +1,7 @@
-// Shooting v1.13.8 End Phase
+// Shooting v1.13.9 End Phase
 /*
 	주요 변경점:
-		UI 위치 변경
-
-		렌더링 출력 오류 수정
-
-		스테이지 웨이브 추가
+		일부 버그 픽스 및 밸런스 조정
 */
 #define _CRT_SECLRE_NO_WARNING
 #include "Headers.h"

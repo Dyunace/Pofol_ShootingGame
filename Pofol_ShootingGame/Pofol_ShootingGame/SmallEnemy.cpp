@@ -19,7 +19,7 @@ void SmallEnemy::Initialize()
 
 	if (pObject)
 	{
-		pObject->SetScale(2.0f, 1.0f);
+		pObject->SetScale(3.0f, 2.0f);
 	}
 }
 

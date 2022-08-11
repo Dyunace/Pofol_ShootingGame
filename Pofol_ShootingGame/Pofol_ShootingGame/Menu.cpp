@@ -71,12 +71,18 @@ void Menu::Update()
 
 void Menu::Render()
 {
+	// 상단 로고 (완성형)
 	LogoImage::GetInstance()->RenderLogoImage(46);
+
+	// UI 생성
 	UserInterface::GetInstance()->MakeUI(25, mPosY, 15, 13);
+
+	// 메뉴 선택지
 	CursorManager::GetInstance()->WriteBuffer(30, mPosY + 3, (char*)"Start Game");
 	CursorManager::GetInstance()->WriteBuffer(30, mPosY + 6, (char*)"Option");
 	CursorManager::GetInstance()->WriteBuffer(30, mPosY + 9, (char*)"Exit Game");
 
+	// 현재 선택지
 	if (isWarning)
 		Warning::GetInstance()->Render();
 	else
@@ -92,6 +98,15 @@ void Menu::Render()
 		
 		CursorManager::GetInstance()->WriteBuffer(45.0f, y, (char*)"<<", 12);
 	}
+
+
+	// 하단 조작 키 설명
+	UserInterface::GetInstance()->MakeUI(21, 45, 19, 9);
+	
+	CursorManager::GetInstance()->WriteBuffer(23, 46, (char*)"Move          : ←↑→↓");
+	CursorManager::GetInstance()->WriteBuffer(23, 48, (char*)"Shoot, Accept : \"F\" or \"Space Bar\"");
+	CursorManager::GetInstance()->WriteBuffer(23, 50, (char*)"Boom          : \"D\"");
+	CursorManager::GetInstance()->WriteBuffer(23, 52, (char*)"Back, Pause   : \"ESC\"");
 }
 
 void Menu::Release()

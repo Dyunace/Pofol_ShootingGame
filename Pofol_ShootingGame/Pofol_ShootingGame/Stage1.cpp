@@ -104,12 +104,12 @@ void Stage1::WaveUpdate()
 			MakeEnemy(NORMALENEMY, 20, -1, 11);	// 0 = 정지
 
 		else if (StageCount == 20)
-			MakeEnemy(SMALLENEMY, 40, -1, 11);	// 1 = 아래로 이동, 밖으로 나가기
+			MakeEnemy(SMALLENEMY, 60, -1, 11);	// 1 = 아래로 이동, 밖으로 나가기
 
 		else if (StageCount == 30)
-			MakeEnemy(BIGENEMY, 60, 0, 11);		// 11 = 아래로 이동 후 정지
+			MakeEnemy(BIGENEMY, 40, -1, 10);		// 11 = 아래로 이동 후 정지
 
-		if (StageCount > 40)
+		if (StageCount > 60)
 			WaveCheck();
 	}
 
@@ -130,7 +130,7 @@ void Stage1::WaveUpdate()
 		else if (StageCount == 30)
 			MakeEnemy(NORMALENEMY, 40, -1, 11);
 
-		if (StageCount > 40)
+		if (StageCount > 60)
 			WaveCheck();
 	}
 
@@ -160,7 +160,7 @@ void Stage1::WaveUpdate()
 		else if (StageCount == 50)
 			MakeEnemy(BIGENEMY, 40, 0, 11);
 
-		if (StageCount > 60)
+		if (StageCount > 80)
 			WaveCheck();
 	}
 
@@ -175,7 +175,7 @@ void Stage1::WaveUpdate()
 		else if (StageCount == 90)
 			MakeEnemy(BIGENEMY, 60, -1, 12);
 
-		else if (StageCount > 100)
+		else if (StageCount > 120)
 			WaveCheck();
 	}
 

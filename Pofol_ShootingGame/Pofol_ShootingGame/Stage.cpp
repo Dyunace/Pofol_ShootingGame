@@ -118,7 +118,7 @@ void Stage::CollisionCheck()
 			{
 				if (PlayerBoomList->begin() != PlayerBoomList->end())
 				{
-					if (((Boom*)PlayerBoomList->front()->GetBridge())->GetCount() > 30)
+					if (((Boom*)PlayerBoomList->front()->GetBridge())->GetCount() > 20)
 					{
 						for (int i = 0; i < 3; ++i)
 						{
@@ -605,11 +605,16 @@ void Stage::PauseMenu()
 		{
 			ObjectManager::GetInstance()->SetPause(false);
 
+
 			if (ans == 0)
+			{
+				// 메뉴로 나가기
+				InputManager::GetInstance()->SetInputDelay();
 				SceneManager::GetInstance()->SetScene(MENU);
+			}				
 			else if (ans == 1)
 			{
-				// 메뉴 종료
+				// 게임 계속하기
 				InputManager::GetInstance()->SetInputDelay();
 				isPause = false;
 			}

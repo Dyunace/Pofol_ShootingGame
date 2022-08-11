@@ -74,12 +74,12 @@ int Boom::Update()
 {
 	++Count;
 
-	if (Count < 30)
+	if (Count < 20)
 	{
 		pObject->SetPosition(pObject->GetPosition().x, pObject->GetPosition().y - Speed);
 	}
 
-	else if (Count > 90)
+	else if (Count > 50)
 		return BUFFER_OVER;
 
 	return 0;

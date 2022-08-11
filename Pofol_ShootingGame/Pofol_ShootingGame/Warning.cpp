@@ -52,8 +52,6 @@ int Warning::Update()
 		if (InputManager::GetInstance()->GetKey() & KEY_F ||
 			InputManager::GetInstance()->GetKey() & KEY_SPACE)
 		{
-			InputManager::GetInstance()->SetInputDelay();
-
 			if (Selection == 0)
 			{
 				State = 99;

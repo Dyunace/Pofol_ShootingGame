@@ -4,6 +4,7 @@
 #include "Enemy.h"
 #include "Bullet.h"
 #include "Item.h"
+#include "Explosion.h"
 
 Prototype* Prototype::Instance = nullptr;
 Prototype::Prototype(){}
@@ -57,6 +58,10 @@ void Prototype::Initialize()
 	ProtoTypeList[Key] = (new Item(Info))->Initialize(Key);
 	Key = WEAPONITEM;
 	ProtoTypeList[Key] = (new Item(Info))->Initialize(Key);
+
+	// ÆÄÆ¼Å¬
+	Key = EXPLOSION;
+	ProtoTypeList[Key] = (new Explosion(Info))->Initialize(Key);
 }
 
 Object* Prototype::ProtoTypeObject(string _Key)

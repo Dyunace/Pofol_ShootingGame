@@ -182,18 +182,32 @@ void Stage::CollisionCheck()
 							UserInstance::GetInstance()->SetBoom();
 							UserInstance::GetInstance()->SetBulletLevel();
 
+							// 폭발 이펙트
+							ObjectManager::GetInstance()->AddObject(EXPLOSION);
+							auto explo = ObjectManager::GetInstance()->GetObjectList(EXPLOSION);
+							explo->back()->SetPosition(pPlayer->GetPosition());
+
 							// 플레이어 사망 처리 실행
 							((Player*)pPlayer)->PlayerRespawn();
 						}
+
+						// 라이프가 없으면 게임 오버
 						else
 						{
-							//라이프가 없으면 게임 오버 출력
+							// 오브젝트 일시 정지
 							ObjectManager::GetInstance()->SetPause(true);
+
+							// 플레이어는 처치 당함
 							pPlayer->SetVisible(false);
+
+							// 게임 오버 상태 전환
 							isGameOver = true;
 
-							// 게임 오버 되자마자 퇴장 방지
-							InputManager::GetInstance()->SetInputDelay(20);
+							// 게임 오버용 타이머
+							StageCount = 0;
+
+							// 게임 오버 되자마자 퇴장 방지 (퇴장 텍스트 나올 때 까지)
+							InputManager::GetInstance()->SetInputDelay(50);
 						}
 
 						// 적 총알 삭제
@@ -460,10 +474,18 @@ bool Stage::WaveCheck()
 		isBoomItemDrop = false;
 		isWeaponItemDrop = false;
 
+		NextWave();
+
 		return true;
 	}
 
 	return false;
+}
+
+void Stage::NextWave()
+{
+	++StageWave;
+	StageCount = 0;
 }
 
 void Stage::StageClear()
@@ -595,22 +617,30 @@ void Stage::PauseMenu()
 
 void Stage::GameOver()
 {
-	CursorManager::GetInstance()->WriteBuffer(35, 25, 
-		(char*)"Game Over", 12);
-
-	CursorManager::GetInstance()->WriteBuffer(24, 28, 
-		(char*)"Press \"F\" or \"Space Bar\" for Menu");
-
-	if (InputManager::GetInstance()->GetInputDelay() == 0)
+	if (StageCount > 30)
 	{
-		if (InputManager::GetInstance()->GetKey() == KEY_F ||
-			InputManager::GetInstance()->GetKey() == KEY_SPACE)
+		UserInterface::GetInstance()->MakeUI(21, 24, 19, 6);
+
+		CursorManager::GetInstance()->WriteBuffer(36, 25,
+			(char*)"Game Over", 12);
+	}
+
+	if (StageCount > 50)
+	{
+		CursorManager::GetInstance()->WriteBuffer(23, 28,
+			(char*)"Press \"F\" or \"Space Bar\" for Menu");
+
+		if (InputManager::GetInstance()->GetInputDelay() == 0)
 		{
-			ObjectManager::GetInstance()->SetPause(false);
-			pPlayer->SetVisible(true);
-			
-			InputManager::GetInstance()->SetInputDelay();
-			SceneManager::GetInstance()->SetScene(MENU);
+			if (InputManager::GetInstance()->GetKey() == KEY_F ||
+				InputManager::GetInstance()->GetKey() == KEY_SPACE)
+			{
+				ObjectManager::GetInstance()->SetPause(false);
+				pPlayer->SetVisible(true);
+
+				InputManager::GetInstance()->SetInputDelay();
+				SceneManager::GetInstance()->SetScene(MENU);
+			}
 		}
 	}
 }

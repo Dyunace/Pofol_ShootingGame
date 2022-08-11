@@ -7,7 +7,7 @@ private:
 	int Count;
 
 	char* BulletBuffer[2];
-	char* Buffer[4];
+	char* ExplosionBuffer[29];
 
 	list<Object*>* EnemyList[3];
 public:

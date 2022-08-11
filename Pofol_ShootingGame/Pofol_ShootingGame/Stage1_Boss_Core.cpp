@@ -95,7 +95,7 @@ int Stage1_Boss_Core::Update()
 		--ShootDelay;
 	}
 
-	Movement(Vector3(16, 10));
+	Movement(Vector3(16, 15));
 
 	return 0;
 }

@@ -33,7 +33,7 @@ void Stage1::Initialize()
 	CatchObjectLists();
 
 	CurStage = 1;
-	StageWave = 1;
+	StageWave = 0;
 }
 
 void Stage1::Update()
@@ -43,6 +43,8 @@ void Stage1::Update()
 		StageUpdate();
 
 		WaveUpdate();
+
+		++StageCount;
 	}
 
 	PauseCheck();
@@ -54,19 +56,50 @@ void Stage1::Update()
 void Stage1::Render()
 {
 	StageRender();
+
+	if (StageWave == 0)
+	{
+		int Color;
+
+		if (StageCount % 2 == 0)
+			Color = 14;
+		else
+			Color = 10;
+
+		if (StageCount < ConsoleWidthSize - 16)
+			CursorManager::GetInstance()->WriteBuffer((float)StageCount, 20, (char*)"Stage 1 Start !!", Color);
+	}
 }
 
 void Stage1::Release()
 {
 	ReleaseAll();
+
+	if (BossPhase > 0)
+	{
+		list<Object*>* CurrentList = Stage1Boss[0];
+
+		for (int i = 0; i < 6; ++i)
+		{
+			CurrentList = Stage1Boss[i];
+
+			if (CurrentList)
+				RemoveObject(CurrentList);
+		}
+	}
 }
 
 void Stage1::WaveUpdate()
 {
-	if (StageWave == 2)
+	if (StageWave == 0)
+	{
+		if (StageCount == ConsoleWidthSize)
+			WaveCheck();
+	}
+
+	else if (StageWave == 2)
 	{
 		// 이동 경로는 EnemyBridge.cpp 참조
-
 		if (StageCount == 10)
 			MakeEnemy(NORMALENEMY, 55, -1, 11);	// 0 = 정지
 
@@ -76,18 +109,32 @@ void Stage1::WaveUpdate()
 		else if (StageCount == 30)
 			MakeEnemy(BIGENEMY, 70, 0, 11);		// 11 = 아래로 이동 후 정지
 
-		if (StageCount > 35)
-		{
-
-			if (WaveCheck())
-			{
-				++StageWave;
-				StageCount = 0;
-			}
-		}
+		if (StageCount > 40)
+			WaveCheck();
 	}
 
-	else if (StageWave == 1)
+	else if (StageWave == 3)
+	{
+		if (StageCount == 10)
+			MakeEnemy(NORMALENEMY, 10, -1, 11);
+
+		else if (StageCount == 15)
+			MakeEnemy(NORMALENEMY, 70, -1, 11);
+
+		else if (StageCount == 20)
+			MakeEnemy(NORMALENEMY, 25, -1, 11);
+
+		else if (StageCount == 25)
+			MakeEnemy(NORMALENEMY, 55, -1, 11);
+
+		else if (StageCount == 30)
+			MakeEnemy(NORMALENEMY, 40, -1, 11);
+
+		if (StageCount > 40)
+			WaveCheck();
+	}
+
+	else if (StageWave == 4)
 	{
 		if (StageCount == 30)
 			MakeEnemy(BIGENEMY, 40, 5, 11);
@@ -98,17 +145,11 @@ void Stage1::WaveUpdate()
 		else if (StageCount == 90)
 			MakeEnemy(BIGENEMY, 60, 5, 11);
 
-		else if (StageCount > 90)
-		{
-			if (WaveCheck())
-			{
-				++StageWave;
-				StageCount = 0;
-			}
-		}
+		else if (StageCount > 100)
+			WaveCheck();
 	}
 
-	else if (StageWave == 3)
+	else if (StageWave == 5)
 	{
 		// 임시 보스 스테이지
 		if (StageCount == 30)
@@ -121,9 +162,7 @@ void Stage1::WaveUpdate()
 			GetBossList();
 		}
 		if (StageCount > 30)
-		{
 			BossCollisionCheck();
-		}
 	}
 
 	// 스테이지 클리어
@@ -131,8 +170,6 @@ void Stage1::WaveUpdate()
 	{
 		StageClear();
 	}
-
-	++StageCount;
 }
 
 void Stage1::GetBossList()

@@ -6,13 +6,15 @@
 #include "Warning.h"
 #include "UserInterface.h"
 
-Menu::Menu() : Selection(0), isWarning(false) {}
+Menu::Menu() : Selection(0), isWarning(false), mPosY(0) {}
 Menu::~Menu(){}
 
 void Menu::Initialize()
 {
 	Selection = 0;
 	isWarning = false;
+
+	mPosY = 27.0f;
 }
 
 void Menu::Update()
@@ -70,10 +72,10 @@ void Menu::Update()
 void Menu::Render()
 {
 	LogoImage::GetInstance()->RenderLogoImage(46);
-	UserInterface::GetInstance()->MakeUI(25, 24, 15, 13);
-	CursorManager::GetInstance()->WriteBuffer(30, 27, (char*)"Start Game");
-	CursorManager::GetInstance()->WriteBuffer(30, 30, (char*)"Option");
-	CursorManager::GetInstance()->WriteBuffer(30, 33, (char*)"Exit Game");
+	UserInterface::GetInstance()->MakeUI(25, mPosY, 15, 13);
+	CursorManager::GetInstance()->WriteBuffer(30, mPosY + 3, (char*)"Start Game");
+	CursorManager::GetInstance()->WriteBuffer(30, mPosY + 6, (char*)"Option");
+	CursorManager::GetInstance()->WriteBuffer(30, mPosY + 9, (char*)"Exit Game");
 
 	if (isWarning)
 		Warning::GetInstance()->Render();
@@ -82,11 +84,11 @@ void Menu::Render()
 		float y = 0.0f;
 
 		if (Selection == 0)
-			y = 27.0f;
+			y = mPosY + 3;
 		else if (Selection == 1)
-			y = 30.0f;
+			y = mPosY + 6;
 		else if (Selection == 2)
-			y = 33.0f;
+			y = mPosY + 9;
 		
 		CursorManager::GetInstance()->WriteBuffer(45.0f, y, (char*)"<<", 12);
 	}

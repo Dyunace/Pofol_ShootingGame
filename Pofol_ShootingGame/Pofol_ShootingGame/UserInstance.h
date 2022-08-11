@@ -47,7 +47,7 @@ public:
 	void AddScore(int _Num) { GettingScore += _Num; }
 
 public:
-	void CalcScore();
+	void CalcScore(int _Score = 1);
 	void SkipCalcScore();
 
 	void ResetInstance();

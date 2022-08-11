@@ -7,7 +7,7 @@
 #include "EnemyBridge.h"
 #include "BulletBridge.h"
 
-#include "NormalBullet.h"
+#include "Explosion.h"
 
 class DamageManager
 {
@@ -42,6 +42,11 @@ public:
 
 		// 점수 계산
 		UserInstance::GetInstance()->AddScore(Target->GetScore());
+
+		// 폭발 이펙트
+		ObjectManager::GetInstance()->AddObject(EXPLOSION);
+		auto explo = ObjectManager::GetInstance()->GetObjectList(EXPLOSION);
+		explo->back()->SetPosition(_Target->GetPosition());
 
 		// 적 정보 삭제
 		::Safe_Delete(Target);

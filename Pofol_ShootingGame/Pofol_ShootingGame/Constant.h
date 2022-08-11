@@ -23,7 +23,7 @@ const int MAX_SIZE = 2;
 // Console Window
 // Change with Main::Update() - system mode con
 const SHORT ConsoleWidthSize = 80;
-const SHORT ConsoleHeightSize = 55;
+const SHORT ConsoleHeightSize = 60;
 
 
 // String
@@ -42,6 +42,8 @@ const string STAGE1_BOSS_ARM_LEFT = "030_Stage1_Boss_Arm_Left";
 const string STAGE1_BOSS_ARM_RIGHT = "030_Stage1_Boss_Arm_Right";
 const string STAGE1_BOSS_SHIELD_LEFT = "030_Stage1_Boss_Shield_Left";
 const string STAGE1_BOSS_SHIELD_RIGHT = "030_Stage1_Boss_Shield_Right";
+
+const string EXPLOSION = "050_Explosion";
 
 const string BOOMITEM = "080_BoomItem";
 const string WEAPONITEM = "081_WeaponItem";

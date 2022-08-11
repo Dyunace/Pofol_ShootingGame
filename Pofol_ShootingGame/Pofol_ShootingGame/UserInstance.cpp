@@ -6,34 +6,32 @@ UserInstance::~UserInstance() {};
 
 void UserInstance::Update()
 {
-	CalcScore();
-}
-
-void UserInstance::CalcScore()
-{
 	if (GettingScore != 0)
 	{
-		if (GettingScore > 1000)
-		{
-			Score = Score + 1000;
-			GettingScore = GettingScore - 1000;
-		}
-		if (GettingScore > 100)
-		{
-			Score = Score + 100;
-			GettingScore = GettingScore - 100;
-		}
-		if (GettingScore > 10)
-		{
-			Score = Score + 10;
-			GettingScore = GettingScore - 10;
-		}
+		if (GettingScore > 5000)
+			CalcScore(1000);
+		else if (GettingScore > 1000)
+			CalcScore(500);
+
+		if (GettingScore > 500)
+			CalcScore(100);
+		else if (GettingScore > 100)
+			CalcScore(50);
+
+		if (GettingScore > 50)
+			CalcScore(10);
+		else if (GettingScore > 10)
+			CalcScore(5);
+
 		if (GettingScore != 0)
-		{
-			++Score;
-			--GettingScore;
-		}
+			CalcScore();
 	}
+}
+
+void UserInstance::CalcScore(int _Score)
+{
+	Score = Score + _Score;
+	GettingScore = GettingScore - _Score;
 }
 
 void UserInstance::SkipCalcScore()

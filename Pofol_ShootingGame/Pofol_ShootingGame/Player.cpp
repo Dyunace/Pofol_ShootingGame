@@ -7,12 +7,12 @@
 #include "BulletManager.h"
 #include "UserInstance.h"
 
-Player::Player() : BoomDelayCount(0), RespawnCount(0)
+Player::Player() : BoomDelayCount(0), RespawnCount(0), DeathCount(0)
 {
 	for (int i = 0; i < 6; ++i)
 		Buffer[i] = nullptr;
 }
-Player::Player(Transform _Info) : Object(_Info), Buffer(), BoomDelayCount(0), RespawnCount(0) {}
+Player::Player(Transform _Info) : Object(_Info), Buffer(), BoomDelayCount(0), RespawnCount(0), DeathCount(0) {}
 Player::~Player(){}
 
 Object* Player::Initialize(string _Key)

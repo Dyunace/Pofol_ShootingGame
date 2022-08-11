@@ -14,5 +14,6 @@ public:
 private:
 	bool isWarning;
 	int Selection;
+	float mPosY;
 };
 

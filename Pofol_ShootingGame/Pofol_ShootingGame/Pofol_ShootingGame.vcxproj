@@ -25,6 +25,7 @@
     <ClCompile Include="Boom.cpp" />
     <ClCompile Include="BoomItem.cpp" />
     <ClCompile Include="EnemyBridge.cpp" />
+    <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Stage1_Boss_Arm_Left.cpp" />
     <ClCompile Include="Stage1_Boss_Arm_Right.cpp" />
@@ -68,6 +69,7 @@
     <ClInclude Include="BigEnemy.h" />
     <ClInclude Include="Boom.h" />
     <ClInclude Include="BoomItem.h" />
+    <ClInclude Include="Explosion.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemBridge.h" />
     <ClInclude Include="Stage1_Boss_Arm_Left.h" />

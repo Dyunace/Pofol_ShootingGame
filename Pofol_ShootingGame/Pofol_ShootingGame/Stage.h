@@ -58,13 +58,12 @@ protected:
 	virtual void TakeBossDamage() PURE;
 
 	void MakeEnemy(string _EnemyType, float _x, float _y, int _MoveType);
-	void MakeItem(int _ItemType, Vector3 _Positioln);
+	void MakeItem(int _ItemType, Vector3 _Position);
 
 	void ItemDropCheck(list<Object*>::iterator& _iter);
 	void ItemWeaponUpgrade(list<Object*>::iterator& _iter);
 
 	bool WaveCheck();
-	void NextWave();
 	void StageClear();
 
 	void PauseCheck();

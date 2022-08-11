@@ -14,7 +14,7 @@ void EnemyBridge::ShootBullet(Vector3 _Position)
 
 bool EnemyBridge::BufferCheck()
 {
-	if (pObject->GetPosition().y + 1 >= ConsoleHeightSize - 1 ||
+	if (pObject->GetPosition().y + 1 >= ConsoleHeightSize - 7 ||
 		pObject->GetPosition().x + pObject->GetScale().x * 0.5f >= ConsoleWidthSize ||
 		pObject->GetPosition().x - pObject->GetScale().x * 0.5f <= 0)
 		return true;

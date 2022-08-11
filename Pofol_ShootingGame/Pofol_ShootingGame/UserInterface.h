@@ -1,4 +1,5 @@
 #pragma once
+#include "Headers.h"
 
 class UserInterface
 {
@@ -12,10 +13,13 @@ public:
 
 		return Instance;
 	}
+
 private:
-	UserInterface() {};
+	Vector3 UIPos;
+private:
+	UserInterface();
 public:
-	~UserInterface() {};
+	~UserInterface();
 public:
 	void Update();
 	void Render();

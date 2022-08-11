@@ -1,13 +1,11 @@
-// Shooting v1.13.7 End Phase
+// Shooting v1.13.8 End Phase
 /*
 	주요 변경점:
-		사망 애니메이션 출력
+		UI 위치 변경
 
-		폭탄 애니메이션 출력
+		렌더링 출력 오류 수정
 
 		스테이지 웨이브 추가
-
-	다음 할 일 (우선 순위 순서) :
 */
 #define _CRT_SECLRE_NO_WARNING
 #include "Headers.h"

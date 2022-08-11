@@ -47,13 +47,13 @@ int Player::Update()
 		// 이동
 		if (canMove)
 		{
-			if (dwKey & KEY_UP && TransInfo.Position.y - TransInfo.Scale.y > 0)
+			if (dwKey & KEY_UP && TransInfo.Position.y - 1 > 0)
 				TransInfo.Position.y -= 1.0;	// 위로 이동 시 감속
-			if (dwKey & KEY_DOWN && TransInfo.Position.y + TransInfo.Scale.y < ConsoleHeightSize)
+			if (dwKey & KEY_DOWN && TransInfo.Position.y + 1 < ConsoleHeightSize - 7)
 				TransInfo.Position.y += 1.0;	// 아래로 이동 시 가속
-			if (dwKey & KEY_LEFT && TransInfo.Position.x - TransInfo.Scale.x > 0)
+			if (dwKey & KEY_LEFT && TransInfo.Position.x - 4 > 0)
 				TransInfo.Position.x -= 1.5;
-			if (dwKey & KEY_RIGHT && TransInfo.Position.x + TransInfo.Scale.x * 2 < ConsoleWidthSize)
+			if (dwKey & KEY_RIGHT && TransInfo.Position.x + 4 < ConsoleWidthSize)
 				TransInfo.Position.x += 1.5;
 		}
 

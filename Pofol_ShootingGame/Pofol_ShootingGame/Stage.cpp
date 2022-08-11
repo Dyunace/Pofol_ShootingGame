@@ -172,7 +172,7 @@ void Stage::CollisionCheck()
 							// 라이프 차감
 							UserInstance::GetInstance()->AddLife(-1);
 
-							// 사망 시 아이템 드랍
+							// 사망 시 아이템 드랍							
 							MakeItem(0, pPlayer->GetPosition());		// 폭탄은 반드시 한 개 드랍
 
 							if (UserInstance::GetInstance()->GetBulletLevel() > 1)
@@ -197,6 +197,11 @@ void Stage::CollisionCheck()
 							// 오브젝트 일시 정지
 							ObjectManager::GetInstance()->SetPause(true);
 
+							// 폭발 이펙트
+							ObjectManager::GetInstance()->AddObject(EXPLOSION);
+							auto explo = ObjectManager::GetInstance()->GetObjectList(EXPLOSION);
+							explo->back()->SetPosition(pPlayer->GetPosition());
+
 							// 플레이어는 처치 당함
 							pPlayer->SetVisible(false);
 
@@ -205,9 +210,6 @@ void Stage::CollisionCheck()
 
 							// 게임 오버용 타이머
 							StageCount = 0;
-
-							// 게임 오버 되자마자 퇴장 방지 (퇴장 텍스트 나올 때 까지)
-							InputManager::GetInstance()->SetInputDelay(50);
 						}
 
 						// 적 총알 삭제
@@ -377,17 +379,26 @@ void Stage::MakeEnemy(string _EnemyType, float _x, float _y, int _MoveType)
 	else {}
 }
 
-void Stage::MakeItem(int _ItemType, Vector3 _Positioln)
+void Stage::MakeItem(int _ItemType, Vector3 _Position)
 {
+	if (_Position.x - 4 < 0)
+		_Position.x = _Position.x + 4;
+	else if (_Position.x + 4 > ConsoleWidthSize)
+		_Position.x = _Position.x - 4;
+	if (_Position.y - 2 < 0)
+		_Position.y = _Position.y + 2;
+	else if (_Position.y + 2 > ConsoleHeightSize - 7)
+		_Position.y = _Position.y - 2;
+
 	if (_ItemType == 0)
 	{
 		Bridge* iBoom = new BoomItem;
-		ObjectManager::GetInstance()->AddBridge(BOOMITEM, iBoom, _Positioln);
+		ObjectManager::GetInstance()->AddBridge(BOOMITEM, iBoom, _Position);
 	}
 	else if (_ItemType == 1)
 	{
 		Bridge* iWeapon = new WeaponItem;
-		ObjectManager::GetInstance()->AddBridge(WEAPONITEM, iWeapon, _Positioln);
+		ObjectManager::GetInstance()->AddBridge(WEAPONITEM, iWeapon, _Position);
 	}
 }
 
@@ -474,18 +485,13 @@ bool Stage::WaveCheck()
 		isBoomItemDrop = false;
 		isWeaponItemDrop = false;
 
-		NextWave();
+		StageCount = 0;
+		++StageWave;
 
 		return true;
 	}
 
 	return false;
-}
-
-void Stage::NextWave()
-{
-	++StageWave;
-	StageCount = 0;
 }
 
 void Stage::StageClear()
@@ -593,31 +599,34 @@ void Stage::PauseMenu()
 	// 선택지
 	int ans = Warning::GetInstance()->Update();
 
-	if (InputManager::GetInstance()->GetKey() == KEY_F || InputManager::GetInstance()->GetKey() == KEY_SPACE)
+	if (InputManager::GetInstance()->GetInputDelay() == 0)
 	{
-		ObjectManager::GetInstance()->SetPause(false);
+		if (InputManager::GetInstance()->GetKey() == KEY_F || InputManager::GetInstance()->GetKey() == KEY_SPACE)
+		{
+			ObjectManager::GetInstance()->SetPause(false);
 
-		if (ans == 0)
-			SceneManager::GetInstance()->SetScene(MENU);
-		else if (ans == 1)
+			if (ans == 0)
+				SceneManager::GetInstance()->SetScene(MENU);
+			else if (ans == 1)
+			{
+				// 메뉴 종료
+				InputManager::GetInstance()->SetInputDelay();
+				isPause = false;
+			}
+		}
+		else if (InputManager::GetInstance()->GetKey() == KEY_ESC)
 		{
 			// 메뉴 종료
 			InputManager::GetInstance()->SetInputDelay();
+			ObjectManager::GetInstance()->SetPause(false);
 			isPause = false;
 		}
-	}
-	else if (InputManager::GetInstance()->GetKey() == KEY_ESC)
-	{
-		// 메뉴 종료
-		InputManager::GetInstance()->SetInputDelay();
-		ObjectManager::GetInstance()->SetPause(false);
-		isPause = false;
 	}
 }
 
 void Stage::GameOver()
 {
-	if (StageCount > 30)
+	if (StageCount > 15)
 	{
 		UserInterface::GetInstance()->MakeUI(21, 24, 19, 6);
 
@@ -625,7 +634,7 @@ void Stage::GameOver()
 			(char*)"Game Over", 12);
 	}
 
-	if (StageCount > 50)
+	if (StageCount > 40)
 	{
 		CursorManager::GetInstance()->WriteBuffer(23, 28,
 			(char*)"Press \"F\" or \"Space Bar\" for Menu");
@@ -643,6 +652,8 @@ void Stage::GameOver()
 			}
 		}
 	}
+
+	++StageCount;
 }
 
 void Stage::ReleaseAll()
@@ -650,7 +661,7 @@ void Stage::ReleaseAll()
 	auto iPlayer = ObjectManager::GetInstance()->GetObjectList(PLAYER)->begin();
 	ObjectManager::GetInstance()->ThrowObject(iPlayer, (*iPlayer));
 
-	for (int i = 0; i < 7; ++i)
+	for (int i = 0; i < 8; ++i)
 	{
 		list<Object*>* CurList = nullptr;
 
@@ -670,6 +681,8 @@ void Stage::ReleaseAll()
 			CurList = BoomItemList;
 		else if (i == 7)
 			CurList = WeaponItemList;
+		else if (i == 8)
+			CurList = ObjectManager::GetInstance()->GetObjectList(EXPLOSION);
 
 		if (CurList)
 		{

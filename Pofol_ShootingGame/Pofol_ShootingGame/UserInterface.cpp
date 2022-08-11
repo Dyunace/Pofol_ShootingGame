@@ -3,6 +3,14 @@
 #include "UserInstance.h"
 
 UserInterface* UserInterface::Instance = nullptr;
+
+UserInterface::UserInterface()
+{
+	UIPos = Vector3(2, ConsoleHeightSize - 6);
+}
+UserInterface::~UserInterface()
+{
+}
 void UserInterface::Update(){}
 void UserInterface::Render()
 {
@@ -11,19 +19,18 @@ void UserInterface::Render()
 
 void UserInterface::StageInterface()
 {
-	UserInterface::MakeUI(2, 1, 10, 5);
-	UserInterface::MakeUI(60, 1, 9, 5);
+	UserInterface::MakeUI(UIPos.x, UIPos.y, 38, 5);
 
 	// »ý¸í
-	CursorManager::GetInstance()->WriteBuffer(3, 2, (char*)"Life : ");
+	CursorManager::GetInstance()->WriteBuffer(UIPos.x + 2, UIPos.y + 1, (char*)"Life : ");
 	for (float f = 0; f < UserInstance::GetInstance()->GetLife(); ++f)
-		CursorManager::GetInstance()->WriteBuffer(11.0f + (f * 2), 2, (char*)"¢¾");
+		CursorManager::GetInstance()->WriteBuffer(UIPos.x + 9 + (f * 2), UIPos.y + 1, (char*)"¢¾");
 
 
 	// ÆøÅº
-	CursorManager::GetInstance()->WriteBuffer(3, 4, (char*)"Boom : ");
+	CursorManager::GetInstance()->WriteBuffer(UIPos.x + 2, UIPos.y + 3, (char*)"Boom : ");
 	for (float f = 0; f < UserInstance::GetInstance()->GetBoom(); ++f)
-		CursorManager::GetInstance()->WriteBuffer(11.0f + (f * 2), 4, (char*)"¢¼");
+		CursorManager::GetInstance()->WriteBuffer(UIPos.x + 9 + (f * 2), UIPos.y + 3, (char*)"¢¼");
 
 
 	// ÃÑ¾Ë ¹× ·¹º§
@@ -33,29 +40,29 @@ void UserInterface::StageInterface()
 	else if (UserInstance::GetInstance()->GetBullet() == LASERBULLET)
 		BulletName = (char*)"Laser";
 
-	CursorManager::GetInstance()->WriteBuffer(62, 2, BulletName);
-	CursorManager::GetInstance()->WriteBuffer(69, 2, (char*)"Lv.");
+	CursorManager::GetInstance()->WriteBuffer(UIPos.x + 60, UIPos.y + 1, BulletName);
+	CursorManager::GetInstance()->WriteBuffer(UIPos.x + 67, UIPos.y + 1, (char*)"Lv.");
 	CursorManager::GetInstance()->WriteBuffer
-	(74, 2, UserInstance::GetInstance()->GetBulletLevel());
+	(UIPos.x + 72, UIPos.y + 1, UserInstance::GetInstance()->GetBulletLevel());
 
 
 	// Á¡¼ö
 	int Score = UserInstance::GetInstance()->GetScore();
-	CursorManager::GetInstance()->WriteBuffer(62, 4, (char*)"Score : ");
+	CursorManager::GetInstance()->WriteBuffer(UIPos.x + 60, UIPos.y + 3, (char*)"Score : ");
 
-	CursorManager::GetInstance()->WriteBuffer(71, 4, Score / 10000);
+	CursorManager::GetInstance()->WriteBuffer(UIPos.x + 69, UIPos.y + 3, Score / 10000);
 	Score = Score - ((Score / 10000) * 10000);
 
-	CursorManager::GetInstance()->WriteBuffer(72, 4, Score / 1000);
+	CursorManager::GetInstance()->WriteBuffer(UIPos.x + 70, UIPos.y + 3, Score / 1000);
 	Score = Score - ((Score / 1000) * 1000);
 
-	CursorManager::GetInstance()->WriteBuffer(73, 4, Score / 100);
+	CursorManager::GetInstance()->WriteBuffer(UIPos.x + 71, UIPos.y + 3, Score / 100);
 	Score = Score - ((Score / 100) * 100);
 
-	CursorManager::GetInstance()->WriteBuffer(74, 4, Score / 10);
+	CursorManager::GetInstance()->WriteBuffer(UIPos.x + 72, UIPos.y + 3, Score / 10);
 	Score = Score - ((Score / 10) * 10);
 
-	CursorManager::GetInstance()->WriteBuffer(75, 4, Score);
+	CursorManager::GetInstance()->WriteBuffer(UIPos.x + 73, UIPos.y + 3, Score);
 }
 
 void UserInterface::MakeUI(float _x, float _y, float _Width, float _Height)

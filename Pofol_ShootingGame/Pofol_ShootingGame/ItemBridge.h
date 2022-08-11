@@ -23,8 +23,6 @@ public:
 		float x = 0;
 		float y = 0;
 
-		srand(DWORD(GetTickCount64()));
-
 		x = (float)(rand() % val) - (val / 2);
 		y = sqrt((val * val) - (x * x)) * (((rand() % 2) * 2 - 1) * (-1));
 
@@ -39,7 +37,7 @@ public:
 		if ((_Position.x - 4 < 0) || (_Position.x + 4 > ConsoleWidthSize))
 			_MoveVector.x = _MoveVector.x * -1;
 
-		if ((_Position.y - 2 < 0) || (_Position.y + 2 > ConsoleHeightSize))
+		if ((_Position.y - 2 < 0) || (_Position.y + 2 > ConsoleHeightSize - 7))
 			_MoveVector.y = _MoveVector.y * -1;
 	}
 };

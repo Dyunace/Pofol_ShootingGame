@@ -43,7 +43,7 @@ public:
 protected:
 	bool BufferCheck() 
 	{
-		if (pObject->GetPosition().y <= 0 || pObject->GetPosition().y >= ConsoleHeightSize - 1 ||
+		if (pObject->GetPosition().y <= 0 || pObject->GetPosition().y >= ConsoleHeightSize - 6 ||
 			pObject->GetPosition().x <= 0 || pObject->GetPosition().x >= ConsoleWidthSize - 1)
 			return true;
 

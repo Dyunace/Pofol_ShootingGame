@@ -38,6 +38,13 @@ int Explosion::Update()
 
 void Explosion::Render()
 {
+	int Color;
+
+	if (GetTickCount64() % 2 == 0)
+		Color = 14;
+	else
+		Color = 12;
+
 	if (TransInfo.Position.y > -1)
 	{
 		for (int i = 0; i < 3; ++i)
@@ -45,7 +52,7 @@ void Explosion::Render()
 			CursorManager::GetInstance()->WriteBuffer(
 				TransInfo.Position.x - 2 + (i * 2),
 				TransInfo.Position.y + 1,
-				Buffer[6 + i]);
+				Buffer[6 + i], Color);
 		}
 	}
 	if (TransInfo.Position.y > 0)
@@ -55,7 +62,7 @@ void Explosion::Render()
 			CursorManager::GetInstance()->WriteBuffer(
 				TransInfo.Position.x - 2 + (i * 2),
 				TransInfo.Position.y,
-				Buffer[3 + i]);
+				Buffer[3 + i], Color);
 		}
 	}
 	if (TransInfo.Position.y > 1)
@@ -65,7 +72,7 @@ void Explosion::Render()
 			CursorManager::GetInstance()->WriteBuffer(
 				TransInfo.Position.x - 2 + (i * 2),
 				TransInfo.Position.y - 1,
-				Buffer[i]);
+				Buffer[i], Color);
 		}
 	}
 }

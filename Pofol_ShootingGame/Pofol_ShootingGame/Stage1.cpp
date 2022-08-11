@@ -93,27 +93,27 @@ void Stage1::WaveUpdate()
 {
 	if (StageWave == 0)
 	{
-		if (StageCount == ConsoleWidthSize)
+		if (StageCount == ConsoleWidthSize - 12)
 			WaveCheck();
 	}
 
-	else if (StageWave == 2)
+	else if (StageWave == 1)
 	{
 		// 이동 경로는 EnemyBridge.cpp 참조
 		if (StageCount == 10)
-			MakeEnemy(NORMALENEMY, 55, -1, 11);	// 0 = 정지
+			MakeEnemy(NORMALENEMY, 20, -1, 11);	// 0 = 정지
 
 		else if (StageCount == 20)
 			MakeEnemy(SMALLENEMY, 40, -1, 11);	// 1 = 아래로 이동, 밖으로 나가기
 
 		else if (StageCount == 30)
-			MakeEnemy(BIGENEMY, 70, 0, 11);		// 11 = 아래로 이동 후 정지
+			MakeEnemy(BIGENEMY, 60, 0, 11);		// 11 = 아래로 이동 후 정지
 
 		if (StageCount > 40)
 			WaveCheck();
 	}
 
-	else if (StageWave == 3)
+	else if (StageWave == 2)
 	{
 		if (StageCount == 10)
 			MakeEnemy(NORMALENEMY, 10, -1, 11);
@@ -134,16 +134,46 @@ void Stage1::WaveUpdate()
 			WaveCheck();
 	}
 
+	else if (StageWave == 3)
+	{
+		if (StageCount == 10)
+			MakeEnemy(SMALLENEMY, 10, -1, 1);
+
+		else if (StageCount == 15)
+			MakeEnemy(SMALLENEMY, 70, -1, 1);
+
+		else if (StageCount == 20)
+			MakeEnemy(SMALLENEMY, 25, -1, 1);
+
+		else if (StageCount == 25)
+			MakeEnemy(SMALLENEMY, 55, -1, 1);
+
+		else if (StageCount == 30)
+			MakeEnemy(SMALLENEMY, 40, -1, 1);
+
+		else if (StageCount == 40)
+			MakeEnemy(NORMALENEMY, 20, -1, 12);
+
+		else if (StageCount == 45)
+			MakeEnemy(NORMALENEMY, 60, -1, 12);
+
+		else if (StageCount == 50)
+			MakeEnemy(BIGENEMY, 40, 0, 11);
+
+		if (StageCount > 60)
+			WaveCheck();
+	}
+
 	else if (StageWave == 4)
 	{
 		if (StageCount == 30)
-			MakeEnemy(BIGENEMY, 40, 5, 11);
+			MakeEnemy(BIGENEMY, 40, -1, 12);
 
 		else if (StageCount == 60)
-			MakeEnemy(BIGENEMY, 20, 10, 10);
+			MakeEnemy(BIGENEMY, 20, -1, 11);
 
 		else if (StageCount == 90)
-			MakeEnemy(BIGENEMY, 60, 5, 11);
+			MakeEnemy(BIGENEMY, 60, -1, 12);
 
 		else if (StageCount > 100)
 			WaveCheck();
